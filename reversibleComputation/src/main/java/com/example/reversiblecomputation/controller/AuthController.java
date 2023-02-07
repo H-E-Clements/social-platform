@@ -1,9 +1,10 @@
 package com.example.reversiblecomputation.controller;
 
-import com.example.reversiblecomputation.domain.User;
-import com.example.reversiblecomputation.dto.Dto;
+import com.example.reversiblecomputation.models.User;
+import com.example.reversiblecomputation.dto.UserDTO;
 import com.example.reversiblecomputation.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,39 +16,59 @@ import java.util.List;
 
 @Controller
 public class AuthController {
-
-
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    // homepage
+    /**
+     * Redirects to the home page.
+     */
     @GetMapping("/")
     public String home(){
         return "home";
     }
 
-    // shows registration form
+    /**
+     * Redirects to the registration page.
+     */
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
-        // dto stores form data
-        Dto user = new Dto();
+        UserDTO user = new UserDTO();
         model.addAttribute("user", user);
         return "register";
     }
 
-    // handles after user submits
-    @PostMapping("/register/registerUser")
-    public String registration(@Valid @ModelAttribute("user") Dto userDto,
-                               BindingResult result,
-                               Model model){
-        User existingUser = userService.findUserByEmail(userDto.getEmail());
+    /**
+     * Handles registration request.
+     * @param userDto The new user to save
+     */
+    @PostMapping("/register")
+    public String registration(
+            @Valid @ModelAttribute("user") UserDTO userDto,
+            BindingResult result,
+            Model model
+    ) {
+        // Check for existing users
+        User existingUser = userService.getUser(
+                null,
+                userDto.getUsername(),
+                null,
+                null,
+                null,
+                null,
+                userDto.getEmailAddress(),
+                null
+        );
 
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
+        if(existingUser != null){
+            result.rejectValue("username", null,
+                    "An account with that username or email already exists.");
+            result.rejectValue("emailAddress", null,
+                    "An account with that username or email already exists.");
         }
 
         if(result.hasErrors()){
@@ -55,14 +76,17 @@ public class AuthController {
             return "/register";
         }
 
-        userService.saveUser(userDto);
+        // Attempt to save user
+        User user = new User(userDto);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userService.saveUser(user);
         return "redirect:/register?success";
     }
 
     // lists all users
     @GetMapping("/users")
     public String users(Model model){
-        List<Dto> users = userService.findAllUsers();
+        List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
