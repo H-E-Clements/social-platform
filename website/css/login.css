@@ -1,0 +1,148 @@
+/*root settings for navbar*/
+/* NOTE - box sizing for nav and box sizing for login are different for format purposes - otherwise content gets thrown around */
+/* '*' is applied across  page*/
+*{
+    font-family: Aldrich;
+    font-style: normal;
+    font-variant: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    /* primary color scheme */
+    --color-primary: #1c13a3;
+    --color-bg: #0f4cd9;
+
+    /* variant color scheme */
+    --color-variant: rgb(37, 0, 64);
+    --color-bg-variant: rgb(69, 98, 130);
+
+    --color-white: #fff;
+    --transition: all 400ms ease;
+}
+a{text-decoration: none;color: inherit;transition: var(--transition);}
+
+a:hover{text-decoration: underline;}
+
+nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);display: flex;
+    justify-content: flex-start;position: relative;padding: 0.5rem 1rem; box-sizing: content-box}
+
+.nav__links{display: flex;position: absolute;gap: 2rem;padding: 1rem;left: 50%;
+    transform: translateX(-50%);margin: auto 0;height: max-content;}
+
+.nav__profile{flex: 0 1 auto;display: flex;gap: 0.4rem;margin-left: auto;height: 100%;}
+
+.fa-circle-user{transition: var(--transition);color: var(--color-primary);font-size: 3rem;}
+
+.fa-circle-user:hover{color: var(--color-white);cursor: pointer;}
+
+.nav__profile > *{margin: auto 0;}
+/*root settings end*/
+
+.login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: white;
+}
+/*align everything to be created to centre*/
+
+.box{
+    position: relative;
+    height: 600px;
+    width: 400px;
+    border-radius: 7px;
+}
+.box::before{
+    position: absolute;
+    height: 540px;
+    width: 400px;
+    border-radius: 30px;
+    content: '';
+    background: #23252b;
+}
+/*formatting the box which holds the form*/
+
+.form{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 40px;
+}
+/*formatting form*/
+
+.form h2{
+    text-align: center;
+    font-weight: 600;
+    color: white;
+}
+/*formatting for 'Login' title text*/
+
+.form .input-box{
+    position: relative;
+    width: 320px;
+    margin-top: 30px;
+    border-bottom: 3px solid white;
+}
+/*sizing input box*/
+.form .input-box input{
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    letter-spacing: 0.07em;
+    background: transparent;
+    color: white;
+}
+/*formatting text that is inputted by user*/
+.form .input-box span{
+    position: absolute;
+    padding: 20px 10px 10px;
+    left:0;
+    pointer-events: none;
+    font-size: 1em;
+    letter-spacing: 0.07em;
+    color: gray;
+}
+/* formatting placeholder text */
+.form .input-box input:valid ~ span,
+.form .input-box input:focus ~ span{
+    transform: translateY(-20px);
+    color: #23252b;
+}
+/* when something exists in input box, placeholder text is removed from view */
+
+.form .register {
+    display: flex;
+    flex-direction: column;
+}
+.form .register a{
+    margin: 20px 0 10px 0px;
+    color: white;
+}
+/*formatting the redirect to sign in page*/
+
+.form .input-btn .btn{
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    outline: none;
+    margin-top: 10px;
+    background: dodgerblue;
+    color: white;
+}
+/*formatting the button*/
+
+.form .input-btn .btn:active{
+    transform: translateY(4px);
+    background-color: cornflowerblue;
+}
+/*button = active is when pressed, creates a pressing motion*/
