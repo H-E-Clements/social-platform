@@ -6,10 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ReversibleComputationApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ReversibleComputationApplication.class, args);
 	}
-
-
 }

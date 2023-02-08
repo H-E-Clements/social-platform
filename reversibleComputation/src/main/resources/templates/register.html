@@ -200,11 +200,25 @@
         </div>
       </div>
         <form
-                method="post"
+                method="POST"
                 role="form"
-                th:action="@{/register/save}"
+                th:action="@{/register}"
                 th:object="${user}"
         >
+          <div class="input-box">
+            <input
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    placeholder="Enter username"
+                    th:field="*{username}"
+                    type="text"
+            />
+            <span>Username</span>
+            <i></i>
+            <p th:errors = "*{username}" class="text-danger"
+               th:if="${#fields.hasErrors('username')}"></p>
+          </div>
           <div class="input-box">
             <input
                     class="form-control"
@@ -241,13 +255,13 @@
                     id="email"
                     name="email"
                     placeholder="Enter email address"
-                    th:field="*{email}"
+                    th:field="*{emailAddress}"
                     type="email"
             />
             <span>Email</span>
             <i></i>
-            <p th:errors = "*{email}" class="text-danger"
-               th:if="${#fields.hasErrors('email')}"></p>
+            <p th:errors = "*{emailAddress}" class="text-danger"
+               th:if="${#fields.hasErrors('emailAddress')}"></p>
           </div>
 
           <div class="input-box">
