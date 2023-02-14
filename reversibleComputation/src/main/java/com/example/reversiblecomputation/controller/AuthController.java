@@ -39,7 +39,7 @@ public class AuthController {
     }
 
     // handles after user submits
-    @PostMapping("/register/registerUser")
+    @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") Dto userDto,
                                BindingResult result,
                                Model model){
