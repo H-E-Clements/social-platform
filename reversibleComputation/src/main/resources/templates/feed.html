@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feed</title>
+    <link th:href="@{/css/feed.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+    <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav__links">
+            <a href="home.html"><h3>Home</h3></a>
+            <a href="events.html"><h3>Events</h3></a>
+            <a href="playground.html"><h3>Playground</h3></a>
+        </div>
+        <div class="nav__profile">
+            <h4>Profile</h4>
+            <a>
+                <i class="fa-solid fa-circle-user"></i>
+            </a>
+        </div>
+    </nav>
+    <div class="layout"> <!-- splitting feed page into blocks -->
+        <div class="layout__left-area"> <!-- left-area is an element of layout -->
+            <div class="tweet">
+                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
+                <div class="tweet__main">
+                    <div class="tweet__header">
+                        <div class="tweet__author-name">
+                            Ryan
+                        </div>
+                        <div class="tweet__author-link">
+                            @ryan
+                        </div>
+                        <div class="tweet__publish-time">
+                            20s
+                        </div>
+                    </div>
+                    <div class="tweet_content">
+                        holder
+                    </div>
+                </div>
+            </div>
+            <div class="tweet">
+                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
+                <div class="tweet__main">
+                    <div class="tweet__header">
+                        <div class="tweet__author-name">
+                            Jack
+                        </div>
+                        <div class="tweet__author-link">
+                            @jack
+                        </div>
+                        <div class="tweet__publish-time">
+                            2d
+                        </div>
+                    </div>
+                    <div class="tweet_content">
+                        My publication
+                        <a href="https://www.google.com">https.google.com</a>
+                        #holder1 #holder2 #holder3
+                    </div>
+                </div>
+        </div>
+            <div class="tweet">
+                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
+                <div class="tweet__main">
+                    <div class="tweet__header">
+                        <div class="tweet__author-name">
+                            Paul
+                        </div>
+                        <div class="tweet__author-link">
+                            @paul
+                        </div>
+                        <div class="tweet__publish-time">
+                            15h
+                        </div>
+                    </div>
+                    <div class="tweet_content">
+                        <a href="https://arxiv.org/pdf/1808.08651.pdf">
+                            https://arxiv.org/pdf/1808.08651.pdf
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="tweet">
+                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
+                <div class="tweet__main">
+                    <div class="tweet__header">
+                        <div class="tweet__author-name">
+                            Ryan
+                        </div>
+                        <div class="tweet__author-link">
+                            @ryan
+                        </div>
+                        <div class="tweet__publish-time">
+                            20s
+                        </div>
+                    </div>
+                    <div class="tweet_content">
+                        holder
+                    </div>
+                </div>
+            </div>
+            <div class="tweet">
+                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
+                <div class="tweet__main">
+                    <div class="tweet__header">
+                        <div class="tweet__author-name">
+                            Ryan
+                        </div>
+                        <div class="tweet__author-link">
+                            @ryan
+                        </div>
+                        <div class="tweet__publish-time">
+                            20s
+                        </div>
+                    </div>
+                    <div class="tweet_content">
+                        holder
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layout__right-area-container"> <!-- making right area in container so that we can fix it while scrolling -->
+            <div class="layout__right-area">
+                <div class="search-feed">
+                    <form th:action="@{/search}">
+                        <div class="search-feed__box">
+                            <input type="search" class="input-search" name="keyword" placeholder="Search for anything" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="popular-topics">
+                    <div class="popular-topics__block">
+                        <div class="popular-topics__header">
+                            Popular Topics
+                        </div>
+                    </div>
+                    <div class="popular-topics__block">
+                        <div class="popular-topics__metainfo">
+                            TOPIC PLACEHOLDER
+                        </div>
+                        <div class="popular-topics__name">
+                            ####
+                        </div>
+                        <div class="popular-topics__metainfo">
+                            192 views
+                        </div>
+                    </div>
+                    <div class="popular-topics__block">
+                        <div class="popular-topics__metainfo">
+                            energy
+                        </div>
+                        <div class="popular-topics__name">
+                            ###
+                        </div>
+                        <div class="popular-topics__metainfo">
+                            394 views
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-profiles">
+                    <div class="popular-profiles__block">
+                        <div class="popular-profiles__heading">
+                            Popular Profiles
+                        </div>
+                    </div>
+                    <div class="popular-profiles__block">
+                        <img class="popular-profiles__picture" src="./images/profile_pic_3.jpg">
+                        <div class="popular-profiles__content">
+                            <div>
+                                <div class="popular-profiles__name">
+                                    Polly
+                                </div>
+                                <div class="popular-profiles__link">
+                                    @polly
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popular-profiles__visit">
+                            Visit
+                        </div>
+                    </div>
+                    <div class="popular-profiles__block">
+                        <img class="popular-profiles__picture" src="./images/profile_pic_2.jpg">
+                        <div class="popular-profiles__content">
+                            <div>
+                                <div class="popular-profiles__name">
+                                    Josh
+                                </div>
+                                <div class="popular-profiles__link">
+                                    @josh
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popular-profiles__visit">
+                            Visit
+                        </div>
+                    </div>
+                    <div class="popular-profiles__block">
+                        <img class="popular-profiles__picture" src="./images/profile_pic_1.jpg">
+                        <div class="popular-profiles__content">
+                            <div>
+                                <div class="popular-profiles__name">
+                                    Barry
+                                </div>
+                                <div class="popular-profiles__link">
+                                    @barry
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popular-profiles__visit">
+                            Visit
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
