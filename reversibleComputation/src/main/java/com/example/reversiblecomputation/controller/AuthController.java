@@ -72,4 +72,10 @@ public class AuthController {
     public String login(){
         return "login";
     }
+
+    // feed page
+    @RequestMapping("/feed")
+    public String feed(){
+        return "feed";
+    }
 }
