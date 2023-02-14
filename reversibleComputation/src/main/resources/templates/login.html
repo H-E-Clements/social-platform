@@ -20,6 +20,7 @@
     </a>
   </div>
 </nav>
+<!-- code for navbar -->
 
 <div class="login">
   <div class="box">
@@ -30,18 +31,23 @@
       <div th:if="${param.logout}">
         <div class="alert alert-success"> You have been logged out.</div>
       </div>
+      <!-- messages for invalid login / successful logout -->
       <form method="post" role="form" th:action="@{/login}">
+      <!-- post form to /login controller -->
         <h2>Login</h2>
         <div class="input-box">
           <input type="text" id="username" name="username" placeholder="username">
           <span>username</span>
+          <!-- input box for username object -->
         </div>
         <div class="input-box">
           <input type="password" id="password" name="password" placeholder="password">
           <span>password</span>
+          <!-- similar -->
         </div>
         <div class="register">
           <a th:href="@{/register}">Dont have an account? Sign up</a>
+          <!-- link to register page -->
         </div>
         <button type="submit">Login</button>
       </form>
