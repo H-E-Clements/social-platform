@@ -24,6 +24,8 @@
     </a>
   </div>
 </nav>
+<!-- code for navbar -->
+
 <br /><br /><br />
 <div class="signup">
   <div class="box">
@@ -33,6 +35,7 @@
         <div class="alert alert-info">
           You have successfully registered our app!
         </div>
+        <!-- message displayed after successful register -->
       </div>
         <form
                 method="post"
@@ -40,6 +43,7 @@
                 th:action="@{/register/save}"
                 th:object="${user}"
         >
+        <!-- post form object 'user' to /register/save -->
           <div class="input-box">
             <input
                     class="form-control"
@@ -49,13 +53,16 @@
                     th:field="*{firstName}"
                     type="text"
             />
+            <!-- input box for attribute 'firstName' -->
             <span>First Name</span>
             <i></i>
             <p th:errors = "*{firstName}" class="text-danger"
                th:if="${#fields.hasErrors('firstName')}"></p>
+               <!-- checks for errors in this field -->
           </div>
 
           <div class="input-box">
+          
             <input
                     class="form-control"
                     id="lastName"
@@ -69,6 +76,7 @@
             <p th:errors = "*{lastName}" class="text-danger"
                th:if="${#fields.hasErrors('lastName')}"></p>
           </div>
+          <!-- each input box is similar code -->
 
           <div class="input-box">
             <input
@@ -102,9 +110,11 @@
           <div class="input-btn">
             <button class="btn btn-primary" type="submit">Register</button>
           </div>
+          <!-- submit button -->
           <div class="sign-in">
             <a th:href="@{/login}">Already got an account? Sign in</a>
           </div>
+          <!-- link to login page -->
         </form>
       </div>
     </div>
