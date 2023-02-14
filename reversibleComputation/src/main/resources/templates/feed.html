@@ -20,8 +20,10 @@
             </a>
         </div>
     </nav>
-    <div class="layout"> <!-- splitting feed page into blocks -->
-        <div class="layout__left-area"> <!-- left-area is an element of layout -->
+    <!-- code for navbar -->
+
+    <div class="layout"> <!-- splitting page into two sections -->
+        <div class="layout__left-area"> <!-- left section - holds tweets -->
             <div class="tweet">
                 <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
                 <div class="tweet__main">
@@ -122,12 +124,13 @@
                 </div>
             </div>
         </div>
-        <div class="layout__right-area-container"> <!-- making right area in container so that we can fix it while scrolling -->
+        <div class="layout__right-area-container"> <!-- right section - holds search bar, popular topics, popular profiles -->
             <div class="layout__right-area">
                 <div class="search-feed">
                     <form th:action="@{/search}">
                         <div class="search-feed__box">
                             <input type="search" class="input-search" name="keyword" placeholder="Search for anything" required>
+                            <!-- search bar, sends input to /search -->
                         </div>
                     </form>
                 </div>
