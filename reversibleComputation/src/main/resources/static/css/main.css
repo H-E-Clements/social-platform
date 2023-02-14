@@ -7,11 +7,9 @@
 }
 
 :root{
-    /* primary color scheme */
     --color-primary: #1c13a3;
     --color-bg: #0f4cd9;
 
-    /* variant color scheme */
     --color-variant: rgb(37, 0, 64);
     --color-bg-variant: rgb(69, 98, 130);
 
@@ -59,7 +57,6 @@ a:hover{
 }
 
 
-/* ------------NAVBAR----------- */
 nav{
     color: var(--color-white);
     height: 3rem;
@@ -104,7 +101,6 @@ nav{
     margin: auto 0;
 }
 
-/* LANDING PAGE */
 .welcome{
     position: relative;
     color: var(--color-variant);
@@ -112,8 +108,6 @@ nav{
     margin: 9rem auto;
     text-align: center;
     padding: 0.5rem;
-    /* border-left: 5px solid var(--color-primary);
-    border-right: 5px solid var(--color-primary); */
 }
 
 .welcome p{

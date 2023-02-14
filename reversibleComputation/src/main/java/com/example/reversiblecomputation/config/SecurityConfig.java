@@ -31,6 +31,7 @@ public class SecurityConfig {
                         // tells which pages need autherisation
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/").permitAll()
+                                .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
                         form -> form

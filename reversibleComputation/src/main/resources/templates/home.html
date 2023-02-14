@@ -7,139 +7,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reversible Computation</title>
+  <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
   <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
-  <style>
-    *{
-      font-family: Aldrich;
-      font-style: normal;
-      font-variant: normal;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root{
-      /* primary color scheme */
-      --color-primary: #1c13a3;
-      --color-bg: #0f4cd9;
-
-      /* variant color scheme */
-      --color-variant: rgb(37, 0, 64);
-      --color-bg-variant: rgb(69, 98, 130);
-
-      --color-white: #fff;
-      --transition: all 400ms ease;
-    }
-
-    h1 { font-size: 3rem;font-weight: 700; line-height: 3.5rem; }
-
-    h3 {font-size: 1rem; font-weight: 700; line-height: 15.4px; }
-
-    p { font-size: 14px; font-weight: 400; line-height: 20px; }
-
-    blockquote { font-family: Aldrich; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; }
-
-    pre { font-family: Aldrich; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
-
-    a{
-      text-decoration: none;
-      color: inherit;
-      transition: var(--transition);
-    }
-
-    a:hover{
-      text-decoration: underline;
-    }
-
-    .btn{
-      width: max-content;
-      display: inline-block;
-      color: var(--color-white);
-      background: var(--color-bg);
-      padding: 0.5rem 1.2rem;
-      cursor: pointer;
-      border: 2px solid var(--color-primary);
-      border-radius: 0.4rem;
-      transition: var(--transition);
-      text-decoration: none;
-    }
-
-    .btn:hover{
-      background: var(--color-white);
-      color: var(--color-variant);
-      border-color: var(--color-primary);
-    }
-
-
-    /* ------------NAVBAR----------- */
-    nav{
-      color: var(--color-white);
-      height: 3rem;
-      background: var(--color-bg);
-      display: flex;
-      justify-content: flex-start;
-      position: relative;
-      padding: 0.5rem 1rem;
-    }
-
-    .nav__links{
-      display: flex;
-      position: absolute;
-      gap: 2rem;
-      padding: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      margin: auto 0;
-      height: max-content;
-    }
-
-    .nav__profile{
-      flex: 0 1 auto;
-      display: flex;
-      gap: 0.4rem;
-      margin-left: auto;
-      height: 100%;
-    }
-
-    .fa-circle-user{
-      transition: var(--transition);
-      color: var(--color-primary);
-      font-size: 3rem;
-    }
-
-    .fa-circle-user:hover{
-      color: var(--color-white);
-      cursor: pointer;
-    }
-
-    .nav__profile > *{
-      margin: auto 0;
-    }
-
-    /* LANDING PAGE */
-    .welcome{
-      position: relative;
-      color: var(--color-variant);
-      width: 50%;
-      margin: 9rem auto;
-      text-align: center;
-      padding: 0.5rem;
-      /* border-left: 5px solid var(--color-primary);
-      border-right: 5px solid var(--color-primary); */
-    }
-
-    .welcome p{
-      margin-bottom: 0.3rem;
-    }
-  </style>
 
 </head>
 <body>
 <nav>
   <div class="nav__links">
-    <a href="home.html"><h3>Home</h3></a>
-    <a href="events.html"><h3>Events</h3></a>
-    <a href="playground.html"><h3>Playground</h3></a>
+    <a th:href="@{/register}"><h3>Home</h3></a>
+    <a th:href="@{/events}"><h3>Events</h3></a>
+    <a th:href="@{/playground}"><h3>Playground</h3></a>
   </div>
   <div class="nav__profile">
     <h4>Profile</h4>
@@ -152,7 +30,7 @@
 <div class="welcome">
   <h1>Reverse Engineering</h1>
   <p>LLorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-  <a class="btn">Get Started</a>
+  <a class="btn" th:href="@{/register}" >Get Started</a>
 </div>
 </body>
 </html>
