@@ -1,0 +1,212 @@
+.layout{
+    display: grid;
+    grid-template-columns: auto 350px;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+/* split page into columns
+left column automatically adjusted, right column is 350px
+and center the elements */
+
+.layout__right-area{
+    margin-left: 20px;
+    position: fixed;
+    width: 350px;
+}
+/*right sidebar stays in position regardless of scrolling*/
+
+.tweet{
+    display: flex;
+    border-bottom: 1px solid #d5dce0;
+    margin-bottom: 2px;
+    padding: 10px 15px;
+}
+.tweet:hover{
+    background: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+}
+
+.tweet a{
+    color: #158cd6;
+    text-decoration: none;
+}
+.tweet a:hover{
+    text-decoration: underline;
+}
+
+.tweet__author-photo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+/* code for profile picture in tweets */
+.tweet__header{
+    display: flex;
+}
+.tweet__author-name{
+    font-size: 16px;
+    font-weight: 750;
+    color: #101214;
+    margin-right: 6px;
+}
+.tweet__author-link{
+    color: #506578;
+    font-size: 16px;
+}
+.tweet__publish-time{
+    margin-left: 6px;
+    color: #667b8c;
+}
+
+.popular-topics{
+    border-radius: 14px;
+    background: #e1e7eb;
+    margin-bottom: 20px;
+}
+.popular-topics__block{
+    border-bottom: 2px solid #bec7cc;
+    padding: 10px 15px;
+}
+.popular-topics__block:last-child{
+    border-bottom: none;
+}
+.popular-topics__header{
+    font-size: 20px;
+    font-weight: bold;
+    color: #101214;
+}
+.popular-topics__metainfo{
+    font-size: 12px;
+    font-weight: 310;
+    color: #667b8c;
+}
+.popular-topics__name{
+    font-size: 15px;
+    font-weight: bold;
+    color: #101214;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.popular-profiles{
+    border-radius: 14px;
+    background: #e1e7eb;
+}
+.popular-profiles__block{
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #bec7cc;
+    padding: 10px 15px;
+}
+.popular-profiles__block:last-child{
+    border-bottom: none;
+}
+.popular-profiles__picture{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+.popular-profiles__content{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.popular-profiles__name{
+    font-size: 15px;
+    font-weight: 650;
+}
+.popular-profiles__link{
+    color: #506578;
+    font-size: 16px;
+}
+.popular-profiles__heading{
+    font-size: 20px;
+    font-weight: bold;
+    color: #101214;
+}
+.popular-profiles__visit{
+    font-size: 16px;
+    font-weight: 650;
+    border: 1px solid #158cd6;
+    border-radius: 14px;
+    padding: 6px;
+    min-width: 65px;
+    text-align: center;
+    color: #158cd6;
+}
+.popular-profiles__visit:hover{
+    background: rgba(30,162,242,0.1);
+    cursor: pointer;
+}
+
+.search-feed{
+    min-height: 15px;
+    display: flex;
+    justify-content: center;
+    border-radius: 17px;
+    margin-bottom: 20px;
+}
+.search-feed__box{
+    display: flex;
+    background: #6c7275;
+    padding: 7px;
+    position: relative;
+    border-radius: 17px;
+}
+.search-feed__box .input-search{
+    outline: none;
+    border: 0;
+    padding: 14px 20px;
+    width: 325px;
+    height: 50px;
+    border-radius: 14px;
+}
+
+
+
+
+
+
+
+*{
+    font-family: Aldrich;
+    font-style: normal;
+    font-variant: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    /* primary color scheme */
+    --color-primary: #1c13a3;
+    --color-bg: #0f4cd9;
+
+    /* variant color scheme */
+    --color-variant: rgb(37, 0, 64);
+    --color-bg-variant: rgb(69, 98, 130);
+
+    --color-white: #fff;
+    --transition: all 400ms ease;
+}
+a{text-decoration: none;color: inherit;transition: var(--transition);}
+
+a:hover{text-decoration: underline;}
+
+nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);display: flex;
+    justify-content: flex-start;position: relative;padding: 0.5rem 1rem; box-sizing: content-box;
+    margin-bottom: 30px;
+}
+
+.nav__links{display: flex;position: absolute;gap: 2rem;padding: 1rem;left: 50%;
+    transform: translateX(-50%);margin: auto 0;height: max-content;}
+
+.nav__profile{flex: 0 1 auto;display: flex;gap: 0.4rem;margin-left: auto;height: 100%;}
+
+.fa-circle-user{transition: var(--transition);color: var(--color-primary);font-size: 3rem;}
+
+.fa-circle-user:hover{color: var(--color-white);cursor: pointer;}
+
+.nav__profile > *{margin: auto 0;}
