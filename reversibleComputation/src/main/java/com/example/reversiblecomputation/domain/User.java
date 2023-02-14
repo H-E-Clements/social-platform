@@ -6,8 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.print.Doc;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,6 +34,9 @@ public class User
 
     @Column(nullable=false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Document> documents = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(

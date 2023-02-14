@@ -1,10 +1,13 @@
 package com.example.reversiblecomputation.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -23,6 +26,13 @@ public class Document {
     private String description;
     @Column(nullable=false)
     private String documenturl;
+    @Column
     private String keywords;
+    @Column(nullable=false)
+    private Date uploaddate;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "documents", nullable = false)
+    private User user;
+
 
 }
