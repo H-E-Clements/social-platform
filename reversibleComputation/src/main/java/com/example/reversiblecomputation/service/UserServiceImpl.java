@@ -6,7 +6,6 @@ import com.example.reversiblecomputation.domain.User;
 import com.example.reversiblecomputation.dto.Dto;
 import com.example.reversiblecomputation.repository.RoleRepository;
 import com.example.reversiblecomputation.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
