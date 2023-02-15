@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+//@RequestMapping(value = "/auth")
 @Controller
 public class AuthController {
 
@@ -24,11 +25,6 @@ public class AuthController {
         this.userService = userService;
     }
 
-    // homepage
-    @GetMapping("/")
-    public String home(){
-        return "home";
-    }
 
     // shows registration form
     @GetMapping("/register")
@@ -68,15 +64,13 @@ public class AuthController {
         return "users";
     }
 
+
+
     // login page
     @GetMapping("/login")
     public String login(){
         return "login";
     }
 
-    // feed page
-    @RequestMapping("/feed")
-    public String feed(){
-        return "feed";
-    }
+
 }

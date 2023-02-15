@@ -29,17 +29,19 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         // tells which pages need autherisation
-                        authorize.requestMatchers("/register/**").permitAll()
+                        authorize
+                                .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/feed").permitAll()
                                 .requestMatchers("/search").permitAll()
+                                .requestMatchers("/events").hasRole("ADMIN")
                                 .requestMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login").permitAll()
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/users")
+//                                .defaultSuccessUrl("/users")
                                 .permitAll()
                 ).logout(
                         logout -> logout

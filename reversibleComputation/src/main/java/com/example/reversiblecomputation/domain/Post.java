@@ -1,7 +1,6 @@
 package com.example.reversiblecomputation.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="document")
-public class Document {
+@Table(name="post")
+public class Post {
 
     @Id
     @GeneratedValue

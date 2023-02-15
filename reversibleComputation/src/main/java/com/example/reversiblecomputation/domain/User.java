@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -36,7 +35,7 @@ public class User
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<Document> documents = new LinkedHashSet<>();
+    private Set<Post> documents = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(
