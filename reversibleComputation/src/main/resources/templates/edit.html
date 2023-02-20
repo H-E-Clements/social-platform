@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reversible Computation</title>
+
+</head>
+<body>
+            <h2>Edit Account</h2>
+            <div th:if="${param.success}">
+                    You have successfully registered our app!
+                <!-- message displayed after successful register -->
+            </div>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/name}"
+                    th:object="${user}"
+            >
+                <!-- post form object 'user' to /edit/save -->
+                <div>
+                    <input
+                            id="firstName"
+                            name="firstName"
+                            placeholder="Enter first name"
+                            th:field="*{firstName}"
+                            type="text"
+                    />
+                    <!-- input box for attribute 'firstName' -->
+                    <span>First Name</span>
+                    <i></i>
+                    <p th:errors = "*{firstName}" class="text-danger"
+                       th:if="${#fields.hasErrors('firstName')}"></p>
+                    <!-- checks for errors in this field -->
+                </div>
+                <div>
+
+                    <input
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Enter last name"
+                            th:field="*{lastName}"
+                            type="text"
+                    />
+                    <span>Last Name</span>
+                    <i></i>
+                    <p th:errors = "*{lastName}" class="text-danger"
+                       th:if="${#fields.hasErrors('lastName')}"></p>
+                </div>
+                <!-- each input box is similar code -->
+                <div>
+                    <button class="btn btn-primary" type="submit">Edit</button>
+                </div>
+            </form>
+            <form
+                        method="post"
+                        role="form"
+                        th:action="@{/edit/save/email}"
+                        th:object="${user}"
+                >
+                <div>
+                    <input
+                            id="email"
+                            name="email"
+                            placeholder="Enter email address"
+                            th:field="*{email}"
+                            type="email"
+                    />
+                    <span>Email</span>
+                    <i></i>
+                    <p th:errors = "*{email}" class="text-danger"
+                       th:if="${#fields.hasErrors('email')}"></p>
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Edit</button>
+                </div>
+            </form>
+            <form
+                            method="post"
+                            role="form"
+                            th:action="@{/edit/save/password}"
+                            th:object="${user}"
+                    >
+                <div>
+                    <input
+                            id="password"
+                            name="password"
+                            placeholder="Enter password"
+                            th:field="*{password}"
+                            type="password"
+                    />
+                    <span>Password</span>
+                    <i></i>
+                    <p th:errors = "*{password}" class="text-danger"
+                       th:if="${#fields.hasErrors('password')}"></p>
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Edit</button>
+                </div>
+            </form>
+            </div>
+</body>
+</html>

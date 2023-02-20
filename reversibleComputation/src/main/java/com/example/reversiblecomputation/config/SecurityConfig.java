@@ -28,7 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        // tells which pages need autherisation
+                        // tells which pages need authorisation
                         authorize
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/").permitAll()
@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers("/search").permitAll()
                                 .requestMatchers("/events").hasRole("ADMIN")
                                 .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/edit/**").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login").permitAll()
