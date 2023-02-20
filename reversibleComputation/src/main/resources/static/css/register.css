@@ -161,3 +161,9 @@ nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);dis
     background-color: cornflowerblue;
 }
 /*button = active is when pressed, creates a pressing motion*/
+
+.form .alert{
+    text-align: center;
+    font-weight: 600;
+    color: white;
+}
