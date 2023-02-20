@@ -3,6 +3,7 @@
 <head>
   <title>Login Page</title>
   <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
   <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
 </head>
@@ -15,9 +16,16 @@
   </div>
   <div class="nav__profile">
     <h4>Profile</h4>
-    <a>
-      <i class="fa-solid fa-circle-user"></i>
-    </a>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <i class="fa-solid fa-circle-user"></i>
+      </button>
+      <div class="dropdown-content">
+        <a th:href="@{/edit}">Edit Information</a>
+        <a th:href="@{/username}">Check if logged in</a>
+        <a th:href="@{/users}">Users</a>
+      </div>
+    </div>
   </div>
 </nav>
 <!-- code for navbar -->

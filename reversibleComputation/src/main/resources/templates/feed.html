@@ -3,23 +3,31 @@
 <head>
     <title>Feed</title>
     <link th:href="@{/css/feed.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
     <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav>
-        <div class="nav__links">
-            <a th:href="@{/}"><h3>Home</h3></a>
-            <a th:href="@{/events}"><h3>Events</h3></a>
-            <a th:href="@{/playground}"><h3>Playground</h3></a>
-        </div>
-        <div class="nav__profile">
-            <h4>Profile</h4>
-            <a>
+<nav>
+    <div class="nav__links">
+        <a th:href="@{/}"><h3>Home</h3></a>
+        <a th:href="@{/events}"><h3>Events</h3></a>
+        <a th:href="@{/playground}"><h3>Playground</h3></a>
+    </div>
+    <div class="nav__profile">
+        <h4>Profile</h4>
+        <div class="dropdown">
+            <button class="dropbtn">
                 <i class="fa-solid fa-circle-user"></i>
-            </a>
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/edit}">Edit Information</a>
+                <a th:href="@{/username}">Check if logged in</a>
+                <a th:href="@{/users}">Users</a>
+            </div>
         </div>
-    </nav>
+    </div>
+</nav>
     <!-- code for navbar -->
 
     <div class="layout"> <!-- splitting page into two sections -->
