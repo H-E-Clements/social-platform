@@ -35,6 +35,7 @@ public class SecurityConfig {
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/feed").permitAll()
                                 .requestMatchers("/search").permitAll()
+                                .requestMatchers("/username").permitAll()
                                 .requestMatchers("/events").hasRole("ADMIN")
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/edit/**").hasRole("ADMIN")

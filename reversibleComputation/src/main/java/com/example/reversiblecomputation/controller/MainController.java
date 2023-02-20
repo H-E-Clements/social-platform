@@ -101,4 +101,18 @@ public class MainController {
         }
         return "redirect:/edit?success";
     }
+
+    @GetMapping("/username")
+    public String username(Model model, Authentication authentication){
+        String user;
+        try {
+            user = authentication.getName();
+        }
+        catch(Exception e) {
+            user = "Not Logged In";
+        }
+
+        model.addAttribute("user", user);
+        return "username";
+    }
 }
