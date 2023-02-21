@@ -14,10 +14,10 @@
 
 <script>
     console.log("hello world")
-    const hashtags = document.getElementById("hashtags")
-    hashtags.innerHTML = "hello"
     const addHashtag = () => {
-        hashtags.innerHTML = document.getElementById("email").value
+        const hashtags = document.getElementById("hashtags")
+        hashtags.innerHTML = hashtags.innerHTML+"#"+document.getElementById("hashtag").value
+        document.getElementById("hashtag").value = null
     }
 
 </script>
@@ -98,8 +98,7 @@
                 <!-- each input box is similar code -->
 
                 <div class="input-box">
-                    <div class="input-btn">
-                        <button class="btn btn-primary" onclick="addHashtag()">Add</button>
+                    <div class="input-btn btn btn-primary" onclick="addHashtag()">Add
                     </div>
                     <input
                             class="form-control"
