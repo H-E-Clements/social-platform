@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Publications Feed</title>
+	<style>
+		*{
+			box-sizing: border-box;
+		}
+		body{
+			font-size: 16px;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 1.2rem;
+		}
+		.feed{
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			margin-top: 20px;
+		}
+		.card{
+			display: flex;
+			flex-direction: column;
+			background-color: #ffffff;
+			border-radius: 10px;
+			box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+			padding: 20px;
+			transition: box-shadow 0.2s ease-in-out;
+		}
+		.card:hover{
+			box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+		}
+		.card a{
+			color: #333333;
+			text-decoration: none;
+		}
+		.card h2{
+			font-size: 1.5rem;
+			margin: 0;
+			margin-bottom: 10px;
+		}
+		.card p{
+			font-size: 1rem;
+			margin: 0;
+			margin-bottom: 10px;
+		}
+		.card span{
+			font-size: 0.8rem;
+			color: #aaaaaa;
+		}
+		.preview{
+			max-width: auto;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: #f1f1f1;
+			border-radius: 10px;
+			overflow: hidden;
+			margin-bottom: 20px;
+		}
+		.preview img{
+			max-width: 100%;
+			object-fit: cover;
+			object-position: center;
+			transform: scale(1.2);
+		}
+		
+		.hashtag{
+			background-color: #333333;
+			color: #ffffff;
+			padding: 5px; ;
+			border-radius: 15px;
+			font-size: 0.8rem;
+			line-height: 1;
+            margin: 0.2rem;
+            margin-right: auto;
+            
+		}
+		@media screen and (max-width: 768px){
+			.card{
+				padding: 10px;
+			}
+			.card h2{
+				font-size: 1.2rem;
+			}
+			.card p{
+				font-size: 0.9rem;
+			}
+			.card span{
+				font-size: 0.7rem;
+			}
+			.preview{
+				max-width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="feed">
+			<div class="card">
+				<a href="#">
+					<h2>Name of the Publication</h2>
+				</a>
+                <div class="preview">
+					<a href="#">
+						<img src="https://via.placeholder.com/400x250" alt="Publication Preview">
+					</a>
+				</div>
+				<p>Preview of the Publication. Lorem ipsum dolor sit amet, 
+                    consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor 
+                    sit amet, consectetur adipiscing elit. Vestibulum ultricies 
+                    condimentum tellus eu commodo. Proin auctor, risus ut gravida commodo, 
+                    augue metus vulputate nunc, nec pharetra velit purus non quam. 
+                    Nam sit amet posuere felis. Sed nec enim felis. Donec sit amet odio 
+                    eget risus commodo sodales. Fusce convallis ultricies enim, id 
+                    congue ex posuere vel.</p>
+                <div class="hashtag">#Lorem</div>
+			<div class="hashtag">#Ipsum</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
