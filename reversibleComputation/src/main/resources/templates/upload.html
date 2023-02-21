@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration and Login System</title>
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+    <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/register.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<script>
+    console.log("hello world")
+    const hashtags = document.getElementById("hashtags")
+    hashtags.innerHTML = "hello"
+    const addHashtag = () => {
+        hashtags.innerHTML = document.getElementById("email").value
+    }
+
+</script>
+
+<body>
+<nav>
+    <div class="nav__links">
+        <a th:href="@{/}"><h3>Home</h3></a>
+        <a th:href="@{/events}"><h3>Events</h3></a>
+        <a th:href="@{/playground}"><h3>Playground</h3></a>
+    </div>
+    <div class="nav__profile">
+        <h4>Profile</h4>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/edit}">Edit Information</a>
+                <a th:href="@{/username}">Check if logged in</a>
+                <a th:href="@{/users}">Users</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- code for navbar -->
+
+<br /><br /><br />
+<div class="signup">
+    <div class="box">
+        <div class="form">
+            <h2>New Post</h2>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    You have successfully registered our app!
+                </div>
+                <!-- message displayed after successful register -->
+            </div>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/newPost}"
+                    th:object="${post}"
+            >
+                <!-- post form object 'user' to /register/save -->
+                <div class="input-box">
+                    <input
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            placeholder="enter post name"
+                            th:field="*{name}"
+                            type="text"
+                    />
+                    <!-- input box for attribute 'firstName' -->
+                    <span>First Name</span>
+                    <i></i>
+                    <p th:errors = "*{name}" class="text-danger"
+                       th:if="${#fields.hasErrors('name')}"></p>
+                    <!-- checks for errors in this field -->
+                </div>
+
+                <div class="input-box">
+
+                    <input
+                            class="form-control"
+                            id="lastName"
+                            name="description"
+                            placeholder="this post is about..."
+                            th:field="*{description}"
+                            type="textarea"
+                    />
+                    <span>Description</span>
+                    <i></i>
+                    <p th:errors = "*{description}" class="text-danger"
+                       th:if="${#fields.hasErrors('description')}"></p>
+                </div>
+                <!-- each input box is similar code -->
+
+                <div class="input-box">
+                    <div class="input-btn">
+                        <button class="btn btn-primary" onclick="addHashtag()">Add</button>
+                    </div>
+                    <input
+                            class="form-control"
+                            id="hashtag"
+                            name="hashtag"
+                            placeholder="new hashtag e.g.#science"
+                            th:field="*{hashtag}"
+                            type="text"
+                    />
+                    <p id="hashtags">Hashtags</p>
+                    <i></i>
+                    <p th:errors = "*{hashtag}" class="text-danger"
+                       th:if="${#fields.hasErrors('hashtag')}"></p>
+                </div>
+
+                <div class="input-box">
+                    <input
+                            class="form-control"
+                            id="document"
+                            name="document"
+                            th:field="*{password}"
+                            type="file"
+                    />
+<!--                    <span>Password</span>-->
+                    <i></i>
+                    <p th:errors = "*{document}" class="text-danger"
+                       th:if="${#fields.hasErrors('document')}"></p>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+                <!-- submit button -->
+                <div class="sign-in">
+                    <a th:href="@{/login}">Already got an account? Sign in</a>
+                </div>
+                <!-- link to login page -->
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

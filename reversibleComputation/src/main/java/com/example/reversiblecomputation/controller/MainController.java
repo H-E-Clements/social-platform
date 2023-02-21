@@ -1,7 +1,9 @@
 package com.example.reversiblecomputation.controller;
 
 import com.example.reversiblecomputation.domain.User;
+import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.dto.Dto;
+import com.example.reversiblecomputation.repository.PostRepository;
 import com.example.reversiblecomputation.repository.UserRepository;
 import com.example.reversiblecomputation.service.CustomDetailService;
 import com.example.reversiblecomputation.service.UserService;
@@ -28,23 +30,13 @@ public class MainController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private PostRepository postRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     // homepage
     @GetMapping("/")
     public String home(){
         return "home";
-    }
-
-    @PostMapping("/upload")
-    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file ) {
-
-        String fileName = file.getOriginalFilename();
-        try {
-            file.transferTo( new File("C:\\upload\\" + fileName));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-        return ResponseEntity.ok("File uploaded successfully.");
     }
 
     // feed page
@@ -100,6 +92,14 @@ public class MainController {
             userRepository.save(user);
         }
         return "redirect:/edit?success";
+    }
+
+    @PostMapping("/newPost")
+    public String createPost(@Valid @ModelAttribute("post") @PathVariable(value = "param") String param, Post post) {
+        if (post != null) {
+            postRepository.save(post);
+        }
+        return "feed";
     }
 
     @GetMapping("/username")

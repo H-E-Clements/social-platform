@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.print.Doc;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,15 +27,12 @@ public class Post {
     @Column(nullable=false)
     private String description;
     @Column(nullable=false)
-    private String documenturl;
-    @Column
-    private String keywords;
-    @Column(nullable=false)
     private Date uploaddate;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "documents", nullable = false)
     private User user;
-
+    @OneToMany(mappedBy = "post")
+    private Set<Document> document = new HashSet<>();
     @OneToMany(mappedBy = "post")
     private Set<Hashtag> hashtags = new HashSet<>();
 
