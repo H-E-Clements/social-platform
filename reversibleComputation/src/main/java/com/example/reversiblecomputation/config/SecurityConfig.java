@@ -39,6 +39,7 @@ public class SecurityConfig {
                                 .requestMatchers("/events").hasRole("ADMIN")
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/edit/**").hasRole("ADMIN")
+                                .requestMatchers("/post").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login").permitAll()

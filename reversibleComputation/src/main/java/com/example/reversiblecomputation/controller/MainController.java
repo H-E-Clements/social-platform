@@ -1,5 +1,6 @@
 package com.example.reversiblecomputation.controller;
 
+import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.domain.User;
 import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.dto.Dto;
@@ -114,5 +115,12 @@ public class MainController {
 
         model.addAttribute("user", user);
         return "username";
+    }
+    
+    @GetMapping("/post")
+    public String post(Model model){
+        Post post = new Post();
+        model.addAttribute("post", post);
+        return "post";
     }
 }

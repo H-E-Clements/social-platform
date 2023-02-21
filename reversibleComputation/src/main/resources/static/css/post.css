@@ -43,7 +43,7 @@ nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);dis
 
 /*signup form css begins*/
 
-.signup{
+.create-post{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,7 +60,7 @@ nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);dis
 }
 .box::before{
     position: absolute;
-    height: 540px;
+    height: 590px;
     width: 400px;
     border-radius: 30px;
     content: '';
@@ -131,12 +131,12 @@ nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);dis
 }
 /*underlining for each input field*/
 
-.form .sign-in {
+.form .upload-publication {
     display: flex;
     flex-direction: column;
 }
 
-.form .sign-in a{
+.form .upload-publication a{
     margin: 20px 0 10px 0px;
     color: white;
 }
@@ -161,9 +161,3 @@ nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);dis
     background-color: cornflowerblue;
 }
 /*button = active is when pressed, creates a pressing motion*/
-
-.form .alert{
-    text-align: center;
-    font-weight: 600;
-    color: white;
-}
