@@ -115,4 +115,11 @@ public class MainController {
         model.addAttribute("user", user);
         return "username";
     }
+    
+    @GetMapping("/post")
+    public String post(Model model){
+        Post post = new Post();
+        model.addAttribute("post", post);
+        return "post";
+    }
 }
