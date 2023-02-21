@@ -1,5 +1,6 @@
 package com.example.reversiblecomputation.controller;
 
+import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.domain.User;
 import com.example.reversiblecomputation.dto.Dto;
 import com.example.reversiblecomputation.repository.UserRepository;
