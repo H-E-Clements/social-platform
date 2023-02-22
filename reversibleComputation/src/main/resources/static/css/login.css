@@ -147,6 +147,13 @@ button[type="submit"]:active{
     transform: translateY(4px);
     background-color: cornflowerblue;
 }
+
+.form .alert{
+    text-align: center;
+    font-weight: 600;
+    color: white;
+}
+
 /*button = active is when pressed, creates a pressing motion*/
 
 /* OLD CODE
