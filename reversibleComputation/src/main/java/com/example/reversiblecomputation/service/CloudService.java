@@ -1,4 +1,4 @@
-package com.example.reversiblecomputation.controller;
+package com.example.reversiblecomputation.service;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
@@ -7,6 +7,7 @@ import com.google.cloud.storage.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,15 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Controller
-public class CloudController {
+@Service
+public class CloudService {
     @Autowired
     private Storage storage;
 
-    @PostMapping("/fileUpload")
     public ResponseEntity<String> fileUpload(@RequestBody String filePath) throws IOException {
         File file = new File(filePath);
         BlobId id = BlobId.of("publication-storage-leicester", file.getName());
@@ -33,7 +32,6 @@ public class CloudController {
         return ResponseEntity.ok("File Successfully Uploaded!");
     }
 
-    @GetMapping("/fileDownload")
     public File fileDownload(@RequestParam String publicationId, @RequestParam String filePath) throws IOException {
         File myFile = File.createTempFile("myFile", ".txt");
         BlobId id = BlobId.of("publication-storage-leicester", publicationId);

@@ -4,12 +4,34 @@
 >
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/register.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reversible Computation</title>
 
 </head>
 <body>
+<nav>
+    <div class="nav__links">
+        <a th:href="@{/}"><h3>Home</h3></a>
+        <a th:href="@{/events}"><h3>Events</h3></a>
+        <a th:href="@{/playground}"><h3>Playground</h3></a>
+    </div>
+    <div class="nav__profile">
+        <h4>Profile</h4>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/edit}">Edit Information</a>
+                <a th:href="@{/username}">Check if logged in</a>
+                <a th:href="@{/users}">Users</a>
+            </div>
+        </div>
+    </div>
+</nav>
             <h2>Edit Account</h2>
             <div th:if="${param.success}">
                     You have successfully registered our app!
@@ -22,7 +44,7 @@
                     th:object="${user}"
             >
                 <!-- post form object 'user' to /edit/save -->
-                <div>
+                <div class="input-box">
                     <input
                             id="firstName"
                             name="firstName"
@@ -52,7 +74,7 @@
                        th:if="${#fields.hasErrors('lastName')}"></p>
                 </div>
                 <!-- each input box is similar code -->
-                <div>
+                <div class="btn">
                     <button class="btn btn-primary" type="submit">Edit</button>
                 </div>
             </form>

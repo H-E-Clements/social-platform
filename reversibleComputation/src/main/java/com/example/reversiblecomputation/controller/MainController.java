@@ -1,11 +1,14 @@
 package com.example.reversiblecomputation.controller;
 
+import com.example.reversiblecomputation.domain.Document;
 import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.domain.User;
 import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.dto.Dto;
+import com.example.reversiblecomputation.repository.DocumentRepository;
 import com.example.reversiblecomputation.repository.PostRepository;
 import com.example.reversiblecomputation.repository.UserRepository;
+import com.example.reversiblecomputation.service.CloudService;
 import com.example.reversiblecomputation.service.CustomDetailService;
 import com.example.reversiblecomputation.service.UserService;
 import jakarta.validation.Valid;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -33,7 +37,13 @@ public class MainController {
     @Autowired
     private PostRepository postRepository;
     @Autowired
+    private DocumentRepository documentRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    CloudService cloudService;
+
     // homepage
     @GetMapping("/")
     public String home(){
@@ -49,6 +59,15 @@ public class MainController {
     @GetMapping("/events")
     public String events(){
         return "feed";
+    }
+
+    @GetMapping("/upload")
+    public String upload(Model model){
+        Document document = new Document();
+        Post post = new Post();
+        model.addAttribute("post", post);
+        model.addAttribute("document", document);
+        return "upload";
     }
 
     // shows edit form
@@ -101,6 +120,16 @@ public class MainController {
             postRepository.save(post);
         }
         return "feed";
+    }
+
+    @PostMapping("/newDocument")
+    public String createDocument(@Valid @ModelAttribute("document") Document document) throws IOException {
+        if (document != null) {
+            System.out.println("---------------------->"+document.getFilePath());
+            cloudService.fileUpload(document.getFilePath());
+            documentRepository.save(document);
+        }
+        return "upload";
     }
 
     @GetMapping("/username")

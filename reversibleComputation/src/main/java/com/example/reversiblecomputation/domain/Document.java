@@ -20,9 +20,11 @@ public class Document {
     private String name;
     @Column(nullable=false)
     private String extension;
+    @Column(nullable = false)
+    private String filePath;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "post", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "post", nullable = true)
     private Post post;
 
 }

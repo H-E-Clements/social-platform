@@ -1,4 +1,7 @@
 package com.example.reversiblecomputation.repository;
 
-public class DocumentRepository {
+import com.example.reversiblecomputation.domain.Document;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DocumentRepository extends JpaRepository<Document, Integer> {
 }
