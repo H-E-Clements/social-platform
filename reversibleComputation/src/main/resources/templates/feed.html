@@ -15,7 +15,7 @@
         <a th:href="@{/playground}"><h3>Playground</h3></a>
     </div>
     <div class="nav__profile">
-    <span th:switch="${user}">
+    <span th:switch="${navUser}">
       <div th:case="true">
         <div class="nav__profile">
           <h4>Profile</h4>

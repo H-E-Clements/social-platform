@@ -62,7 +62,6 @@ public class MainController {
 
         // checks if logged in for nav bar
         boolean navUser = checkIfLoggedIn(authentication, model);
-        System.out.println(navUser);
         model.addAttribute("navUser", navUser);
         return "home";
     }

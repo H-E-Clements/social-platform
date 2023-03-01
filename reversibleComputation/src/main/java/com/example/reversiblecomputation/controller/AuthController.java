@@ -27,19 +27,26 @@ public class AuthController {
         this.userService = userService;
     }
 
+    public boolean checkIfLoggedIn(Authentication authentication, Model model){
+        boolean user;
+        try {
+            authentication.getName();
+            user = true;
+        }
+        catch(Exception e) {
+            user = false;
+        }
+        return user;
+    }
 
     // shows registration form
     @GetMapping("/register")
     public String showRegistrationForm(Authentication authentication, Model model){
-        boolean navUser;
-        try {
-            authentication.getName();
-            navUser = true;
-        }
-        catch(Exception e) {
-            navUser = false;
-        }
+
+        // checks if logged in for nav bar
+        boolean navUser = checkIfLoggedIn(authentication, model);
         model.addAttribute("navUser", navUser);
+
         // dto stores form data
         Dto user = new Dto();
         model.addAttribute("user", user);
@@ -80,15 +87,9 @@ public class AuthController {
     // login page
     @GetMapping("/login")
     public String login(Authentication authentication, Model model){
-        boolean user;
-        try {
-            authentication.getName();
-            user = true;
-        }
-        catch(Exception e) {
-            user = false;
-        }
-        model.addAttribute("user", user);
+        // checks if logged in for nav bar
+        boolean navUser = checkIfLoggedIn(authentication, model);
+        model.addAttribute("navUser", navUser);
         return "login";
     }
 
