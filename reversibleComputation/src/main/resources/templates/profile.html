@@ -19,8 +19,6 @@
         <a th:href="@{/playground}"><h3>Playground</h3></a>
     </div>
     <div class="nav__profile">
-    <span th:switch="${user}">
-      <div th:case="true">
         <div class="nav__profile">
           <h4>Profile</h4>
           <div class="dropdown">
@@ -28,25 +26,27 @@
               <i class="fa-solid fa-circle-user"></i>
             </button>
             <div class="dropdown-content">
-              <a th:href="@{/edit}">Edit Information</a>
-              <a th:href="@{/username}">Check if logged in</a>
-              <a th:href="@{/users}">Users</a>
-              <a th:href="@{/logout}">Logout</a>
+                <a th:href="@{/edit}">Edit Information</a>
+                <a th:href="@{/profile}">Profile</a>
+                <a th:href="@{/users}">Users</a>
+                <a th:href="@{/logout}">Logout</a>
             </div>
           </div>
         </div>
       </div>
-    <div th:case="false" class="nav__profile">
-      <a th:href="@{/login}" >Log In</a>
-    </div>
-    </span>
-    </div>
 </nav>
 
 <div class="welcome">
-    <td th:text = "${user}"></td>
-    <td th:text = "${email}"></td>
-    <td th:text = "${description}"></td>
+    <h3>Name: </h3><br>
+    <td th:text = "${user}"></td><br><br>
+    <h3>Email: </h3><br>
+    <td th:text = "${email}"></td><br><br>
+    <h3>Description: </h3><br>
+    <td th:text = "${description}"></td><br><br>
+    <h3>Age: </h3><br>
+    <td th:text = "${age}"></td><br><br>
+    <h3>Location: </h3><br>
+    <td th:text = "${location}"></td><br><br>
 </div>
 </body>
 </html>

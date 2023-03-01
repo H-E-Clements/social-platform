@@ -107,7 +107,6 @@ public class MainController {
                                BindingResult result,
                                Model model,
                                Authentication authentication){
-        System.out.println(param);
         User existingUser = userService.findUserByEmail(userDto.getEmail());
         String currentUser = authentication.getName();
         User user = userRepository.findByEmail(currentUser);
@@ -129,12 +128,32 @@ public class MainController {
         else if (param.equals("name")) {
             user.setName(userDto.getFirstName() + " " + userDto.getLastName());
             userRepository.save(user);
+            return "redirect:/profile";
         }
         else if (param.equals("password")) {
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             userRepository.save(user);
             return "redirect:/logout";
         }
+
+        else if (param.equals("description")) {
+            user.setDescription(userDto.getDescription());
+            userRepository.save(user);
+            return "redirect:/profile";
+        }
+
+        else if (param.equals("age")) {
+            user.setAge(userDto.getAge());
+            userRepository.save(user);
+            return "redirect:/profile";
+        }
+
+        else if (param.equals("location")) {
+            user.setLocation(userDto.getLocation());
+            userRepository.save(user);
+            return "redirect:/profile";
+        }
+
         return "redirect:/edit?success";
     }
 
@@ -191,18 +210,19 @@ public class MainController {
 
     @GetMapping("/profile")
     public String profile(Model model, Authentication authentication){
-        String user;
+        String username;
         try {
-            user = authentication.getName();
-            User object = userRepository.findByEmail(user);
+            User object = userRepository.findByEmail(authentication.getName());
             model.addAttribute("email", object.getEmail());
             model.addAttribute("description", object.getDescription());
             model.addAttribute("user", object.getName());
+            model.addAttribute("age", object.getAge());
+            model.addAttribute("location", object.getLocation());
 
         }
 
         catch(Exception e) {
-            user = "Not Logged In";
+            username = "Not Logged In";
         }
 
         return "profile";

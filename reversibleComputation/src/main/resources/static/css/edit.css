@@ -58,7 +58,7 @@ nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);dis
 }
 .box::before{
     position: absolute;
-    height: 560px;
+    height: 950px;
     width: 400px;
     border-radius: 30px;
     content: '';

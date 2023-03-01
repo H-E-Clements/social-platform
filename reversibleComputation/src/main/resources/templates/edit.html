@@ -3,18 +3,39 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reversible Computation</title>
-
+    <title>Edit Profile</title>
+    <link th:href="@{/css/edit.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+    <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
 </head>
 <body>
-            <h2>Edit Account</h2>
-            <div th:if="${param.success}">
-                    You have successfully registered our app!
-                <!-- message displayed after successful register -->
+<nav>
+    <div class="nav__links">
+        <a th:href="@{/}"><h3>Home</h3></a>
+        <a th:href="@{/events}"><h3>Events</h3></a>
+        <a th:href="@{/playground}"><h3>Playground</h3></a>
+    </div>
+    <div class="nav__profile">
+        <h4>Profile</h4>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/edit}">Edit Information</a>
+                <a th:href="@{/profile}">Profile</a>
+                <a th:href="@{/users}">Users</a>
+                <a th:href="@{/logout}">Logout</a>
             </div>
+        </div>
+    </div>
+</nav>
+<!-- code for navbar -->
+<div class="login">
+    <div class="box">
+        <div class="form">
+            <h2>Edit Account</h2>
             <form
                     method="post"
                     role="form"
@@ -22,7 +43,7 @@
                     th:object="${user}"
             >
                 <!-- post form object 'user' to /edit/save -->
-                <div>
+                <div class="input-box">
                     <input
                             id="firstName"
                             name="firstName"
@@ -37,7 +58,7 @@
                        th:if="${#fields.hasErrors('firstName')}"></p>
                     <!-- checks for errors in this field -->
                 </div>
-                <div>
+                <div class="input-box">
 
                     <input
                             id="lastName"
@@ -52,17 +73,17 @@
                        th:if="${#fields.hasErrors('lastName')}"></p>
                 </div>
                 <!-- each input box is similar code -->
-                <div>
-                    <button class="btn btn-primary" type="submit">Edit</button>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change first/last name</button>
                 </div>
             </form>
             <form
-                        method="post"
-                        role="form"
-                        th:action="@{/edit/save/email}"
-                        th:object="${user}"
-                >
-                <div>
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/email}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
                     <input
                             id="email"
                             name="email"
@@ -75,17 +96,17 @@
                     <p th:errors = "*{email}" class="text-danger"
                        th:if="${#fields.hasErrors('email')}"></p>
                 </div>
-                <div>
-                    <button class="btn btn-primary" type="submit">Edit</button>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change email address</button>
                 </div>
             </form>
             <form
-                            method="post"
-                            role="form"
-                            th:action="@{/edit/save/password}"
-                            th:object="${user}"
-                    >
-                <div>
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/password}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
                     <input
                             id="password"
                             name="password"
@@ -98,10 +119,77 @@
                     <p th:errors = "*{password}" class="text-danger"
                        th:if="${#fields.hasErrors('password')}"></p>
                 </div>
-                <div>
-                    <button class="btn btn-primary" type="submit">Edit</button>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change password</button>
                 </div>
             </form>
-            </div>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/description}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="description"
+                            name="description"
+                            placeholder="Enter Description"
+                            th:field="*{description}"
+                            type="text"
+                    />
+                    <span>Description</span>
+                    <i></i>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change Description</button>
+                </div>
+            </form>
+
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/age}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="age"
+                            name="age"
+                            placeholder="Enter Age"
+                            th:field="*{age}"
+                            type="text"
+                    />
+                    <span>Age</span>
+                    <i></i>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change Age</button>
+                </div>
+            </form>
+
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/location}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="location"
+                            name="location"
+                            placeholder="Enter Location"
+                            th:field="*{location}"
+                            type="text"
+                    />
+                    <span>Location</span>
+                    <i></i>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change Location</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

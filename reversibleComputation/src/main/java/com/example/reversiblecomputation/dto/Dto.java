@@ -24,4 +24,10 @@ public class Dto
     private String email;
     @NotEmpty(message = "Password should not be empty")
     private String password;
+
+    private String description;
+
+    private Integer age;
+
+    private String location;
 }
