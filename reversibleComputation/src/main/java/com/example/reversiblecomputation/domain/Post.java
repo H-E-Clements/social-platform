@@ -19,6 +19,7 @@ import java.util.Set;
 @Table(name="post")
 public class Post {
 
+
     @Id
     @GeneratedValue
     private Integer id;
