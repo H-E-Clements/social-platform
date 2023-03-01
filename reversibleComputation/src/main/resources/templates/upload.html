@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
     <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
     <link th:href="@{/css/register.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/upload.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
 </head>
 
@@ -50,12 +51,6 @@
     <div class="box">
         <div class="form">
             <h2>New Post</h2>
-<!--            <div th:if="${param.success}">-->
-<!--                <div class="alert alert-info">-->
-<!--                    You have successfully registered our app!-->
-<!--                </div>-->
-<!--                &lt;!&ndash; message displayed after successful register &ndash;&gt;-->
-<!--            </div>-->
 <!--            <form-->
 <!--                    method="post"-->
 <!--                    role="form"-->
@@ -105,10 +100,10 @@
 <!--                            id="hashtag"-->
 <!--                            name="hashtag"-->
 <!--                            placeholder="new hashtag e.g.#science"-->
-<!--                            th:field="*{hashtag}"-->
+<!--                            th:field="*{hashtags}"-->
 <!--                            type="text"-->
 <!--                    />-->
-<!--                    <p id="hashtags">Hashtags</p>-->
+<!--                    <p id="hashtags"></p>-->
 <!--                    <i></i>-->
 <!--                    <p th:errors = "*{hashtag}" class="text-danger"-->
 <!--                       th:if="${#fields.hasErrors('hashtag')}"></p>-->
@@ -145,7 +140,7 @@
             >
                 <input
                         class="form-control"
-                        id="name"
+                        id="docName"
                         name="name"
                         th:field="*{name}"
                         type="text"
@@ -177,9 +172,9 @@
                         type="text"
                 />
                 <span>File Path</span>
-
+                <br/>
                 <input
-                        class="form-control"
+                        class="btn btn-primary"
                         type="submit"
                 />
             </form>

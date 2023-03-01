@@ -61,6 +61,7 @@ public class MainController {
         return "feed";
     }
 
+
     @GetMapping("/upload")
     public String upload(Model model){
         Document document = new Document();
@@ -124,11 +125,12 @@ public class MainController {
     }
 
     @PostMapping("/newDocument")
-    public String createDocument(@Valid @ModelAttribute("document") Document document) throws IOException {
+    public String createDocument(@Valid @ModelAttribute("document") Document document, Model model) throws IOException {
         if (document != null) {
             System.out.println("---------------------->"+document.getFilePath());
             cloudService.fileUpload(document.getFilePath());
             documentRepository.save(document);
+//            model.addAttribute("valid", true);
         }
         return "upload";
     }
@@ -154,10 +156,10 @@ public class MainController {
         return "post";
     }
 
-    @GetMapping("/upload")
-    public String upload(Model model){
-        Post post = new Post();
-        model.addAttribute("post", post);
-        return "upload";
-    }
+//    @GetMapping("/upload")
+//    public String upload(Model model){
+//        Post post = new Post();
+//        model.addAttribute("post", post);
+//        return "upload";
+//    }
 }

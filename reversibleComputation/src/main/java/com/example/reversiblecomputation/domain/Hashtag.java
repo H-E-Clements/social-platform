@@ -16,6 +16,7 @@ import lombok.Setter;
 public class Hashtag {
 
     @Id
+    @GeneratedValue
     private long id;
     @Column(nullable=false)
     private String name;
