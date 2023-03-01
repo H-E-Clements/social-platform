@@ -1,0 +1,53 @@
+<!-- just skeleton to test works -->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+    <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<nav>
+    <div class="nav__links">
+        <a th:href="@{/}"><h3>Home</h3></a>
+        <a th:href="@{/events}"><h3>Events</h3></a>
+        <a th:href="@{/playground}"><h3>Playground</h3></a>
+    </div>
+    <div class="nav__profile">
+        <div class="nav__profile">
+          <h4>Profile</h4>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/edit}">Edit Information</a>
+                <a th:href="@{/profile}">Profile</a>
+                <a th:href="@{/users}">Users</a>
+                <a th:href="@{/logout}">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+</nav>
+
+<div class="welcome">
+    <h3>Name: </h3><br>
+    <td th:text = "${user}"></td><br><br>
+    <h3>Email: </h3><br>
+    <td th:text = "${email}"></td><br><br>
+    <h3>Description: </h3><br>
+    <td th:text = "${description}"></td><br><br>
+    <h3>Age: </h3><br>
+    <td th:text = "${age}"></td><br><br>
+    <h3>Location: </h3><br>
+    <td th:text = "${location}"></td><br><br>
+</div>
+</body>
+</html>

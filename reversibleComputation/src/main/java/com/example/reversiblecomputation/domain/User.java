@@ -34,8 +34,14 @@ public class User
     @Column(nullable=false)
     private String password;
 
-    @Column(nullable = true)
+    @Column
     private String description;
+
+    @Column
+    private Integer age;
+
+    @Column
+    private String location;
 
     @OneToMany(mappedBy = "user")
     private Set<Post> documents = new LinkedHashSet<>();

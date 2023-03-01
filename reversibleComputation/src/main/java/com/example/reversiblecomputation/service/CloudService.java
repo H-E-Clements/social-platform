@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 
 @Service
 public class CloudService {
+
     @Autowired
     private Storage storage;
 

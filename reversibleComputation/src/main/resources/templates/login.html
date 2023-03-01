@@ -15,17 +15,27 @@
     <a th:href="@{/playground}"><h3>Playground</h3></a>
   </div>
   <div class="nav__profile">
-    <h4>Profile</h4>
-    <div class="dropdown">
-      <button class="dropbtn">
-        <i class="fa-solid fa-circle-user"></i>
-      </button>
-      <div class="dropdown-content">
-        <a th:href="@{/edit}">Edit Information</a>
-        <a th:href="@{/username}">Check if logged in</a>
-        <a th:href="@{/users}">Users</a>
+    <span th:switch="${navUser}">
+      <div th:case="true">
+        <div class="nav__profile">
+          <h4>Profile</h4>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <i class="fa-solid fa-circle-user"></i>
+            </button>
+            <div class="dropdown-content">
+              <a th:href="@{/edit}">Edit Information</a>
+              <a th:href="@{/profile}">Profile</a>
+              <a th:href="@{/users}">Users</a>
+              <a th:href="@{/logout}">Logout</a>
+            </div>
+          </div>
+        </div>
       </div>
+    <div th:case="false" class="nav__profile">
+      <a th:href="@{/login}" >Log In</a>
     </div>
+    </span>
   </div>
 </nav>
 <!-- code for navbar -->
@@ -44,7 +54,7 @@
       <!-- post form to /login controller -->
         <h2>Login</h2>
         <div class="input-box">
-          <input type="text" id="username" name="username" placeholder="username">
+          <input type="text" id="username" name="username" placeholder="email">
           <span>username</span>
           <!-- input box for username object -->
         </div>
