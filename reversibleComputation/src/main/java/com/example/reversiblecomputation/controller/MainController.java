@@ -30,6 +30,7 @@ import java.util.List;
 @Controller
 public class MainController {
 
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -44,20 +45,42 @@ public class MainController {
     @Autowired
     CloudService cloudService;
 
+    public boolean checkIfLoggedIn(Authentication authentication, Model model){
+        boolean user;
+        try {
+            authentication.getName();
+            user = true;
+        }
+        catch(Exception e) {
+            user = false;
+        }
+        return user;
+    }
     // homepage
     @GetMapping("/")
-    public String home(){
+    public String home(Authentication authentication, Model model){
+
+        // checks if logged in for nav bar
+        boolean navUser = checkIfLoggedIn(authentication, model);
+        System.out.println(navUser);
+        model.addAttribute("navUser", navUser);
         return "home";
     }
 
     // feed page
     @RequestMapping("/feed")
-    public String feed(){
+    public String feed(Authentication authentication, Model model){
+        // checks if logged in for nav bar
+        boolean navUser = checkIfLoggedIn(authentication, model);
+        model.addAttribute("navUser", navUser);
         return "feed";
     }
 
     @GetMapping("/events")
-    public String events(){
+    public String events(Authentication authentication, Model model){
+        // checks if logged in for nav bar
+        boolean navUser = checkIfLoggedIn(authentication, model);
+        model.addAttribute("navUser", navUser);
         return "feed";
     }
 
@@ -139,12 +162,17 @@ public class MainController {
         String user;
         try {
             user = authentication.getName();
+            User object = userRepository.findByEmail(user);
+            model.addAttribute("email", object.getEmail());
+            model.addAttribute("description", object.getDescription());
+            model.addAttribute("user", object.getName());
+
         }
+
         catch(Exception e) {
             user = "Not Logged In";
         }
 
-        model.addAttribute("user", user);
         return "username";
     }
     
@@ -155,10 +183,29 @@ public class MainController {
         return "post";
     }
 
-    @GetMapping("/upload")
-    public String upload(Model model){
-        Post post = new Post();
-        model.addAttribute("post", post);
-        return "upload";
+//    @GetMapping("/upload")
+//    public String upload(Model model){
+//        Post post = new Post();
+//        model.addAttribute("post", post);
+//        return "upload";
+//    }
+
+    @GetMapping("/profile")
+    public String profile(Model model, Authentication authentication){
+        String user;
+        try {
+            user = authentication.getName();
+            User object = userRepository.findByEmail(user);
+            model.addAttribute("email", object.getEmail());
+            model.addAttribute("description", object.getDescription());
+            model.addAttribute("user", object.getName());
+
+        }
+
+        catch(Exception e) {
+            user = "Not Logged In";
+        }
+
+        return "profile";
     }
 }

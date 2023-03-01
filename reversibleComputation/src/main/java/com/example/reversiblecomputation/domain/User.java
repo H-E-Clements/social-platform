@@ -34,6 +34,9 @@ public class User
     @Column(nullable=false)
     private String password;
 
+    @Column
+    private String description;
+
     @OneToMany(mappedBy = "user")
     private Set<Post> documents = new LinkedHashSet<>();
 

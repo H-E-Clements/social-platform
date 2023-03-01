@@ -4,6 +4,7 @@ import com.example.reversiblecomputation.domain.User;
 import com.example.reversiblecomputation.dto.Dto;
 import com.example.reversiblecomputation.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.net.Authenticator;
 import java.util.List;
 
 //@RequestMapping(value = "/auth")
@@ -28,7 +30,16 @@ public class AuthController {
 
     // shows registration form
     @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Authentication authentication, Model model){
+        boolean navUser;
+        try {
+            authentication.getName();
+            navUser = true;
+        }
+        catch(Exception e) {
+            navUser = false;
+        }
+        model.addAttribute("navUser", navUser);
         // dto stores form data
         Dto user = new Dto();
         model.addAttribute("user", user);
@@ -68,7 +79,16 @@ public class AuthController {
 
     // login page
     @GetMapping("/login")
-    public String login(){
+    public String login(Authentication authentication, Model model){
+        boolean user;
+        try {
+            authentication.getName();
+            user = true;
+        }
+        catch(Exception e) {
+            user = false;
+        }
+        model.addAttribute("user", user);
         return "login";
     }
 
