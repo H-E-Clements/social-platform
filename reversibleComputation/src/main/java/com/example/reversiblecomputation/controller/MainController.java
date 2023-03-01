@@ -102,6 +102,7 @@ public class MainController {
             }
             user.setEmail(userDto.getEmail());
             userRepository.save(user);
+            return "redirect:/logout";
         }
         else if (param.equals("name")) {
             user.setName(userDto.getFirstName() + " " + userDto.getLastName());
