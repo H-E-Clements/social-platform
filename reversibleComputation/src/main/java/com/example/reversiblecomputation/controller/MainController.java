@@ -110,12 +110,13 @@ public class MainController {
         else if (param.equals("password")) {
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             userRepository.save(user);
+            return "redirect:/logout";
         }
         return "redirect:/edit?success";
     }
 
     @PostMapping("/newPost")
-    public String createPost(@Valid @ModelAttribute("post") @PathVariable(value = "param") String param, Post post) {
+    public String createPost(@Valid @ModelAttribute("post") Post post) {
         if (post != null) {
             postRepository.save(post);
         }
@@ -151,5 +152,12 @@ public class MainController {
         Post post = new Post();
         model.addAttribute("post", post);
         return "post";
+    }
+
+    @GetMapping("/upload")
+    public String upload(Model model){
+        Post post = new Post();
+        model.addAttribute("post", post);
+        return "upload";
     }
 }
