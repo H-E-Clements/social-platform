@@ -48,6 +48,8 @@
     <td th:text = "${age}"></td><br><br>
     <h3>Location: </h3><br>
     <td th:text = "${location}"></td><br><br>
+    <h3>Profile Picture: <td th:text = "${id}"></td></h3><br>
+    <img th:src="@{/pfp/{id}(id = ${id})}"/>
 </div>
 </body>
 </html>

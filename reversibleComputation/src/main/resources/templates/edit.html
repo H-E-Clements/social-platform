@@ -188,6 +188,15 @@
                     <button class="btn btn-primary" type="submit">Change Location</button>
                 </div>
             </form>
+            <form
+                    method="post"
+                    th:action="@{/edit/save/image}"
+                    enctype="multipart/form-data">
+                <div>
+                    <input type="file" name="image" accept="image/*">
+                </div>
+                <button type="submit">Upload image</button>
+            </form>
         </div>
     </div>
 </div>

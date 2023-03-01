@@ -22,10 +22,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 public class MainController {
@@ -44,6 +45,8 @@ public class MainController {
 
     @Autowired
     CloudService cloudService;
+
+    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/pfp";
 
     public boolean checkIfLoggedIn(Authentication authentication, Model model){
         boolean user;
@@ -103,10 +106,12 @@ public class MainController {
 
     // handles after user submits
     @PostMapping("/edit/save/{param}")
-    public String registration(@Valid @ModelAttribute("user") @PathVariable(value = "param") String param, Dto userDto,
+    public String registration(@Valid @ModelAttribute("user") @PathVariable(value = "param") String param,
+                               Dto userDto,
                                BindingResult result,
                                Model model,
-                               Authentication authentication){
+                               Authentication authentication,
+                               @RequestParam("image") MultipartFile file) throws IOException {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
         String currentUser = authentication.getName();
         User user = userRepository.findByEmail(currentUser);
@@ -152,6 +157,15 @@ public class MainController {
             user.setLocation(userDto.getLocation());
             userRepository.save(user);
             return "redirect:/profile";
+        }
+
+        else if (param.equals("image")) {
+            StringBuilder fileNames = new StringBuilder();
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, Long.toString(user.getId())+".png");
+            fileNames.append(file.getOriginalFilename());
+            Files.write(fileNameAndPath, file.getBytes());
+            model.addAttribute("msg", "Uploaded images: " + fileNames.toString());
+            return "redirect:/edit";
         }
 
         return "redirect:/edit?success";
@@ -218,6 +232,7 @@ public class MainController {
             model.addAttribute("user", object.getName());
             model.addAttribute("age", object.getAge());
             model.addAttribute("location", object.getLocation());
+            model.addAttribute("id", object.getId()+".png");
 
         }
 
