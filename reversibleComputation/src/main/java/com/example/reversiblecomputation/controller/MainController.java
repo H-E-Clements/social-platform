@@ -22,6 +22,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,7 +52,7 @@ public class MainController {
 
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/pfp";
 
-    public boolean checkIfLoggedIn(Authentication authentication, Model model){
+    public boolean checkIfLoggedIn(Authentication authentication){
         boolean user;
         try {
             authentication.getName();
@@ -57,50 +61,111 @@ public class MainController {
         catch(Exception e) {
             user = false;
         }
+
         return user;
     }
+
+    public boolean checkImg(Authentication authentication){
+        if (checkIfLoggedIn(authentication)) {
+            String name = authentication.getName();
+            User user = userRepository.findByEmail(name);
+            if (user.isImg()){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public User userObject(Authentication authentication){
+        if (checkIfLoggedIn(authentication)) {
+            String name = authentication.getName();
+            User user = userRepository.findByEmail(name);
+            return user;
+        }
+        return null;
+    }
+
+
     // homepage
     @GetMapping("/")
     public String home(Authentication authentication, Model model){
 
-        // checks if logged in for nav bar
-        boolean navUser = checkIfLoggedIn(authentication, model);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
+        try {
+        model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
+
         return "home";
     }
 
     // feed page
     @RequestMapping("/feed")
     public String feed(Authentication authentication, Model model){
-        // checks if logged in for nav bar
-        boolean navUser = checkIfLoggedIn(authentication, model);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
         return "feed";
     }
 
     @GetMapping("/events")
     public String events(Authentication authentication, Model model){
-        // checks if logged in for nav bar
-        boolean navUser = checkIfLoggedIn(authentication, model);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
         return "feed";
     }
 
     @GetMapping("/upload")
-    public String upload(Model model){
+    public String upload(Model model, Authentication authentication){
         Document document = new Document();
         Post post = new Post();
         model.addAttribute("post", post);
         model.addAttribute("document", document);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
         return "upload";
     }
 
     // shows edit form
     @GetMapping("/edit")
-    public String showEditForm(Model model){
+    public String showEditForm(Model model, Authentication authentication){
         // dto stores form data
         Dto user = new Dto();
         model.addAttribute("user", user);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
         return "edit";
     }
 
@@ -165,6 +230,8 @@ public class MainController {
             fileNames.append(file.getOriginalFilename());
             Files.write(fileNameAndPath, file.getBytes());
             model.addAttribute("msg", "Uploaded images: " + fileNames.toString());
+            user.setImg(true);
+            userRepository.save(user);
             return "redirect:/edit";
         }
 
@@ -209,9 +276,18 @@ public class MainController {
     }
     
     @GetMapping("/post")
-    public String post(Model model){
+    public String post(Model model, Authentication authentication){
         Post post = new Post();
         model.addAttribute("post", post);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
         return "post";
     }
 
@@ -224,21 +300,22 @@ public class MainController {
 
     @GetMapping("/profile")
     public String profile(Model model, Authentication authentication){
-        String username;
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
         try {
-            User object = userRepository.findByEmail(authentication.getName());
-            model.addAttribute("email", object.getEmail());
-            model.addAttribute("description", object.getDescription());
-            model.addAttribute("user", object.getName());
-            model.addAttribute("age", object.getAge());
-            model.addAttribute("location", object.getLocation());
-            model.addAttribute("id", object.getId()+".png");
-
-        }
-
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
         catch(Exception e) {
-            username = "Not Logged In";
         }
+
+        // profile info
+        model.addAttribute("email", userObject(authentication).getEmail());
+        model.addAttribute("description", userObject(authentication).getDescription());
+        model.addAttribute("user", userObject(authentication).getName());
+        model.addAttribute("age", userObject(authentication).getAge());
+        model.addAttribute("location", userObject(authentication).getLocation());
 
         return "profile";
     }

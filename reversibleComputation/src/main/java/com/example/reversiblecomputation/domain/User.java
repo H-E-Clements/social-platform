@@ -1,10 +1,8 @@
 package com.example.reversiblecomputation.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -43,6 +41,10 @@ public class User
     @Column
     private String location;
 
+    @Column
+    @ColumnDefault("false")
+    private boolean img;
+
     @OneToMany(mappedBy = "user")
     private Set<Post> documents = new LinkedHashSet<>();
 
@@ -52,6 +54,5 @@ public class User
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
-
 
 }

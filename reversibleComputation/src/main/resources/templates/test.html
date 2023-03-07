@@ -1,226 +1,55 @@
-    <!DOCTYPE html>
-<html lang="en">
+<!-- just skeleton to test works -->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-    <meta charset = "UTF-8">
-    <title> Register | Reverse Engineering </title>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
     <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
-    <style>
-        /*root settings for navbar*/
-        /* NOTE - box sizing for nav and box sizing for signup are different for format purposes - otherwise content gets thrown around */
-        /* '*' is applied across  page*/
-        *{
-            font-family: Aldrich;
-            font-style: normal;
-            font-variant: normal;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root{
-            /* primary color scheme */
-            --color-primary: #1c13a3;
-            --color-bg: #0f4cd9;
-
-            /* variant color scheme */
-            --color-variant: rgb(37, 0, 64);
-            --color-bg-variant: rgb(69, 98, 130);
-
-            --color-white: #fff;
-            --transition: all 400ms ease;
-        }
-        a{text-decoration: none;color: inherit;transition: var(--transition);}
-
-        a:hover{text-decoration: underline;}
-
-        nav{color: var(--color-white);height: 3rem;background-color: var(--color-bg);display: flex;
-            justify-content: flex-start;position: relative;padding: 0.5rem 1rem; box-sizing: content-box}
-
-        .nav__links{display: flex;position: absolute;gap: 2rem;padding: 1rem;left: 50%;
-            transform: translateX(-50%);margin: auto 0;height: max-content;}
-
-        .nav__profile{flex: 0 1 auto;display: flex;gap: 0.4rem;margin-left: auto;height: 100%;}
-
-        .fa-circle-user{transition: var(--transition);color: var(--color-primary);font-size: 3rem;}
-
-        .fa-circle-user:hover{color: var(--color-white);cursor: pointer;}
-
-        .nav__profile > *{margin: auto 0;}
-        /*root settings end*/
-
-        /*signup form css begins*/
-
-        .signup{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: white;
-        }
-        /*align everything to be created to centre*/
-
-        .box{
-            position: relative;
-            height: 600px;
-            width: 400px;
-            border-radius: 7px;
-        }
-        .box::before{
-            position: absolute;
-            height: 540px;
-            width: 400px;
-            border-radius: 30px;
-            content: '';
-            background: #23252b;
-        }
-        /*formatting the box which holds the form*/
-
-        .form{
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            padding: 50px 40px;
-        }
-        /*formatting form*/
-
-        .form h2{
-            text-align: center;
-            font-weight: 600;
-            color: white;
-        }
-        /*formatting for 'Create an account' text*/
-
-        .form .input-box{
-            position: relative;
-            width: 320px;
-            margin-top: 30px;
-        }
-        /*sizing input box*/
-
-        .form .input-box input{
-            position: relative;
-            width: 100%;
-            padding: 20px 10px 10px;
-            border: none;
-            outline: none;
-            font-size: 1em;
-            letter-spacing: 0.07em;
-            background: transparent;
-            color: white;
-        }
-        /*formatting text that is inputted by user*/
-
-        .form .input-box span{
-            position: absolute;
-            padding: 20px 10px 10px;
-            left:0;
-            pointer-events: none;
-            font-size: 1em;
-            letter-spacing: 0.07em;
-            color: gray;
-        }
-        /* formatting placeholder text */
-
-        .form .input-box input:valid ~ span,
-        .form .input-box input:focus ~ span{
-            transform: translateY(-20px);
-            color: #23252b;
-        }
-        /* when something exists in input box, placeholder text is removed from view */
-
-        .form .input-box i{
-            position: absolute;
-            left:0;
-            bottom:0;
-            height:2px;
-            width: 100%;
-            background: white;
-        }
-        /*underlining for each input field*/
-
-        .form .sign-in {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form .sign-in a{
-            margin: 20px 0 10px 0px;
-            color: white;
-        }
-        /*formatting the redirect to sign in page*/
-
-        .form .input-btn .btn{
-            width: 100%;
-            padding: 8px 10px;
-            border: 0;
-            font-size: 13px;
-            font-weight: 500;
-            border-radius: 4px;
-            outline: none;
-            margin-top: 10px;
-            background: dodgerblue;
-            color: white;
-        }
-        /*formatting the button*/
-
-        .form .input-btn .btn:active{
-            transform: translateY(4px);
-            background-color: cornflowerblue;
-        }
-        /*button = active is when pressed, creates a pressing motion*/
-
-    </style>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <nav>
     <div class="nav__links">
-        <a href="home.html"><h3>Home</h3></a>
-        <a href="events.html"><h3>Events</h3></a>
-        <a href="playground.html"><h3>Playground</h3></a>
+        <a th:href="@{/}"><h3>Home</h3></a>
+        <a th:href="@{/events}"><h3>Events</h3></a>
+        <a th:href="@{/playground}"><h3>Playground</h3></a>
     </div>
     <div class="nav__profile">
-        <h4>Profile</h4>
-        <a>
-            <i class="fa-solid fa-circle-user"></i>
-        </a>
+        <div class="nav__profile">
+            <h4>Profile</h4>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <i class="fa-solid fa-circle-user"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a th:href="@{/edit}">Edit Information</a>
+                    <a th:href="@{/profile}">Profile</a>
+                    <a th:href="@{/users}">Users</a>
+                    <a th:href="@{/logout}">Logout</a>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
 
-<div class="signup">
-    <div class="box">
-        <div class="form">
-            <form action = "REGISTRATION CONTROLLER" method="post">
-                <h2>Create an account</h2>
-                <div class="input-box">
-                    <input type="text" id="email"required="required">
-                    <span>email</span>
-                    <i></i>
-                </div>
-                <div class="input-box">
-                    <input type="text" id="password"required="required">
-                    <span>password</span>
-                    <i></i>
-                </div>
-                <div class="input-box">
-                    <input type="text" id="matchingpassword"required="required">
-                    <span>confirm password</span>
-                    <i></i>
-                </div>
-                <div class="input-box">
-                    <input type="text" id="name" required="required">
-                    <span>name</span>
-                    <i></i>
-                </div>
-                <div class="sign-in">
-                    <a href="login_page.html">Already got an account? Sign in</a>
-                </div>
-                <div class="input-btn">
-                    <input type="submit" value="Sign up" class = "btn">
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="welcome">
+    <h3>Name: </h3><br>
+    <td th:text = "${user}"></td><br><br>
+    <h3>Email: </h3><br>
+    <td th:text = "${email}"></td><br><br>
+    <h3>Description: </h3><br>
+    <td th:text = "${description}"></td><br><br>
+    <h3>Age: </h3><br>
+    <td th:text = "${age}"></td><br><br>
+    <h3>Location: </h3><br>
+    <td th:text = "${location}"></td><br><br>
+    <h3>Profile Picture: <td th:text = "${id}"></td></h3><br>
+    <img th:src="@{/pfp/{id}(id = ${id})}"/>
 </div>
 </body>
 </html>
