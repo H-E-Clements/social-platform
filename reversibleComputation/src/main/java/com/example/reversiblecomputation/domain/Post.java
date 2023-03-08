@@ -34,8 +34,10 @@ public class Post {
     private User user;
     @OneToMany(mappedBy = "post")
     private Set<Document> document = new HashSet<>();
-    @OneToMany(mappedBy = "post")
-    private Set<Hashtag> hashtags = new HashSet<>();
+    @Column
+    private String hashtags;
+//    @OneToMany(mappedBy = "post")
+//    private Set<Hashtag> hashtags = new HashSet<>();
 
 
 }
