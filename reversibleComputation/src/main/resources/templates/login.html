@@ -1,65 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{nav.html}"
+>
 <head>
   <title>Login Page</title>
   <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css" />
-  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
   <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav>
-  <div class="nav__links">
-    <a th:href="@{/}"><h3>Home</h3></a>
-    <a th:href="@{/events}"><h3>Events</h3></a>
-    <a th:href="@{/playground}"><h3>Playground</h3></a>
-  </div>
-  <div class="nav__profile">
-    <span th:switch="${navUser}">
-      <div th:case="true">
-          <span th:switch="${navImg}">
-              <div th:case="true">
-                <div class="nav__profile">
-                    <h4>Profile</h4>
-                        <div class="dropdown">
-                            <button class="dropbtn">
-                                <img class="nav_img" th:src="@{/pfp/{id}(id = ${id})}" width="48" height="48"/>
-                              <!--<i class="fa-solid fa-circle-user"></i>-->
-                            </button>
-                            <div class="dropdown-content">
-                              <a th:href="@{/edit}">Edit Information</a>
-                        <a th:href="@{/upload}">Upload File</a>
-                        <a th:href="@{/profile}">Profile</a>
-                        <a th:href="@{/users}">Users</a>
-                        <a th:href="@{/logout}">Logout</a>
-                            </div>
-                          </div>
-                        </div>
-              </div>
-              <div th:case="false">
-                <div class="nav__profile">
-                    <h4>Profile</h4>
-                        <div class="dropdown">
-                            <button class="dropbtn">
-                                <i class="fa-solid fa-circle-user"></i>
-                            </button>
-                            <div class="dropdown-content">
-                              <a th:href="@{/edit}">Edit Information</a>
-                        <a th:href="@{/upload}">Upload File</a>
-                        <a th:href="@{/profile}">Profile</a>
-                        <a th:href="@{/users}">Users</a>
-                        <a th:href="@{/logout}">Logout</a>
-                            </div>
-                          </div>
-                        </div>
-              </div>
-          </span>
-      </div>
-    <div th:case="false" class="nav__profile">
-      <a th:href="@{/login}" >Log In</a>
-    </div>
-    </span>
-  </div>
+<nav th:replace="nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})">>
 </nav>
 <!-- code for navbar -->
 
@@ -67,10 +20,10 @@
   <div class="box">
     <div class="form">
       <div th:if="${param.error}">
-        <div class="alert alert-danger">Invalid Email or Password</div>
+        <div class="error" >Invalid Email or Password</div>
       </div>
       <div th:if="${param.logout}">
-        <div class="alert alert-success"> You have been logged out.</div>
+        <div class="error"> You have been logged out.</div>
       </div>
       <!-- messages for invalid login / successful logout -->
       <form method="post" role="form" th:action="@{/login}">

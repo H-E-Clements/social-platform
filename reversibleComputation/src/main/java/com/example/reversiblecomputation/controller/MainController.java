@@ -200,7 +200,7 @@ public class MainController {
                                BindingResult result,
                                Model model,
                                Authentication authentication,
-                               @RequestParam("image") MultipartFile file) throws IOException {
+                               @RequestParam(name="image", required = false) MultipartFile file) throws IOException {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
         String currentUser = authentication.getName();
         User user = userRepository.findByEmail(currentUser);
