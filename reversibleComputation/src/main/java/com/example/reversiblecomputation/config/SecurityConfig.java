@@ -34,11 +34,15 @@ public class SecurityConfig {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/feed").permitAll()
+                                .requestMatchers("/test").permitAll()
                                 .requestMatchers("/search").permitAll()
                                 .requestMatchers("/username").permitAll()
-                                .requestMatchers("/profile").permitAll()
+                                .requestMatchers("/profile/**").permitAll()
                                 .requestMatchers("/upload").permitAll()
                                 .requestMatchers("/newDocument").permitAll()
+                                .requestMatchers("/uploadimage").permitAll()
+                                .requestMatchers("/upload").permitAll()
+                                .requestMatchers("/pfp/**").permitAll()
                                 .requestMatchers("/events").hasRole("ADMIN")
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/edit/**").hasRole("ADMIN")
@@ -47,7 +51,7 @@ public class SecurityConfig {
                         form -> form
                                 .loginPage("/login").permitAll()
                                 .loginProcessingUrl("/login")
-//                                .defaultSuccessUrl("/users")
+                                .defaultSuccessUrl("/")
                                 .permitAll()
                 ).logout(
                         logout -> logout

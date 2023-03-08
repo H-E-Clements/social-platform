@@ -2,8 +2,10 @@ package com.example.reversiblecomputation.controller;
 
 import com.example.reversiblecomputation.domain.User;
 import com.example.reversiblecomputation.dto.Dto;
+import com.example.reversiblecomputation.repository.UserRepository;
 import com.example.reversiblecomputation.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +24,14 @@ public class AuthController {
 
 
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     public AuthController(UserService userService) {
         this.userService = userService;
     }
 
-    public boolean checkIfLoggedIn(Authentication authentication, Model model){
+    public boolean checkIfLoggedIn(Authentication authentication){
         boolean user;
         try {
             authentication.getName();
@@ -36,16 +40,43 @@ public class AuthController {
         catch(Exception e) {
             user = false;
         }
+
         return user;
+    }
+
+    public boolean checkImg(Authentication authentication){
+        if (checkIfLoggedIn(authentication)) {
+            String name = authentication.getName();
+            User user = userRepository.findByEmail(name);
+            if (user.isImg()){
+                return true;
+            }
+
+        }
+        return false;
+    }
+    public User userObject(Authentication authentication){
+        if (checkIfLoggedIn(authentication)) {
+            String name = authentication.getName();
+            User user = userRepository.findByEmail(name);
+            return user;
+        }
+        return null;
     }
 
     // shows registration form
     @GetMapping("/register")
     public String showRegistrationForm(Authentication authentication, Model model){
 
-        // checks if logged in for nav bar
-        boolean navUser = checkIfLoggedIn(authentication, model);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
 
         // dto stores form data
         Dto user = new Dto();
@@ -87,9 +118,15 @@ public class AuthController {
     // login page
     @GetMapping("/login")
     public String login(Authentication authentication, Model model){
-        // checks if logged in for nav bar
-        boolean navUser = checkIfLoggedIn(authentication, model);
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
         return "login";
     }
 

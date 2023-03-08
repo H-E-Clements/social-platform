@@ -6,6 +6,14 @@
     <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
     <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+    <style>
+        #myUL {
+            /* Remove default list styling */
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
 <nav>
@@ -17,20 +25,43 @@
     <div class="nav__profile">
     <span th:switch="${navUser}">
       <div th:case="true">
-        <div class="nav__profile">
-          <h4>Profile</h4>
-          <div class="dropdown">
-            <button class="dropbtn">
-              <i class="fa-solid fa-circle-user"></i>
-            </button>
-            <div class="dropdown-content">
-              <a th:href="@{/edit}">Edit Information</a>
-              <a th:href="@{/profile}">Profile</a>
-              <a th:href="@{/users}">Users</a>
-              <a th:href="@{/logout}">Logout</a>
-            </div>
-          </div>
-        </div>
+          <span th:switch="${navImg}">
+              <div th:case="true">
+                <div class="nav__profile">
+                    <h4>Profile</h4>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                <img class="nav_img" th:src="@{/pfp/{id}(id = ${id})}" width="48" height="48"/>
+                                <!--<i class="fa-solid fa-circle-user"></i>-->
+                            </button>
+                            <div class="dropdown-content">
+                              <a th:href="@{/edit}">Edit Information</a>
+                        <a th:href="@{/upload}">Upload File</a>
+                        <a th:href="@{/profile}">Profile</a>
+                        <a th:href="@{/users}">Users</a>
+                        <a th:href="@{/logout}">Logout</a>
+                            </div>
+                          </div>
+                        </div>
+              </div>
+              <div th:case="false">
+                <div class="nav__profile">
+                    <h4>Profile</h4>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </button>
+                            <div class="dropdown-content">
+                              <a th:href="@{/edit}">Edit Information</a>
+                        <a th:href="@{/upload}">Upload File</a>
+                        <a th:href="@{/profile}">Profile</a>
+                        <a th:href="@{/users}">Users</a>
+                        <a th:href="@{/logout}">Logout</a>
+                            </div>
+                          </div>
+                        </div>
+              </div>
+          </span>
       </div>
     <div th:case="false" class="nav__profile">
       <a th:href="@{/login}" >Log In</a>
@@ -145,12 +176,29 @@
         <div class="layout__right-area-container"> <!-- right section - holds search bar, popular topics, popular profiles -->
             <div class="layout__right-area">
                 <div class="search-feed">
-                    <form th:action="@{/search}">
+                    <form
+                            method="get"
+                            role="form"
+                            th:action="@{/search}"
+                            th:object="${query}"
+                    >
                         <div class="search-feed__box">
-                            <input type="search" class="input-search" name="keyword" placeholder="Search for anything" required>
-                            <!-- search bar, sends input to /search -->
+                            <input  class="input-search"
+                                    id="query"
+                                    name="query"
+                                    placeholder="Search for anything!"
+                                    th:field="*{query}"
+                                    type="search"
+                            />
+                            <button type="submit">Search</button>
                         </div>
                     </form>
+                    <!-- front end needs to be changes for search bar results -->
+                        <tr th:each="user: ${uniqueUsers}">
+                            <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"> <a/>
+                            <td th:text="${user.email}" />
+                        </tr>
+                    </div>
                 </div>
                 <div class="popular-topics">
                     <div class="popular-topics__block">
