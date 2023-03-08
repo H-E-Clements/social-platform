@@ -11,6 +11,7 @@ import com.example.reversiblecomputation.repository.PostRepository;
 import com.example.reversiblecomputation.repository.UserRepository;
 import com.example.reversiblecomputation.service.CloudService;
 import com.example.reversiblecomputation.service.CustomDetailService;
+import com.example.reversiblecomputation.service.SearchAndIdentifyService;
 import com.example.reversiblecomputation.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ import java.util.Set;
 @Controller
 public class MainController {
 
-
+    @Autowired
+    private SearchAndIdentifyService searchAndIdentifyService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -59,64 +61,18 @@ public class MainController {
 
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/pfp";
 
-    public boolean checkIfLoggedIn(Authentication authentication){
-        boolean user;
-        try {
-            authentication.getName();
-            user = true;
-        }
-        catch(Exception e) {
-            user = false;
-        }
-
-        return user;
-    }
-
-    public boolean checkImg(Authentication authentication){
-        if (checkIfLoggedIn(authentication)) {
-            String name = authentication.getName();
-            User user = userRepository.findByEmail(name);
-            if (user.isImg()){
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    public User userObject(Authentication authentication){
-        if (checkIfLoggedIn(authentication)) {
-            String name = authentication.getName();
-            User user = userRepository.findByEmail(name);
-            return user;
-        }
-        return null;
-    }
-
-    public User searchUserObjectId(Authentication authentication, Long id){
-        try {
-            User userObject;
-            Optional<User> user = userRepository.findById(id);
-            userObject = user.get();
-            return userObject;
-        }
-        catch(Exception e) {
-            return null;
-        }
-    }
-
 
     // homepage
     @GetMapping("/")
     public String home(Authentication authentication, Model model){
 
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-        model.addAttribute("id", userObject(authentication).getId()+".png");}
+        model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
 
@@ -124,31 +80,15 @@ public class MainController {
     }
 
     // feed page
-    @RequestMapping("/feed")
-    public String feed(Authentication authentication, Model model){
-        // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
-        model.addAttribute("navImg", navImg);
-        model.addAttribute("navUser", navUser);
-        try {
-            model.addAttribute("id", userObject(authentication).getId()+".png");}
-        catch(Exception e) {
-        }
-        SearchDto searchDto = new SearchDto();
-        model.addAttribute("query", searchDto);
-        return "feed";
-    }
-
-    @GetMapping("/events")
+    @GetMapping("/feed")
     public String events(Authentication authentication, Model model){
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId()+".png");}
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
         SearchDto searchDto = new SearchDto();
@@ -164,12 +104,12 @@ public class MainController {
         model.addAttribute("document", document);
         model.addAttribute("name", "");
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId()+".png");}
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
         return "upload";
@@ -182,12 +122,12 @@ public class MainController {
         Dto user = new Dto();
         model.addAttribute("user", user);
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId()+".png");}
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
         return "edit";
@@ -314,12 +254,12 @@ public class MainController {
         Post post = new Post();
         model.addAttribute("post", post);
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId()+".png");}
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
         return "post";
@@ -335,21 +275,21 @@ public class MainController {
     @GetMapping("/profile")
     public String profile(Model model, Authentication authentication){
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId()+".png");}
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
 
         // profile info if no id attached
-        model.addAttribute("email", userObject(authentication).getEmail());
-        model.addAttribute("description", userObject(authentication).getDescription());
-        model.addAttribute("user", userObject(authentication).getName());
-        model.addAttribute("age", userObject(authentication).getAge());
-        model.addAttribute("location", userObject(authentication).getLocation());
+        model.addAttribute("email", searchAndIdentifyService.userObject(authentication).getEmail());
+        model.addAttribute("description", searchAndIdentifyService.userObject(authentication).getDescription());
+        model.addAttribute("user", searchAndIdentifyService.userObject(authentication).getName());
+        model.addAttribute("age", searchAndIdentifyService.userObject(authentication).getAge());
+        model.addAttribute("location", searchAndIdentifyService.userObject(authentication).getLocation());
 
 
         return "profile";
@@ -358,33 +298,33 @@ public class MainController {
     @GetMapping("/profile/{id}")
     public String foreignProfile(@PathVariable(value = "id") Long id ,Model model, Authentication authentication){
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId()+".png");}
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
 
         // profile info if id attached
-        model.addAttribute("email", searchUserObjectId(authentication, id).getEmail());
-        model.addAttribute("description", searchUserObjectId(authentication, id).getDescription());
-        model.addAttribute("user", searchUserObjectId(authentication, id).getName());
-        model.addAttribute("age", searchUserObjectId(authentication, id).getAge());
-        model.addAttribute("location", searchUserObjectId(authentication, id).getLocation());
+        model.addAttribute("email", searchAndIdentifyService.searchUserObjectId(authentication, id).getEmail());
+        model.addAttribute("description", searchAndIdentifyService.searchUserObjectId(authentication, id).getDescription());
+        model.addAttribute("user", searchAndIdentifyService.searchUserObjectId(authentication, id).getName());
+        model.addAttribute("age", searchAndIdentifyService.searchUserObjectId(authentication, id).getAge());
+        model.addAttribute("location", searchAndIdentifyService.searchUserObjectId(authentication, id).getLocation());
         return "profile";
         }
 
     @GetMapping("/search")
     public String search(Model model, Authentication authentication, @ModelAttribute("query") SearchDto searchDto) {
         // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = checkIfLoggedIn(authentication);
-        boolean navImg = checkImg(authentication);
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId() + ".png");
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId() + ".png");
         }
         catch (Exception e) {
         }

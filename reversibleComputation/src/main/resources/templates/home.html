@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<nav th:replace="nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})">>
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
 
 <div class="welcome">

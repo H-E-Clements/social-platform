@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<nav th:replace="nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})">>
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
 <!-- code for navbar -->
 <div class="login">

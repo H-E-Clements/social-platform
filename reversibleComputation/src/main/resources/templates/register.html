@@ -14,7 +14,7 @@
     <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<nav th:replace="nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})">>
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
 <!-- code for navbar -->
 

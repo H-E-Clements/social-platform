@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-<nav th:replace="nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})">>
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
     <!-- code for navbar -->
 
@@ -148,10 +148,8 @@
                     </form>
                     <!-- front end needs to be changes for search bar results -->
                         <tr th:each="user: ${uniqueUsers}">
-                            <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"> <a/>
-                            <td th:text="${user.email}" />
+                            <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"><a/>
                         </tr>
-                    </div>
                 </div>
                 <div class="popular-topics">
                     <div class="popular-topics__block">
