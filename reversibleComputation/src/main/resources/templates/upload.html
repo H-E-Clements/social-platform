@@ -20,6 +20,11 @@
         hashtags.innerHTML = hashtags.innerHTML+"#"+document.getElementById("hashtag").value
         document.getElementById("hashtag").value = null
     }
+    const setName = () => {
+        console.log(document.getElementById("file"))
+        document.getElementById("name").value = document.getElementById("file").value;
+
+    }
 
 </script>
 
@@ -84,127 +89,122 @@
     <div class="box">
         <div class="form">
             <h2>New Post</h2>
-<!--            <form-->
-<!--                    method="post"-->
-<!--                    role="form"-->
-<!--                    th:action="@{/newPost}"-->
-<!--                    th:object="${post}"-->
-<!--            >-->
-<!--                &lt;!&ndash; post form object 'user' to /register/save &ndash;&gt;-->
-<!--                <div class="input-box">-->
-<!--                    <input-->
-<!--                            class="form-control"-->
-<!--                            id="name"-->
-<!--                            name="name"-->
-<!--                            placeholder="enter post name"-->
-<!--                            th:field="*{name}"-->
-<!--                            type="text"-->
-<!--                    />-->
-<!--                    &lt;!&ndash; input box for attribute 'firstName' &ndash;&gt;-->
-<!--                    <span>First Name</span>-->
-<!--                    <i></i>-->
-<!--                    <p th:errors = "*{name}" class="text-danger"-->
-<!--                       th:if="${#fields.hasErrors('name')}"></p>-->
-<!--                    &lt;!&ndash; checks for errors in this field &ndash;&gt;-->
-<!--                </div>-->
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/newPost}"
+                    th:object="${post}"
+            >
+                <!-- post form object 'user' to /register/save -->
+                <div class="input-box">
+                    <input
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            placeholder="enter post name"
+                            th:field="*{name}"
+                            type="text"
+                    />
+                    <!-- input box for attribute 'firstName' -->
+                    <span>First Name</span>
+                    <i></i>
+                    <p th:errors = "*{name}" class="text-danger"
+                       th:if="${#fields.hasErrors('name')}"></p>
+                    <!-- checks for errors in this field -->
+                </div>
 
-<!--                <div class="input-box">-->
+                <div class="input-box">
 
-<!--                    <input-->
-<!--                            class="form-control"-->
-<!--                            id="lastName"-->
-<!--                            name="description"-->
-<!--                            placeholder="this post is about..."-->
-<!--                            th:field="*{description}"-->
-<!--                            type="textarea"-->
-<!--                    />-->
-<!--                    <span>Description</span>-->
-<!--                    <i></i>-->
-<!--                    <p th:errors = "*{description}" class="text-danger"-->
-<!--                       th:if="${#fields.hasErrors('description')}"></p>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; each input box is similar code &ndash;&gt;-->
+                    <input
+                            class="form-control"
+                            id="lastName"
+                            name="description"
+                            placeholder="this post is about..."
+                            th:field="*{description}"
+                            type="textarea"
+                    />
+                    <span>Description</span>
+                    <i></i>
+                    <p th:errors = "*{description}" class="text-danger"
+                       th:if="${#fields.hasErrors('description')}"></p>
+                </div>
+                <!-- each input box is similar code -->
 
-<!--                <div class="input-box">-->
-<!--                    <div class="input-btn btn btn-primary" onclick="addHashtag()">Add-->
-<!--                    </div>-->
-<!--                    <input-->
-<!--                            class="form-control"-->
-<!--                            id="hashtag"-->
-<!--                            name="hashtag"-->
-<!--                            placeholder="new hashtag e.g.#science"-->
-<!--                            th:field="*{hashtags}"-->
-<!--                            type="text"-->
-<!--                    />-->
-<!--                    <p id="hashtags"></p>-->
-<!--                    <i></i>-->
-<!--                    <p th:errors = "*{hashtag}" class="text-danger"-->
-<!--                       th:if="${#fields.hasErrors('hashtag')}"></p>-->
-<!--                </div>-->
+                <div class="input-box">
+                    <div class="input-btn btn btn-primary" onclick="addHashtag()">Add
+                    </div>
+                    <input
+                            class="form-control"
+                            id="hashtag"
+                            name="hashtag"
+                            placeholder="new hashtag e.g.#science"
+                            th:field="*{hashtags}"
+                            type="text"
+                    />
+                    <p id="hashtags"></p>
+                    <i></i>
+                    <p th:errors = "*{hashtags}" class="text-danger"
+                       th:if="${#fields.hasErrors('hashtags')}"></p>
+                </div>
 
-<!--                <div class="input-box">-->
-<!--                    <input-->
-<!--                            class="form-control"-->
-<!--                            id="document"-->
-<!--                            name="document"-->
-<!--                            th:field="*{password}"-->
-<!--                            type="file"-->
-<!--                    />-->
-<!--&lt;!&ndash;                    <span>Password</span>&ndash;&gt;-->
-<!--                    <i></i>-->
-<!--                    <p th:errors = "*{document}" class="text-danger"-->
-<!--                       th:if="${#fields.hasErrors('document')}"></p>-->
-<!--                </div>-->
-<!--                <div class="input-btn">-->
-<!--                    <button class="btn btn-primary" type="submit">Register</button>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; submit button &ndash;&gt;-->
-<!--                <div class="sign-in">-->
-<!--                    <a th:href="@{/login}">Already got an account? Sign in</a>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; link to login page &ndash;&gt;-->
-<!--            </form>-->
+
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+                <!-- submit button -->
+                <div class="sign-in">
+                    <a th:href="@{/login}">Already got an account? Sign in</a>
+                </div>
+                <!-- link to login page -->
+            </form>
 
             <form
                 method="post"
                 role="form"
                 th:action="@{/newDocument}"
-                th:object="${document}"
+                enctype="multipart/form-data"
             >
-                <input
-                        class="form-control"
-                        id="docName"
-                        name="name"
-                        th:field="*{name}"
-                        type="text"
-                />
-                    <span>Document Name</span>;
-
-                <input
-                        class="form-control"
-                        id="extension"
-                        name="extension"
-                        th:field="*{extension}"
-                        type="text"
-                />
-                    <span>File Type</span>
+<!--                <input-->
+<!--                        class="form-control"-->
+<!--                        id="name"-->
+<!--                        name="name"-->
+<!--                        th:field="*{name}"-->
+<!--                        type="text"-->
+<!--                />-->
+<!--                    <span>Document Name</span>;-->
 
 <!--                <input-->
 <!--                        class="form-control"-->
-<!--                        id="file"-->
-<!--                        name="file"-->
-<!--                        type="file"-->
-<!--                        onchange=""-->
+<!--                        id="extension"-->
+<!--                        name="extension"-->
+<!--                        th:field="*{extension}"-->
+<!--                        type="text"-->
 <!--                />-->
+<!--                    <span>File Type</span>-->
 
                 <input
                         class="form-control"
-                        id="filePath"
-                        name="filePath"
-                        th:field="*{filePath}"
-                        type="text"
+                        id="file"
+                        name="file"
+                        type="file"
+                        onchange="setName()"
                 />
-                <span>File Path</span>
+
+                <input
+                        class="form-control"
+                        id="name"
+                        name="fileName"
+                        type="text"
+                >
+
+<!--                <input-->
+<!--                        class="form-control"-->
+<!--                        id="filePath"-->
+<!--                        name="filePath"-->
+<!--                        th:field="*{filePath}"-->
+<!--                        type="text"-->
+<!--                />-->
+<!--                <span>File Path</span>-->
                 <br/>
                 <input
                         class="btn btn-primary"

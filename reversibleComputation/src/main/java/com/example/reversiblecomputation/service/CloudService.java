@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,12 +25,12 @@ public class CloudService {
     @Autowired
     private Storage storage;
 
-    public ResponseEntity<String> fileUpload(@RequestBody String filePath) throws IOException {
-        File file = new File(filePath);
-        BlobId id = BlobId.of("publication-storage-leicester", file.getName());
+    public ResponseEntity<String> fileUpload(@RequestBody byte[] file, String fileName) throws IOException {
+//        File file = new File(filePath);
+        BlobId id = BlobId.of("publication-storage-leicester", fileName);
         BlobInfo info = BlobInfo.newBuilder(id).build();
-        byte[] arr = Files.readAllBytes(Paths.get(file.toURI()));
-        storage.create(info, arr);
+//        byte[] arr = Files.readAllBytes(Paths.get(file.toURI()));
+        storage.create(info, file);
         return ResponseEntity.ok("File Successfully Uploaded!");
     }
 

@@ -14,14 +14,11 @@ import lombok.Setter;
 @Table(name="document")
 public class Document {
     @Id
-    @GeneratedValue
-    Integer id;
+    String id;
     @Column(nullable=false)
     private String name;
     @Column(nullable=false)
     private String extension;
-    @Column(nullable = false)
-    private String filePath;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "post", nullable = true)

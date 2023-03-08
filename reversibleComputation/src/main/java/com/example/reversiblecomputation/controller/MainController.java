@@ -1,8 +1,8 @@
 package com.example.reversiblecomputation.controller;
 
-import com.example.reversiblecomputation.domain.Document;
-import com.example.reversiblecomputation.domain.Post;
-import com.example.reversiblecomputation.domain.User;
+import autovalue.shaded.com.google.common.base.Charsets;
+import autovalue.shaded.com.google.common.hash.Hashing;
+import com.example.reversiblecomputation.domain.*;
 import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.dto.Dto;
 import com.example.reversiblecomputation.dto.SearchDto;
@@ -29,6 +29,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -156,10 +158,11 @@ public class MainController {
 
     @GetMapping("/upload")
     public String upload(Model model, Authentication authentication){
-        Document document = new Document();
+        PackagedDocument document = new PackagedDocument();
         Post post = new Post();
         model.addAttribute("post", post);
         model.addAttribute("document", document);
+        model.addAttribute("name", "");
         // checks if logged in and if a pfp is set for nav bar
         boolean navUser = checkIfLoggedIn(authentication);
         boolean navImg = checkImg(authentication);
@@ -268,11 +271,21 @@ public class MainController {
     }
 
     @PostMapping("/newDocument")
-    public String createDocument(@Valid @ModelAttribute("document") Document document) throws IOException {
-        if (document != null) {
-            System.out.println("---------------------->"+document.getFilePath());
-            cloudService.fileUpload(document.getFilePath());
+    public String createDocument(@ModelAttribute Post post, @RequestParam MultipartFile file, @RequestParam String fileName) throws IOException {
+        if (file.getSize() > 0) {
+            System.out.println("---------------------->"+file.getName());
+            System.out.println("---------------------->"+file.getSize());
+            Document document = new Document();
+            int lastSlash = fileName.lastIndexOf("\\");
+            int extentionIndex = fileName.lastIndexOf(".");
+            document.setName(fileName.substring(lastSlash+1, extentionIndex));
+            document.setExtension(fileName.substring(extentionIndex));
+            UUID randomId = UUID.randomUUID();
+            document.setId(randomId.toString());
             documentRepository.save(document);
+
+            cloudService.fileUpload(file.getBytes(), randomId.toString());
+//            documentRepository.save(document);
         }
         return "upload";
     }
