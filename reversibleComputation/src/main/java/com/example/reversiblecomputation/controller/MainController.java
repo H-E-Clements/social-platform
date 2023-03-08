@@ -371,12 +371,14 @@ public class MainController {
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("imgid", userObject(authentication).getId() + ".png");
+            model.addAttribute("id", userObject(authentication).getId() + ".png");
         }
         catch (Exception e) {
         }
+        //splits up string into individual queries
         String[] queries = searchDto.getQuery().split("\\s+");
         Set<User> uniqueUsers = new HashSet<User>();
+        //looks for each query in database (only user names)
         for (String query : queries) {
             for (User user : userRepository.findByNameContainingIgnoreCase(query)) {
                 uniqueUsers.add(user);

@@ -193,6 +193,7 @@
                             <button type="submit">Search</button>
                         </div>
                     </form>
+                    <!-- front end needs to be changes for search bar results -->
                         <tr th:each="user: ${uniqueUsers}">
                             <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"> <a/>
                             <td th:text="${user.email}" />
