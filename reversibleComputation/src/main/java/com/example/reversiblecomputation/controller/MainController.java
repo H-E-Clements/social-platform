@@ -5,6 +5,7 @@ import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.domain.User;
 import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.dto.Dto;
+import com.example.reversiblecomputation.dto.SearchDto;
 import com.example.reversiblecomputation.repository.DocumentRepository;
 import com.example.reversiblecomputation.repository.PostRepository;
 import com.example.reversiblecomputation.repository.UserRepository;
@@ -31,6 +32,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -86,6 +91,18 @@ public class MainController {
         return null;
     }
 
+    public User searchUserObjectId(Authentication authentication, Long id){
+        try {
+            User userObject;
+            Optional<User> user = userRepository.findById(id);
+            userObject = user.get();
+            return userObject;
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
+
 
     // homepage
     @GetMapping("/")
@@ -116,6 +133,8 @@ public class MainController {
             model.addAttribute("id", userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
+        SearchDto searchDto = new SearchDto();
+        model.addAttribute("query", searchDto);
         return "feed";
     }
 
@@ -130,6 +149,8 @@ public class MainController {
             model.addAttribute("id", userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
+        SearchDto searchDto = new SearchDto();
+        model.addAttribute("query", searchDto);
         return "feed";
     }
 
@@ -171,7 +192,7 @@ public class MainController {
 
     // handles after user submits
     @PostMapping("/edit/save/{param}")
-    public String registration(@Valid @ModelAttribute("user") @PathVariable(value = "param") String param,
+    public String edit(@Valid @ModelAttribute("user") @PathVariable(value = "param") String param,
                                Dto userDto,
                                BindingResult result,
                                Model model,
@@ -310,13 +331,60 @@ public class MainController {
         catch(Exception e) {
         }
 
-        // profile info
+        // profile info if no id attached
         model.addAttribute("email", userObject(authentication).getEmail());
         model.addAttribute("description", userObject(authentication).getDescription());
         model.addAttribute("user", userObject(authentication).getName());
         model.addAttribute("age", userObject(authentication).getAge());
         model.addAttribute("location", userObject(authentication).getLocation());
 
+
         return "profile";
+    }
+
+    @GetMapping("/profile/{id}")
+    public String foreignProfile(@PathVariable(value = "id") Long id ,Model model, Authentication authentication){
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
+
+        // profile info if id attached
+        model.addAttribute("email", searchUserObjectId(authentication, id).getEmail());
+        model.addAttribute("description", searchUserObjectId(authentication, id).getDescription());
+        model.addAttribute("user", searchUserObjectId(authentication, id).getName());
+        model.addAttribute("age", searchUserObjectId(authentication, id).getAge());
+        model.addAttribute("location", searchUserObjectId(authentication, id).getLocation());
+        return "profile";
+        }
+
+    @GetMapping("/search")
+    public String search(Model model, Authentication authentication, @ModelAttribute("query") SearchDto searchDto) {
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = checkIfLoggedIn(authentication);
+        boolean navImg = checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", userObject(authentication).getId() + ".png");
+        } catch (Exception e) {
+        }
+        String[] queries = searchDto.getQuery().split("\\s+");
+        Set<User> uniqueUsers = new HashSet<User>();
+        for (String query : queries) {
+            for (User user : userRepository.findByNameContainingIgnoreCase(query)) {
+                uniqueUsers.add(user);
+            }
+        }
+        for (User user : uniqueUsers) {
+            System.out.println(user.getName());
+        }
+        model.addAttribute("uniqueUsers", uniqueUsers);
+        return "redirect:/feed?success";
     }
 }
