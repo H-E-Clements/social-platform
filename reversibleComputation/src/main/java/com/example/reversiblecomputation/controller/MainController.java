@@ -371,8 +371,9 @@ public class MainController {
         model.addAttribute("navImg", navImg);
         model.addAttribute("navUser", navUser);
         try {
-            model.addAttribute("id", userObject(authentication).getId() + ".png");
-        } catch (Exception e) {
+            model.addAttribute("imgid", userObject(authentication).getId() + ".png");
+        }
+        catch (Exception e) {
         }
         String[] queries = searchDto.getQuery().split("\\s+");
         Set<User> uniqueUsers = new HashSet<User>();
@@ -381,10 +382,7 @@ public class MainController {
                 uniqueUsers.add(user);
             }
         }
-        for (User user : uniqueUsers) {
-            System.out.println(user.getName());
-        }
         model.addAttribute("uniqueUsers", uniqueUsers);
-        return "redirect:/feed?success";
+        return "feed";
     }
 }
