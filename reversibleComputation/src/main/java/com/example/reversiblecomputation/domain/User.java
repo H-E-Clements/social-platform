@@ -46,7 +46,7 @@ public class User
     private boolean img;
 
     @OneToMany(mappedBy = "user")
-    private Set<Post> documents = new LinkedHashSet<>();
+    private Set<Post> posts = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(

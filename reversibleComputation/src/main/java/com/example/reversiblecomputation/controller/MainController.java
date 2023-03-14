@@ -29,15 +29,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -271,22 +269,34 @@ public class MainController {
     }
 
     @PostMapping("/newDocument")
-    public String createDocument(@ModelAttribute Post post, @RequestParam MultipartFile file, @RequestParam String fileName) throws IOException {
-        if (file.getSize() > 0) {
-            System.out.println("---------------------->"+file.getName());
-            System.out.println("---------------------->"+file.getSize());
+    public String createDocument(@ModelAttribute Post post, @RequestParam MultipartFile file, @RequestParam String fileName, Authentication authentication) {
+        try {
             Document document = new Document();
-            int lastSlash = fileName.lastIndexOf("\\");
-            int extentionIndex = fileName.lastIndexOf(".");
-            document.setName(fileName.substring(lastSlash+1, extentionIndex));
-            document.setExtension(fileName.substring(extentionIndex));
-            UUID randomId = UUID.randomUUID();
-            document.setId(randomId.toString());
-            documentRepository.save(document);
+            if (file.getSize() > 0) {
+                System.out.println("---------------------->"+file.getName());
+                System.out.println("---------------------->"+file.getSize());
+                int lastSlash = fileName.lastIndexOf("\\");
+                int extentionIndex = fileName.lastIndexOf(".");
+                document.setName(fileName.substring(lastSlash+1, extentionIndex));
+                document.setExtension(fileName.substring(extentionIndex));
+                UUID randomId = UUID.randomUUID();
+                document.setId(randomId.toString());
 
-            cloudService.fileUpload(file.getBytes(), randomId.toString());
+                cloudService.fileUpload(file.getBytes(), randomId.toString());
 //            documentRepository.save(document);
+            }
+            System.out.println("documentsSize--------------------->"+post.getDocuments().size());
+            post.setUploaddate(new Date(System.currentTimeMillis()));
+            post.setUser(userRepository.findByEmail(authentication.getName()));
+            postRepository.save(post);
+            document.setPost(post);
+            post.addDocument(document);
+            documentRepository.save(document);
+        } catch (IOException e) {
+            System.err.println(e);
         }
+
+
         return "upload";
     }
 
@@ -299,7 +309,6 @@ public class MainController {
             model.addAttribute("email", object.getEmail());
             model.addAttribute("description", object.getDescription());
             model.addAttribute("user", object.getName());
-
         }
 
         catch(Exception e) {
