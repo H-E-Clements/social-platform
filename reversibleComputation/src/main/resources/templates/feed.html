@@ -10,14 +10,6 @@
     <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
     <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
-    <style>
-        #myUL {
-            /* Remove default list styling */
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-    </style>
 </head>
 <body>
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
@@ -27,28 +19,34 @@
     <div class="layout"> <!-- splitting page into two sections -->
         <div class="layout__left-area"> <!-- left section - holds tweets -->
             <tr th:each="post : ${posts}">
-                <span th:if="${post != null}">
-                    <div class="tweet">
-                        <img class="tweet__author-photo" th:src="@{/pfp/{id}(id=${post.getId()} + '.png')}"/>
-                        <div class="tweet__main">
-                            <div class="tweet__header">
-                                <div class="tweet__author-name">
-                                    <a th:text="${(userRepository.findById(posts.get(0).getId())).get(0).getName()}"></a>
-                                </div>
-                                <div class="tweet__author-link">
-                                    <a th:text="${post.getUploaddate()}"></a>
-                                    <!--<a th:text="${user.email}" th:href="@{/profile/{id}(id = ${post.getId()})}"></a>-->
-                                </div>
-                                <div class="tweet__publish-time">
-                                    <a th:text="${post.getUploaddate()}"></a>
-                                </div>
+                <div class="tweet">
+                    <span th:switch="${post.getUser().isImg()}">
+                        <div th:case="true">
+                            <img class="tweet__author-photo" th:src="@{/pfp/{id}(id=${post.getUser().getId()} + '.png')}"/>
+                        </div>
+                        <div th:case="false" class="tweet__author-photo">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </div>
+                    </span>
+                    <div class="tweet__main">
+                        <div class="tweet__header">
+                            <div class="tweet__author-name">
+                                <a th:text="${post.getUser().getName()}" th:href="@{/profile/{id}(id = ${post.getUser().getId()})}"></a>
+                                <a th:text="${post.getUser().getEmail()}" th:href="@{/profile/{id}(id = ${post.getUser().getId()})}"></a>
                             </div>
-                            <div class="tweet_content">
-                                <p th:text="${post.getDescription()}"></p>
+
+                            <div class="tweet__publish-time">
+                                <a th:text="${post.getUploaddate()}"></a>
                             </div>
                         </div>
+                        <div class="tweet_content">
+                            <b><u>
+                            <p th:text="${post.getName()}"></p>
+                            </u></b>
+                            <p th:text="${post.getDescription()}"></p>
+                        </div>
                     </div>
-                </span>
+                </div>
             </tr>
         </div>
         <div class="layout__right-area-container"> <!-- right section - holds search bar, popular topics, popular profiles -->

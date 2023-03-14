@@ -181,6 +181,16 @@
                 </div>
                 <button type="submit">Upload image</button>
             </form>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/remove}"
+                    th:object="${user}"
+            >
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Remove Img</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

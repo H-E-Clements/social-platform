@@ -9,10 +9,7 @@ import com.example.reversiblecomputation.dto.SearchDto;
 import com.example.reversiblecomputation.repository.DocumentRepository;
 import com.example.reversiblecomputation.repository.PostRepository;
 import com.example.reversiblecomputation.repository.UserRepository;
-import com.example.reversiblecomputation.service.CloudService;
-import com.example.reversiblecomputation.service.CustomDetailService;
-import com.example.reversiblecomputation.service.SearchAndIdentifyService;
-import com.example.reversiblecomputation.service.UserService;
+import com.example.reversiblecomputation.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,15 +27,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -47,6 +40,8 @@ public class MainController {
     private SearchAndIdentifyService searchAndIdentifyService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostService postService;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -81,7 +76,7 @@ public class MainController {
 
     // feed page
     @GetMapping("/feed")
-    public String events(Authentication authentication, Model model){
+    public String feed(Authentication authentication, Model model){
         // checks if logged in and if a pfp is set for nav bar
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
         boolean navImg = searchAndIdentifyService.checkImg(authentication);
@@ -91,8 +86,15 @@ public class MainController {
             model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
+
+        // dto for search bar
         SearchDto searchDto = new SearchDto();
         model.addAttribute("query", searchDto);
+
+        List<Post> posts = postService.findAllElements();
+        System.out.println(posts);
+        model.addAttribute("posts", posts);
+        model.addAttribute("userRepository", userRepository);
         return "feed";
     }
 
@@ -199,6 +201,12 @@ public class MainController {
             return "redirect:/edit";
         }
 
+        else if (param.equals("remove")) {
+            user.setImg(false);
+            userRepository.save(user);
+            return "redirect:/profile";
+        }
+
         return "redirect:/edit?success";
     }
 
@@ -211,24 +219,37 @@ public class MainController {
     }
 
     @PostMapping("/newDocument")
-    public String createDocument(@ModelAttribute Post post, @RequestParam MultipartFile file, @RequestParam String fileName) throws IOException {
-        if (file.getSize() > 0) {
-            System.out.println("---------------------->"+file.getName());
-            System.out.println("---------------------->"+file.getSize());
+    public String createDocument(@ModelAttribute Post post, @RequestParam MultipartFile file, @RequestParam String fileName, Authentication authentication) {
+        try {
             Document document = new Document();
-            int lastSlash = fileName.lastIndexOf("\\");
-            int extentionIndex = fileName.lastIndexOf(".");
-            document.setName(fileName.substring(lastSlash+1, extentionIndex));
-            document.setExtension(fileName.substring(extentionIndex));
-            UUID randomId = UUID.randomUUID();
-            document.setId(randomId.toString());
-            documentRepository.save(document);
+            System.out.println(file.isEmpty());
+                if (file.getSize() > 0) {
+                    System.out.println("---------------------->"+file.getName());
+                    System.out.println("---------------------->"+file.getSize());
+                    int lastSlash = fileName.lastIndexOf("\\");
+                    int extentionIndex = fileName.lastIndexOf(".");
+                    document.setName(fileName.substring(lastSlash+1, extentionIndex));
+                    document.setExtension(fileName.substring(extentionIndex));
+                    UUID randomId = UUID.randomUUID();
+                    document.setId(randomId.toString());
 
-            cloudService.fileUpload(file.getBytes(), randomId.toString());
-//            documentRepository.save(document);
+                    cloudService.fileUpload(file.getBytes(), randomId.toString());
+    //            documentRepository.save(document);
+                }
+            System.out.println("documentsSize--------------------->"+post.getDocuments().size());
+            post.setUploaddate(new Date(System.currentTimeMillis()));
+            post.setUser(userRepository.findByEmail(authentication.getName()));
+            postRepository.save(post);
+            document.setPost(post);
+            post.addDocument(document);
+            documentRepository.save(document);
+        } catch (IOException e) {
+            System.err.println(e);
         }
-        return "upload";
-    }
+
+
+        return "upload";}
+
 
     @GetMapping("/username")
     public String username(Model model, Authentication authentication){
@@ -337,6 +358,9 @@ public class MainController {
                 uniqueUsers.add(user);
             }
         }
+        List<Post> posts = postService.findAllElements();
+        model.addAttribute("posts", posts);
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("uniqueUsers", uniqueUsers);
         return "feed";
     }
