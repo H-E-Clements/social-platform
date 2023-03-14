@@ -26,105 +26,30 @@
 
     <div class="layout"> <!-- splitting page into two sections -->
         <div class="layout__left-area"> <!-- left section - holds tweets -->
-            <div class="tweet">
-                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
-                <div class="tweet__main">
-                    <div class="tweet__header">
-                        <div class="tweet__author-name">
-                            Ryan
-                        </div>
-                        <div class="tweet__author-link">
-                            @ryan
-                        </div>
-                        <div class="tweet__publish-time">
-                            20s
-                        </div>
-                    </div>
-                    <div class="tweet_content">
-                        holder
-                    </div>
-                </div>
-            </div>
-            <div class="tweet">
-                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
-                <div class="tweet__main">
-                    <div class="tweet__header">
-                        <div class="tweet__author-name">
-                            Jack
-                        </div>
-                        <div class="tweet__author-link">
-                            @jack
-                        </div>
-                        <div class="tweet__publish-time">
-                            2d
+            <tr th:each="post : ${posts}">
+                <span th:if="${post != null}">
+                    <div class="tweet">
+                        <img class="tweet__author-photo" th:src="@{/pfp/{id}(id=${post.getId()} + '.png')}"/>
+                        <div class="tweet__main">
+                            <div class="tweet__header">
+                                <div class="tweet__author-name">
+                                    <a th:text="${(userRepository.findById(posts.get(0).getId())).get(0).getName()}"></a>
+                                </div>
+                                <div class="tweet__author-link">
+                                    <a th:text="${post.getUploaddate()}"></a>
+                                    <!--<a th:text="${user.email}" th:href="@{/profile/{id}(id = ${post.getId()})}"></a>-->
+                                </div>
+                                <div class="tweet__publish-time">
+                                    <a th:text="${post.getUploaddate()}"></a>
+                                </div>
+                            </div>
+                            <div class="tweet_content">
+                                <p th:text="${post.getDescription()}"></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="tweet_content">
-                        My publication
-                        <a href="https://www.google.com">https.google.com</a>
-                        #holder1 #holder2 #holder3
-                    </div>
-                </div>
-        </div>
-            <div class="tweet">
-                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
-                <div class="tweet__main">
-                    <div class="tweet__header">
-                        <div class="tweet__author-name">
-                            Paul
-                        </div>
-                        <div class="tweet__author-link">
-                            @paul
-                        </div>
-                        <div class="tweet__publish-time">
-                            15h
-                        </div>
-                    </div>
-                    <div class="tweet_content">
-                        <a href="https://arxiv.org/pdf/1808.08651.pdf">
-                            https://arxiv.org/pdf/1808.08651.pdf
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="tweet">
-                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
-                <div class="tweet__main">
-                    <div class="tweet__header">
-                        <div class="tweet__author-name">
-                            Ryan
-                        </div>
-                        <div class="tweet__author-link">
-                            @ryan
-                        </div>
-                        <div class="tweet__publish-time">
-                            20s
-                        </div>
-                    </div>
-                    <div class="tweet_content">
-                        holder
-                    </div>
-                </div>
-            </div>
-            <div class="tweet">
-                <img class="tweet__author-photo" src="./images/profile_pic_1.png"/>
-                <div class="tweet__main">
-                    <div class="tweet__header">
-                        <div class="tweet__author-name">
-                            Ryan
-                        </div>
-                        <div class="tweet__author-link">
-                            @ryan
-                        </div>
-                        <div class="tweet__publish-time">
-                            20s
-                        </div>
-                    </div>
-                    <div class="tweet_content">
-                        holder
-                    </div>
-                </div>
-            </div>
+                </span>
+            </tr>
         </div>
         <div class="layout__right-area-container"> <!-- right section - holds search bar, popular topics, popular profiles -->
             <div class="layout__right-area">
@@ -148,7 +73,7 @@
                     </form>
                     <!-- front end needs to be changes for search bar results -->
                         <tr th:each="user: ${uniqueUsers}">
-                            <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"><a/>
+                            <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"></a>
                         </tr>
                 </div>
                 <div class="popular-topics">

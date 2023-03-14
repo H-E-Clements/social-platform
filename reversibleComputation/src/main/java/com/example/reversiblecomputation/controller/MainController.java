@@ -30,15 +30,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -81,7 +77,7 @@ public class MainController {
 
     // feed page
     @GetMapping("/feed")
-    public String events(Authentication authentication, Model model){
+    public String feed(Authentication authentication, Model model){
         // checks if logged in and if a pfp is set for nav bar
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
         boolean navImg = searchAndIdentifyService.checkImg(authentication);
@@ -91,8 +87,31 @@ public class MainController {
             model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
+
+        // dto for search bar
         SearchDto searchDto = new SearchDto();
         model.addAttribute("query", searchDto);
+        Date d2 = new Date(2323223232L);
+        Post post = new Post();
+        post.setId(1L);
+        post.setName("asdg");
+        post.setDescription("asdiguohasadsg");
+        post.setUploaddate(d2);
+        post.setUser(searchAndIdentifyService.userObject(authentication));
+        post.setHashtags("#afgafdh");
+        postRepository.save(post);
+
+        List<Post> posts = postRepository.findAll();
+        model.addAttribute("posts", posts);
+        model.addAttribute("userRepository", userRepository);
+
+        System.out.println(posts.get(1));
+
+        for (Post post2 : posts) {
+            if (post2.isEmpty())
+            System.out.println((userRepository.findById(posts.get(0).getId())).get().getName());
+
+        }
         return "feed";
     }
 

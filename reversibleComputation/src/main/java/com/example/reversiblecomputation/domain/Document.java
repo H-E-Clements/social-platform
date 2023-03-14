@@ -20,8 +20,8 @@ public class Document {
     @Column(nullable=false)
     private String extension;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "post", nullable = true)
-    private Post post;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+//    @JoinColumn(name = "post", nullable = true)
+//    private Post post;
 
 }

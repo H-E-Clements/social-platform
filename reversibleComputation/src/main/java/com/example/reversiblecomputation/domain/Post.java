@@ -22,7 +22,7 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     @Column(nullable=false)
     private String name;
     @Column(nullable=false)
@@ -32,10 +32,11 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "documents", nullable = false)
     private User user;
-    @OneToMany(mappedBy = "post")
-    private Set<Document> document = new HashSet<>();
+//    @OneToMany(mappedBy = "post")
+//    private Set<Document> document = new HashSet<>();
     @Column
     private String hashtags;
+
 //    @OneToMany(mappedBy = "post")
 //    private Set<Hashtag> hashtags = new HashSet<>();
 
