@@ -154,6 +154,13 @@ button[type="submit"]:active{
     color: white;
 }
 
+.error {
+    color: #ffffff;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
 /*button = active is when pressed, creates a pressing motion*/
 
 /* OLD CODE
