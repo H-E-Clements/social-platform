@@ -18,6 +18,7 @@
     const addHashtag = () => {
         const hashtags = document.getElementById("hashtags")
         hashtags.innerHTML = hashtags.innerHTML+"#"+document.getElementById("hashtag").value
+        document.getElementById("realHashtag").value = hashtags.innerHTML
         document.getElementById("hashtag").value = null
     }
     const setName = () => {
@@ -92,14 +93,15 @@
             <form
                     method="post"
                     role="form"
-                    th:action="@{/newPost}"
+                    th:action="@{/newDocument}"
                     th:object="${post}"
+                    enctype="multipart/form-data"
             >
                 <!-- post form object 'user' to /register/save -->
                 <div class="input-box">
                     <input
                             class="form-control"
-                            id="name"
+                            id="postName"
                             name="name"
                             placeholder="enter post name"
                             th:field="*{name}"
@@ -138,49 +140,29 @@
                             id="hashtag"
                             name="hashtag"
                             placeholder="new hashtag e.g.#science"
-                            th:field="*{hashtags}"
                             type="text"
                     />
                     <p id="hashtags"></p>
                     <i></i>
-                    <p th:errors = "*{hashtags}" class="text-danger"
-                       th:if="${#fields.hasErrors('hashtags')}"></p>
+<!--                    <p th:errors = "*{hashtags}" class="text-danger"-->
+<!--                       th:if="${#fields.hasErrors('hashtags')}"></p>-->
                 </div>
 
+                <input
+                        class="form-control"
+                        id="realHashtag"
+                        name="hashtag"
+                        th:field="*{hashtags}"
+                        type="hidden"
+                >
 
-                <div class="input-btn">
-                    <button class="btn btn-primary" type="submit">Register</button>
-                </div>
-                <!-- submit button -->
-                <div class="sign-in">
-                    <a th:href="@{/login}">Already got an account? Sign in</a>
-                </div>
-                <!-- link to login page -->
-            </form>
 
-            <form
-                method="post"
-                role="form"
-                th:action="@{/newDocument}"
-                enctype="multipart/form-data"
-            >
-<!--                <input-->
-<!--                        class="form-control"-->
-<!--                        id="name"-->
-<!--                        name="name"-->
-<!--                        th:field="*{name}"-->
-<!--                        type="text"-->
-<!--                />-->
-<!--                    <span>Document Name</span>;-->
-
-<!--                <input-->
-<!--                        class="form-control"-->
-<!--                        id="extension"-->
-<!--                        name="extension"-->
-<!--                        th:field="*{extension}"-->
-<!--                        type="text"-->
-<!--                />-->
-<!--                    <span>File Type</span>-->
+                <input
+                        class="form-control"
+                        id="name"
+                        name="fileName"
+                        type="text"
+                >
 
                 <input
                         class="form-control"
@@ -190,27 +172,70 @@
                         onchange="setName()"
                 />
 
-                <input
-                        class="form-control"
-                        id="name"
-                        name="fileName"
-                        type="text"
-                >
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </div>
 
-<!--                <input-->
-<!--                        class="form-control"-->
-<!--                        id="filePath"-->
-<!--                        name="filePath"-->
-<!--                        th:field="*{filePath}"-->
-<!--                        type="text"-->
-<!--                />-->
-<!--                <span>File Path</span>-->
-                <br/>
-                <input
-                        class="btn btn-primary"
-                        type="submit"
-                />
+                <!-- submit button -->
+                <div class="sign-in">
+                    <a th:href="@{/login}">Already got an account? Sign in</a>
+                </div>
+                <!-- link to login page -->
             </form>
+
+<!--            <form-->
+<!--                method="post"-->
+<!--                role="form"-->
+<!--                th:action="@{/newDocument}"-->
+<!--                enctype="multipart/form-data"-->
+<!--            >-->
+<!--&lt;!&ndash;                <input&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;                        id="name"&ndash;&gt;-->
+<!--&lt;!&ndash;                        name="name"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:field="*{name}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;                />&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span>Document Name</span>;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <input&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;                        id="extension"&ndash;&gt;-->
+<!--&lt;!&ndash;                        name="extension"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:field="*{extension}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;                />&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span>File Type</span>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <input&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;                        id="file"&ndash;&gt;-->
+<!--&lt;!&ndash;                        name="file"&ndash;&gt;-->
+<!--&lt;!&ndash;                        type="file"&ndash;&gt;-->
+<!--&lt;!&ndash;                        onchange="setName()"&ndash;&gt;-->
+<!--&lt;!&ndash;                />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <input&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;                        id="name"&ndash;&gt;-->
+<!--&lt;!&ndash;                        name="fileName"&ndash;&gt;-->
+<!--&lt;!&ndash;                        type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;                >&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <input&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;                        id="filePath"&ndash;&gt;-->
+<!--&lt;!&ndash;                        name="filePath"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:field="*{filePath}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;                />&ndash;&gt;-->
+<!--&lt;!&ndash;                <span>File Path</span>&ndash;&gt;-->
+<!--                <br/>-->
+<!--                <input-->
+<!--                        class="btn btn-primary"-->
+<!--                        type="submit"-->
+<!--                />-->
+<!--            </form>-->
         </div>
     </div>
 </div>

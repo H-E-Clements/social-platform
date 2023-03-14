@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.print.Doc;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
@@ -22,7 +23,7 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
     @Column(nullable=false)
     private String name;
     @Column(nullable=false)
@@ -30,15 +31,14 @@ public class Post {
     @Column(nullable=false)
     private Date uploaddate;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "documents", nullable = false)
+    @JoinColumn(name = "user", nullable = false)
     private User user;
-//    @OneToMany(mappedBy = "post")
-//    private Set<Document> document = new HashSet<>();
+    @OneToMany(mappedBy = "post")
+    private Set<Document> documents = new LinkedHashSet<>();
     @Column
     private String hashtags;
-
 //    @OneToMany(mappedBy = "post")
 //    private Set<Hashtag> hashtags = new HashSet<>();
 
-
+    public void addDocument(Document document) { this.documents.add(document); }
 }
