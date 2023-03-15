@@ -16,7 +16,7 @@
 </nav>
     <!-- code for navbar -->
 
-    <div class="layout"> <!-- splitting page into two sections -->
+    < class="layout"> <!-- splitting page into two sections -->
         <div class="layout__left-area"> <!-- left section - holds tweets -->
             <tr th:each="post : ${posts}">
                 <div class="tweet">
@@ -41,9 +41,16 @@
                         </div>
                         <div class="tweet_content">
                             <b><u>
-                            <p th:text="${post.getName()}"></p>
+                                <p th:text="${post.getName()}"></p>
                             </u></b>
                             <p th:text="${post.getDescription()}"></p>
+                            <span th:switch="${post.getDocuments().isEmpty()}">
+                                <div th:case="true">
+                                    <tr th:each="document : ${post.documents}">
+                                        <p th:text="${document.getName()}"></p>
+                                    </tr>
+                                </div>
+                            </span>
                         </div>
                     </div>
                 </div>

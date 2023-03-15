@@ -96,6 +96,15 @@ public class MainController {
         System.out.println(posts);
         model.addAttribute("posts", posts);
         model.addAttribute("userRepository", userRepository);
+        model.addAttribute("cloudService", cloudService);
+
+        for (Post post : posts) {
+            Set<Document> documents = post.getDocuments();
+            for (Document document : documents) {
+                System.out.println(document.getName() + "NAME");
+                System.out.println(documents);
+            }
+        }
         return "feed";
     }
 
