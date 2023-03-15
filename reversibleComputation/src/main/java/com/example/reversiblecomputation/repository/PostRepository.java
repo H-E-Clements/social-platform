@@ -9,4 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
+
+    List<Post> findAllByUser(User user);
 }

@@ -91,6 +91,7 @@ public class MainController {
         SearchDto searchDto = new SearchDto();
         model.addAttribute("query", searchDto);
 
+        // for viewing posts
         List<Post> posts = postService.findAllElements();
         System.out.println(posts);
         model.addAttribute("posts", posts);
@@ -219,10 +220,11 @@ public class MainController {
     }
 
     @PostMapping("/newDocument")
-    public String createDocument(@ModelAttribute Post post, @RequestParam MultipartFile file, @RequestParam String fileName, Authentication authentication) {
+    public String createDocument(@ModelAttribute Post post, @RequestParam MultipartFile file, @RequestParam String fileName, Authentication authentication, Model model) {
         try {
             Document document = new Document();
             System.out.println(file.isEmpty());
+            if (!file.isEmpty()) {
                 if (file.getSize() > 0) {
                     System.out.println("---------------------->"+file.getName());
                     System.out.println("---------------------->"+file.getSize());
@@ -236,6 +238,14 @@ public class MainController {
                     cloudService.fileUpload(file.getBytes(), randomId.toString());
     //            documentRepository.save(document);
                 }
+            }
+            else {
+                document.setName("EMPTY_FILE");
+                document.setExtension("EMPTY_FILE");
+                UUID randomId = UUID.randomUUID();
+                document.setId(randomId.toString());
+                cloudService.fileUpload(file.getBytes(), randomId.toString());
+            }
             System.out.println("documentsSize--------------------->"+post.getDocuments().size());
             post.setUploaddate(new Date(System.currentTimeMillis()));
             post.setUser(userRepository.findByEmail(authentication.getName()));
@@ -247,6 +257,11 @@ public class MainController {
             System.err.println(e);
         }
 
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
 
         return "upload";}
 
@@ -312,6 +327,11 @@ public class MainController {
         model.addAttribute("age", searchAndIdentifyService.userObject(authentication).getAge());
         model.addAttribute("location", searchAndIdentifyService.userObject(authentication).getLocation());
 
+        // for viewing posts
+        List<Post> posts = postRepository.findAllByUser(searchAndIdentifyService.userObject(authentication));
+        System.out.println(posts);
+        model.addAttribute("posts", posts);
+        model.addAttribute("userRepository", userRepository);
 
         return "profile";
     }
@@ -334,6 +354,13 @@ public class MainController {
         model.addAttribute("user", searchAndIdentifyService.searchUserObjectId(authentication, id).getName());
         model.addAttribute("age", searchAndIdentifyService.searchUserObjectId(authentication, id).getAge());
         model.addAttribute("location", searchAndIdentifyService.searchUserObjectId(authentication, id).getLocation());
+
+        // for viewing posts
+        List<Post> posts = postRepository.findAllByUser(searchAndIdentifyService.searchUserObjectId(authentication, id));
+        System.out.println(posts);
+        model.addAttribute("posts", posts);
+        model.addAttribute("userRepository", userRepository);
+
         return "profile";
         }
 
