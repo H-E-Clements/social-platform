@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{nav.html}"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Create a Post</title>
+
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich"/>
+  <link th:href="@{/css/upload.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
+</nav>
+
+<div class="upload-publication">
+  <div class="box">
+    <div class="form">
+      <h2>Create a Post</h2>
+      <div th:if="${param.titleErr}">
+        <div class="error" >Must enter a Title</div>
+      </div>
+      <div th:if="${param.textErr}">
+        <div class="error" >Must enter text content</div>
+      </div>
+      <div th:if="${param.lenErr}">
+        <div class="error" >Words must not have more than 55 chars</div>
+      </div>
+      <form th:action="@{/createPost}" method="post">
+        <div class="input-box">
+          <input type="text" name="title" placeholder="Title">
+          <i class="underline"></i>
+        </div>
+        <div class="input-box">
+          <textarea class="textarea" name="text" placeholder="Text"></textarea>
+        </div>
+        <div class="submit-btn">
+          <button class="btn btn-primary" type="submit">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

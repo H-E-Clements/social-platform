@@ -1,0 +1,13 @@
+.structure {
+  display: grid;
+  grid-template-columns: auto 350px;
+  margin: 0 auto;
+  margin-top: 20px;
+  max-width: 1200px;
+}
+
+.structure__right-sidebar {
+  margin-left: 10px;
+  position: fixed;
+  width: 350px;
+}

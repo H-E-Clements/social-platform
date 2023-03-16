@@ -1,0 +1,65 @@
+header{
+    display: flex;
+    position: relative;
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    justify-content: center;
+}
+
+.search-bar{
+    display: flex;
+    position: relative;
+    width: 870px;
+    height: 48px;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+select {
+    background: #4c4c4c;
+    flex: 1;
+    padding: 0 .5em;
+    color:#fff;
+    font-size: 1em;
+    border-radius: 10px 0 0 10px;
+    height: 100%;
+}
+.search-category{
+    position: relative;
+    border-radius: 4px 0 0 4px;
+}
+
+.input-search{
+    width: 100%;
+    flex: 1;
+}
+.input-search input{
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+    color: #ffffff;
+    background-color: #333333;
+    font-size: 14px;
+}
+
+.search-btn-btn{
+    font-size: 1em;
+    height: 100%;
+    width: 70px;
+    padding: 0 .5em;
+    background: dodgerblue;
+    color:#fff;
+    border-radius: 0 10px 10px 0;
+}
+
+.new-paper-btn{
+    margin-right: 15px;
+    font-size: 1em;
+    height: 48px;
+    width: 140px;
+    padding: 0 .5em;
+    background: dodgerblue;
+    color:#fff;
+    border-radius: 10px 10px 10px 10px;
+}
