@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <script src="script.js"></script>
+    <title>Playground</title>
+</head>
+<body>
+
+    <div id="initialVariables">
+        <h2>Initial Variables</h2>
+        <div class="initialVariable">
+            <p>x = </p>
+            <input type="text" id="varx"/>
+        </div>
+        <div class="initialVariable">
+            <p>y = </p>
+            <input type="text" id="vary"/>
+        </div>
+        <div class="initialVariable">
+            <p>z = </p>
+            <input type="text" id="varz"/>
+        </div>
+    </div>
+    <button onclick="setVariables()">Set</button>
+
+    <div id="code">
+        <h2>Code</h2>
+        <div class="line highlighted" id="line0">
+            <select id="line0Select">
+                <option value="x">x</option>
+                <option value="y">y</option>
+                <option value="z">z</option>
+            </select>
+            <p>=</p>
+            <input type="text" id="line0Text">
+        </div>
+    </div>
+    <button onclick="addLine()">Add Line</button>
+    <button onclick="previous()">Previous</button>
+    <button onclick="next()">Next</button>
+
+    <h2>Current Memory State</h2>
+    <div id="currentState">
+        <p>x = 0</p>
+        <p>y = 0</p>
+        <p>z = 0</p>
+    </div>
+    <button onclick="updateCurrentState()">Refresh</button>
+
+    <div id="stacks">
+        <h2>Stacks</h2>
+        <div id="stackLists">
+            <ul>
+                <h3>x</h3>
+            </ul>
+            <ul>
+                <h3>y</h3>
+            </ul>
+            <ul>
+                <h3>z</h3>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

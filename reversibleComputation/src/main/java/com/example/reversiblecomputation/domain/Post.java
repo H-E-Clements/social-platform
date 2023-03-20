@@ -30,8 +30,6 @@ public class Post {
     private String description;
     @Column(nullable=false)
     private Date uploaddate;
-    @Column
-    private Long userId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user", nullable = false)
