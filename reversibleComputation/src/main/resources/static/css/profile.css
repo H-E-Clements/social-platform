@@ -14,14 +14,17 @@
     width: 400px;
     border-radius: 7px;
 }
+
+
 .box::before{
     position: absolute;
-    height: 540px;
+    height: 640px;
     width: 400px;
-    border-radius: 30px;
+    border-radius: 100px;/*angles*/
     content: '';
     background: #23252b;
 }
+
 /*formatting the box which holds the form*/
 
 .profile .box .edit-profile {
@@ -40,7 +43,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    padding: 50px 100px ;
+    padding: 30px 130px 50px;
     color: white;
     text-align: center;
 }
