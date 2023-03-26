@@ -1,0 +1,35 @@
+.popular-papers {
+  border-radius: 15px;
+  background: #f5f8fa;
+  margin-bottom: 15px;
+}
+
+.popular-papers__block {
+  border-bottom: 1px solid #e6ecf0;
+  padding: 10px 15px;
+}
+
+.popular-papers__block:last-child {
+  border-bottom: none;
+}
+
+.popular-papers__heading {
+  font-size: 19px;
+  font-weight: bold;
+  color: #14171a;
+}
+
+.popular-papers__meta-information {
+  font-size: 13px;
+  font-weight: 300;
+  color: #657786;
+}
+
+.popular-papers__trend-name {
+  font-size: 15px;
+  color: #14171a;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 2px;
+}
+

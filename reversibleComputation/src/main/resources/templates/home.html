@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{nav.html}"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reversible Computation | Home</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+  <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+  <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
+</nav>
+
+<div class="welcome">
+  <h1>Reverse Engineering</h1>
+  <p>LLorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+  <a class="btn" th:href="@{/login}" >Login</a>
+  <a class="btn" th:href="@{/register}" >Register</a>
+</div>
+</body>
+</html>

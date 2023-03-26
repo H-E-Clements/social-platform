@@ -1,0 +1,121 @@
+nav{
+    color: var(--color-white);
+    height: 4rem;
+    background: var(--color-bg);
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    padding: 0.5rem 1rem;
+    font-family: Aldrich;
+    font-style: normal;
+    font-variant: normal;
+}
+
+.nav__links{
+    display: flex;
+    position: absolute;
+    gap: 2rem;
+    padding: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto 0;
+    height: max-content;
+}
+
+.nav__profile{
+    flex: 0 1 auto;
+    display: flex;
+    gap: 0.4rem;
+    margin-left: auto;
+    height: 100%;
+}
+
+.fa-circle-user{
+    transition: var(--transition);
+    color: var(--color-primary);
+    font-size: 3rem;
+}
+
+.fa-circle-user:hover{
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.nav__profile > *{
+    margin: auto 0;
+}
+
+.dropbtn {
+    background-color: #0f4cd9;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    right: 0;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #0f4cd9;
+}
+
+.nav_img {
+    border-radius: 50%;
+    transition: var(--transition);
+    color: var(--color-primary);
+    width: 48px;
+    height: 48px;
+}
+
+.nav_img:hover{
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    /* primary color scheme */
+    --color-primary: #1c13a3;
+    --color-bg: #0f4cd9;
+
+    /* variant color scheme */
+    --color-variant: rgb(37, 0, 64);
+    --color-bg-variant: rgb(69, 98, 130);
+
+    --color-white: #fff;
+    --transition: all 400ms ease;
+}
+a{text-decoration: none;color: inherit;transition: var(--transition);}
+
+a:hover{text-decoration: underline;}

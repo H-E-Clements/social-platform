@@ -1,0 +1,11 @@
+.new-post-btn{
+    margin-right: 15px;
+    font-size: 1em;
+    height: 48px;
+    width: 100%;
+    padding: 0 .5em;
+    background: dodgerblue;
+    color:#fff;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 15px;
+}

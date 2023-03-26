@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "reverse-engineering-leicester",
+  "private_key_id": "b7a7dff6ce07b7770fa4df30b39f8420680a41e1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDLmVAbHjNLKU8/\nfH2Nn02Dx6KsSQmrOFvEg7kG5aA3GNIvPZ4I80UoLelcYlBJRRxM6da+pwghmt7v\n0c2Pc5OfezhQ5vyBXBphVE69Sficfzw1C37Qjf9Hkt0Pr5+DpdZzCxL204kihx0S\nuoDqKySc7vtf0zNH1yAqtveqqSESemu75hNIGjylz62/Iwp7I4rHCxMn9AslGlu7\nf8ut6XHtodI3QlSX3E7/FgtiNcVqtrlNS87Ppqk58mef60bacpg1tBrqdWgsj28K\nJhpob5mpld9b0pxFLz829SGh//tDOhCSD4tTTteC/6cRe3+LrhaYKXi5l7s5MZu3\nPwKGxzdFAgMBAAECggEAO9HSYv1XFczP33fczdkR5deomJUnFZsL/2uyV+/syHNv\nAflJLxkG5zzCFWY/b5+yJnkIIuEhtvnxaaYLjwvmwlNqYv7TDtD4YUNrlRsgRB7w\nGifD/VPTPvzMHbk8lWoK3adRzZqubqojJScODH9blQ50Zh3AMennphU3JHnn4Sz2\n9sp9DPypYKiT6aS2L1r/gbNuwI7RZjkhzg2Bm403d6GzZpZaoXd/p8VtwmV+TDIU\n1Okea2S+1a5FOY9XwCL/4ISHOsfOF/RFm3tk6pvbCuX/8/kHyZxZBIe7ZCMgADZO\nYPYoxAq1QGD02TVn++HM1snB6nmuF/mFUzKdpynGWwKBgQD+v4SMHV4sHpaeYkQp\n+Ij7/fLD1Ltirh/AWaZpV0+lhF8E4RBUe9H78LfGtXzjhISL+ldpouQCFcAvFZP9\nBMPXHW7Pug7bu1NY0JDVHEuMH+D/yFLxX7HSus4UjB8tO9Qe2S48kqFxexFNJyaV\nUpOu3IpoIdb90a6o7BjhKCDafwKBgQDMmXKUsCw4372ur5pnZIjuOGhHgf+d6iph\nvxGh+u9MOUcEImvsZURVypHb1VrOG3NJ2S5AD9yYSQqmW8m4XLWAUmJLEmuMlcp0\nV8MzBFMl53LF53FkW8QoV/QvlLD845IuivWBlvVR8PRnbx/b66nH+TjUuQWo42RT\nhjxQnAUkOwKBgQDByHQOlaR2UUpn7v5FIw8pCVNrTl7AwQ3cJxYkmcs3cEtLjdz7\nNzlTuhhCKvp2o+6kAGoQLF3fjCYmavapCL/k2jnaAIGe+o97RyR1SFHbpMBmMj+N\n5yqAz6NGFBT/Nry0PqciYrQ2e9R8aSS7gBZhdNhAQEWnzKJdU0PVus3LBwKBgE/m\nCKnqForrTQ6/wsNnrlWhL4/lQ2ZuwLhFPmSMMxEIOSRzMMQzU7lRDx7TNc/RRndr\nWbVovFO4CnGm3KKjibmf8oSwn9FZ2aMPdsoggTwHI3oHhO+VKog6uMAwB+HqGPcW\nCwPdaNXkC/2slrtyT24pdDkWPBCVJGO9wyYTl6prAoGAaOHXR9LpmbNrTsqS2Pyl\nXWflBi9M56J7+sSi6wq4SKHrrVplzMj0/QKbG5/QvMsNowA4RfFFNDvfpWXdts/j\n/tPvtUma/AHBBCqoDvsUA1TNg9uRmYHVI8tHjD6eKT4AKxAREjE/sC5sbr5Kf1Av\nLQeGPO1pjGvx4MK1uDNzdug=\n-----END PRIVATE KEY-----\n",
+  "client_email": "spring-user@reverse-engineering-leicester.iam.gserviceaccount.com",
+  "client_id": "106166414488997745715",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/spring-user%40reverse-engineering-leicester.iam.gserviceaccount.com"
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feed</title>
+  <link rel="stylesheet" th:href="@{/css/feed/global.css}" />
+  <link rel="stylesheet" th:href="@{/css/feed/structure.css}" />
+  <link rel="stylesheet" th:href="@{/css/feed/brand.css}" />
+  <link rel="stylesheet" th:href="@{/css/feed/post.css}" />
+  <link rel="stylesheet" th:href="@{/css/feed/popular-papers.css}" />
+  <link rel="stylesheet" th:href="@{/css/feed/popular-profiles.css}" />
+  <link rel="stylesheet" th:href="@{/css/feed/new-post.css}" />
+
+  <!--The 4 lines below and nav replacement are required in every page-->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+  <!--FOR NAVBAR ICON--><script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+  <link th:href="@{/css/upload.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
+</nav>
+  <div class="structure">
+    <div class="structure__main">
+      <th:block th:each="post: ${posts}">
+      <div class="post">
+        <img class="post__author-logo" src="./images/1.jpg" />
+        <div class="post__main">
+          <div class="post__header">
+            <div class="post__author-name">
+              <span th:text="${post.title}"></span>
+            </div>
+            <div class="post__author-slug">
+              <span th:text="${post.author}"></span>
+            </div>
+            <div class="post__publish-time">
+              <span th:text="${post.postDate}"></span>
+            </div>
+          </div>
+          <div class="post__content">
+            <span th:text="${post.text}"></span>
+          </div>
+        </div>
+      </div>
+      </th:block>
+    </div>
+
+
+    <div class="structure__right-sidebar-container">
+      <div class="structure__right-sidebar">
+        <div class="new-post">
+          <form>
+            <button class="new-post-btn" type="submit" formaction="http://localhost:8080/post">Create a Post</button>
+          </form>
+        </div>
+
+        <div class="popular-papers">
+          <div class="popular-papers__block">
+            <div class="popular-papers__heading">
+              Popular Papers
+            </div>
+          </div>
+
+          <div class="popular-papers__block">
+            <div class="popular-papers__trend-name">
+              Circuit
+            </div>
+            <div class="popular-papers__meta-information">
+              400 downloads
+            </div>
+          </div>
+
+          <div class="popular-papers__block">
+            <div class="popular-papers__trend-name">
+              Solar
+            </div>
+            <div class="popular-papers__meta-information">
+              28 downloads
+            </div>
+          </div>
+
+          <div class="popular-papers__block">
+            <div class="popular-papers__trend-name">
+              Energy
+            </div>
+            <div class="popular-papers__meta-information">
+              34 downloads
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="popular-profiles">
+          <div class="popular-profiles__block">
+            <div class="popular-profiles__heading">
+              Popular Profiles
+            </div>
+          </div>
+
+          <div class="popular-profiles__block">
+            <img class="popular-profiles__author-logo" src="./images/1.jpg"/>
+            <div class="popular-profiles__content">
+              <div>
+                <div class="popular-profiles__author-name">
+                  Glenn
+                </div>
+              </div>
+              <div class="popular-profiles__button">
+                View Profile
+              </div>
+            </div>
+          </div>
+
+          <div class="popular-profiles__block">
+            <img class="popular-profiles__author-logo" src="UNDEFINED"/>
+            <div class="popular-profiles__content">
+              <div>
+                <div class="popular-profiles__author-name">
+                  Jack
+                </div>
+              </div>
+              <div class="popular-profiles__button">
+                View Profile
+              </div>
+            </div>
+          </div>
+
+          <div class="popular-profiles__block">
+            <img class="popular-profiles__author-logo" src="UNDEFINED"/>
+            <div class="popular-profiles__content">
+              <div>
+                <div class="popular-profiles__author-name">
+                  Ryan
+                </div>
+              </div>
+              <div class="popular-profiles__button">
+                View Profile
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{nav.html}"
+>
+<head>
+  <title>Login Page</title>
+  <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+  <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
+</nav>
+<!-- code for navbar -->
+
+<div class="login">
+  <div class="box">
+    <div class="form">
+      <div th:if="${param.error}">
+        <div class="error" >Invalid Email or Password</div>
+      </div>
+      <div th:if="${param.logout}">
+        <div class="error"> You have been logged out.</div>
+      </div>
+      <!-- messages for invalid login / successful logout -->
+      <form method="post" role="form" th:action="@{/login}">
+      <!-- post form to /login controller -->
+        <h2>Login</h2>
+        <div class="input-box">
+          <input type="text" id="username" name="username" placeholder="email">
+          <span>username</span>
+          <!-- input box for username object -->
+        </div>
+        <div class="input-box">
+          <input type="password" id="password" name="password" placeholder="password">
+          <span>password</span>
+          <!-- similar -->
+        </div>
+        <div class="register">
+          <a th:href="@{/register}">Dont have an account? Sign up</a>
+          <!-- link to register page -->
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<!-- OLD CODE
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration and Login System</title>
+  <!DOCTYPE html>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration and Login Page</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<br /><br />
+<div class="container">
+    <div class="form-container">
+      <div th:if="${param.error}">
+        <div class="alert alert-danger">Invalid Email or Password</div>
+      </div>
+      <div th:if="${param.logout}">
+        <div class="alert alert-success"> You have been logged out.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Login Form</h2>
+        </div>
+        <div>
+          <form
+                  method="post"
+                  role="form"
+                  th:action="@{/login}"
+                  class="form-horizontal"
+          >
+            <div>
+              <label class="control-label"> Email</label>
+              <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      class="form-control"
+                      placeholder="Enter email address"
+              />
+            </div>
+
+            <div>
+              <label> Password</label>
+              <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="form-control"
+                      placeholder="Enter password"
+              />
+            </div>
+            <div>
+              <button type="submit">Submit</button>
+              <span> Not registered ?
+                                <a th:href="@{/register}">Register/Signup here</a>
+                            </span>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>
+</body>
+</html>
+-->

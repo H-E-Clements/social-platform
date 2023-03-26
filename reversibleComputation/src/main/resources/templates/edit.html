@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{nav.html}"
+>
+<head>
+    <title>Edit Profile</title>
+    <link th:href="@{/css/edit.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+    <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
+</nav>
+<!-- code for navbar -->
+<div class="login">
+    <div class="box">
+        <div class="form">
+            <h2>Edit Account</h2>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/name}"
+                    th:object="${user}"
+            >
+                <!-- post form object 'user' to /edit/save -->
+                <div class="input-box">
+                    <input
+                            id="firstName"
+                            name="firstName"
+                            placeholder="Enter first name"
+                            th:field="*{firstName}"
+                            type="text"
+                    />
+                    <!-- input box for attribute 'firstName' -->
+                    <span>First Name</span>
+                    <i></i>
+                    <p th:errors = "*{firstName}" class="text-danger"
+                       th:if="${#fields.hasErrors('firstName')}"></p>
+                    <!-- checks for errors in this field -->
+                </div>
+                <div class="input-box">
+
+                    <input
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Enter last name"
+                            th:field="*{lastName}"
+                            type="text"
+                    />
+                    <span>Last Name</span>
+                    <i></i>
+                    <p th:errors = "*{lastName}" class="text-danger"
+                       th:if="${#fields.hasErrors('lastName')}"></p>
+                </div>
+                <!-- each input box is similar code -->
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change first/last name</button>
+                </div>
+            </form>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/email}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="email"
+                            name="email"
+                            placeholder="Enter email address"
+                            th:field="*{email}"
+                            type="email"
+                    />
+                    <span>Email</span>
+                    <i></i>
+                    <p th:errors = "*{email}" class="text-danger"
+                       th:if="${#fields.hasErrors('email')}"></p>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change email address</button>
+                </div>
+            </form>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/password}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="password"
+                            name="password"
+                            placeholder="Enter password"
+                            th:field="*{password}"
+                            type="password"
+                    />
+                    <span>Password</span>
+                    <i></i>
+                    <p th:errors = "*{password}" class="text-danger"
+                       th:if="${#fields.hasErrors('password')}"></p>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change password</button>
+                </div>
+            </form>
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/description}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="description"
+                            name="description"
+                            placeholder="Enter Description"
+                            th:field="*{description}"
+                            type="text"
+                    />
+                    <span>Description</span>
+                    <i></i>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change Description</button>
+                </div>
+            </form>
+
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/age}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="age"
+                            name="age"
+                            placeholder="Enter Age"
+                            th:field="*{age}"
+                            type="text"
+                    />
+                    <span>Age</span>
+                    <i></i>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change Age</button>
+                </div>
+            </form>
+
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/edit/save/location}"
+                    th:object="${user}"
+            >
+                <div class="input-box">
+                    <input
+                            id="location"
+                            name="location"
+                            placeholder="Enter Location"
+                            th:field="*{location}"
+                            type="text"
+                    />
+                    <span>Location</span>
+                    <i></i>
+                </div>
+                <div class="input-btn">
+                    <button class="btn btn-primary" type="submit">Change Location</button>
+                </div>
+            </form>
+            <form
+                    method="post"
+                    th:action="@{/edit/save/image}"
+                    enctype="multipart/form-data">
+                <div>
+                    <input type="file" name="image" accept="image/*">
+                </div>
+                <button type="submit">Upload image</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

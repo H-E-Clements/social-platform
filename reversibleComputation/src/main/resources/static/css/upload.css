@@ -1,0 +1,111 @@
+.upload-publication{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+/*align everything to be created to centre*/
+
+.box{
+    position: relative;
+    height: 415px;
+    width: 400px;
+    border-radius: 7px;
+}
+.box::before{
+    position: absolute;
+    height: 430px;
+    width: 400px;
+    border-radius: 30px;
+    content: '';
+    background: #23252b;
+}
+/*formatting the box which holds the form*/
+
+.form{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 40px;
+}
+/*formatting form*/
+
+.form h2{
+    text-align: center;
+    font-weight: 600;
+    color: white;
+}
+/*formatting for 'Create an account' text*/
+
+.form .input-box{
+    position: relative;
+    width: 320px;
+    margin-top: 30px;
+}
+/*sizing input box*/
+
+.form .input-box input{
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    letter-spacing: 0.07em;
+    background: transparent;
+    color: white;
+}
+/*formatting text that is inputted by user*/
+
+.form .input-box .underline{
+    position: absolute;
+    left:0;
+    bottom:0;
+    height:2px;
+    width: 100%;
+    background: white;
+}
+/*underlining for each input field*/
+
+.form .input-box .textarea{
+    background-color: transparent;
+    color: white;
+    resize: none;
+    padding: 1em;
+    border-radius: 10px;
+    border: 1px solid;
+    outline: grey;
+    font-size: 1em;
+    line-height: 1.4;
+    width: 320px;
+    height: 160px;
+}
+/*configuring textarea for description fields, large+scrollable*/
+
+.form .submit-btn .btn{
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    outline: none;
+    margin-top: 10px;
+    background: dodgerblue;
+    color: white;
+}
+/*formatting the button*/
+
+.form .submit-btn .btn:active{
+    transform: translateY(4px);
+    background-color: cornflowerblue;
+}
+/*button = active is when pressed, creates a pressing motion*/
+
+.form .error{
+    text-align: center;
+    font-weight: 600;
+    color: red;
+}
