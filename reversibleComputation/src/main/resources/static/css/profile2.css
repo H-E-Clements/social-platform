@@ -1,0 +1,54 @@
+.profile{
+    padding-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background: white;
+}
+/*align everything to be created to centre*/
+
+.box{
+    position: relative;
+    height: 600px;
+    width: 400px;
+    border-radius: 7px;
+}
+.box::before{
+    position: absolute;
+    height: 540px;
+    width: 400px;
+    border-radius: 30px;
+    content: '';
+    background: #23252b;
+}
+/*formatting the box which holds the form*/
+
+.profile .box .edit-profile {
+    background-color: dodgerblue;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile .box .edit-profile a{
+    margin: 10px 0 10px 0px;
+    color: black;
+}
+
+.details{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 100px ;
+    color: white;
+    text-align: center;
+}
+/*formatting form*/
+
+.details h2{
+    text-align: center;
+    font-weight: 600;
+    color: white;
+}
+/*formatting for 'Your Profile' text*/

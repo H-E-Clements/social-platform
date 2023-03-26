@@ -24,7 +24,7 @@
                     <h4>Profile</h4>
                         <div class="dropdown">
                             <button class="dropbtn">
-                                <img class="nav_img" th:src="@{/pfp/{id}(id = ${id})}" width="48" height="48"/>
+                                <img class="nav_img" th:src="@{/pfp/{id}(id = ${id} + '.png')}" width="48" height="48"/>
                                 <!--<i class="fa-solid fa-circle-user"></i>-->
                             </button>
                             <div class="dropdown-content">

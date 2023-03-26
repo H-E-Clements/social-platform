@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface FeedRepository extends CrudRepository<Feed, String> {
     List<Feed> findAll();
+
+    List<Feed> findAllByAuthor(String author);
 }
