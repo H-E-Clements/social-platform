@@ -34,7 +34,14 @@ public class FeedController {
 
     @GetMapping("/post")
     public String post(Model model, Authentication authentication){
-        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);boolean navImg = searchAndIdentifyService.checkImg(authentication);model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);try {model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");} catch(Exception e) {}
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
+        model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");
+
+        }
+        catch(Exception e) {}
         return "feed/post";
     }
 

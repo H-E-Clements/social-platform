@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{nav.html}"
->
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
@@ -12,35 +12,200 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
     <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
     <link th:href="@{/css/profile.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/profile/structure.css}" />
+    <link rel="stylesheet" th:href="@{/css/profile/post.css}" />
+    <link rel="stylesheet" th:href="@{/css/profile/comment.css}" />
     <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
-<div class="profile">
-    <div class="box">
-        <div class="details">
-            <h2>Your Profile</h2>
-            <h3>Name: </h3><br>
-            <td th:text = "${user}"></td><i></i><br><br>
-            <h3>Email: </h3><br>
-            <td th:text = "${email}"></td><i></i><br><br>
-            <h3>Description: </h3><br>
-            <td th:text = "${description}"></td><i></i><br><br>
-            <h3>Age: </h3><br>
-            <td th:text = "${age}"></td><i></i><br><br>
-            <h3>Location: </h3><br>
-            <td th:text = "${location}"></td><i></i><br><br>
-
-            <!--
-            <h3>Profile Picture: <td th:text = "${id}"></td></h3><br>
-            <img th:src="@{/pfp/{id}(id = ${id})}" width="100" height="100"/>-->
-            <div class="edit-profile">
-                <a th:href="@{/edit}">Edit Profile</a>
+<div class="structure">
+    <div class="structure__main">
+            <div class="header">
+                <span th:if="${userObj.isImg() == true}">
+                <img th:src="@{/pfp/{id}(id = ${userObj.getId()} + '.png')}"/>
+                    </span>
+                <span th:if="${userObj.isImg() != true}">
+                </span>
+                <div>
+                    <h1>
+                    <p th:text = "${user}"></p>
+                    </h1>
+                </div>
+                <div class="search-feed">
+                    <div>
+                        <form
+                                method="get"
+                                role="form"
+                                th:action="@{/search/{id}(id=${userPage})}"
+                                th:object="${query}"
+                        >
+                            <div class="search-feed__box">
+                                <input  class="input-search"
+                                        id="query"
+                                        name="query"
+                                        placeholder="Search for anything!"
+                                        th:field="*{query}"
+                                        type="search"
+                                />
+                                <button class="button" type="submit">Search</button>
+                            </div>
+                        </form>
+                </div>
+                    <div>
+                        <!-- front end needs to be changes for search bar results -->
+                        <tr th:each="user: ${uniqueUsers}">
+                            <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"></a>
+                        </tr>
+                    </div>
+                </div>
+            </div>
+        <div class="profile__info">
+            <div class="age">
+                <td th:text = "'Age: ' + ${age}"></td>
+            </div>
+            <div class="location">
+                <td th:text = "'Location: ' + ${location}"></td>
             </div>
         </div>
     </div>
+    <span th:if="${userPage == 0}">
+          <div class="buttons">
+              <a class="btn" th:href="@{/profile}" >About Me!</a>
+              <a class="btn" th:href="@{/profile?page=comments}" >Comments</a>
+              <a class="btn" th:href="@{/profile?page=posts}" >Posts</a>
+        </div>
+    </span>
+    <span th:if="${userPage != 0}">
+            <div class="buttons">
+                <a class="btn" th:href="@{/profile/{id}(id=${userPage})}" >About Me!</a>
+                <a class="btn" th:href="@{/profile/{id}?page=comments(id=${userPage})}" >Comments</a>
+                <a class="btn" th:href="@{/profile/{id}?page=posts(id=${userPage})}" >Posts</a>
+            </div>
+    </span>
+
 </div>
+<span th:switch="${page}">
+      <div th:case="description">
+          <div class="description">
+              <span th:if="${userObj.isImg() == true}">
+                <img th:src="@{/pfp/{id}(id = ${userObj.getId()} + '.png')}"/>
+                    </span>
+                <span th:if="${userObj.isImg() != true}">
+                    <i class="fa-solid fa-circle-user"></i>
+                </span>
+              <h1><td th:text = "${user}"></td></h1>
+
+              <h3><p th:text="${description}"></p></h3>
+              <a class="btn" th:href="@{/edit}" >Edit Information</a>
+          </div>
+      </div>
+    <div th:case="posts">
+        <th:block th:each="post: ${posts}">
+            <div class="post">
+                <img class="post__author-logo" />
+                    <div class="post__main">
+                        <div class="post__header">
+                            <div class="post__author-name">
+                                <span th:text="${post.title}"></span>
+                            </div>
+                            <div class="post__author-slug">
+                                <span th:text="${post.author}"></span>
+                            </div>
+                            <div class="post__publish-time">
+                                <span th:text="${post.postDate}"></span>
+                            </div>
+                        </div>
+                    <div class="post__content">
+                        <span th:text="${post.text}"></span>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <div th:case="comments">
+        <div class="comments"> <!-- splitting page into two sections -->
+        <div class="layout__left-area"> <!-- left section - holds tweets -->
+            <span th:if="${comments != null}">
+            <tr th:each="comment : ${comments}">
+                <div class="tweet">
+                        <span th:switch="${comment.getUser().isImg()}">
+                            <div th:case="true">
+                                <img class="tweet__author-photo" th:src="@{/pfp/{id}(id=${comment.getUser().getId()} + '.png')}"/>
+                            </div>
+                            <div th:case="false" class="tweet__author-photo">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </div>
+                        </span>
+                    <div class="tweet__main">
+                        <div class="tweet__header">
+                            <div class="tweet__author-name">
+                                <a th:text="${comment.getUser().getName()}" th:href="@{/profile/{id}(id = ${comment.getUser().getId()})}"></a>
+                            </div>
+
+                            <div class="tweet__publish-time">
+                                <a th:text="${comment.getDate()}"></a>
+                            </div>
+                        </div>
+                        <div class="tweet_content">
+                            <p th:text="${comment.getContent()}"></p>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+            </span>
+        </div>
+            <span th:if="${userPage == 0}">
+          <div class="createComment">
+            <h1>Comment</h1>
+            <div class="comment-submit">
+                    <form
+                            method="post"
+                            role="form"
+                            th:action="@{/createComment}"
+                            th:object="${commentDto}"
+                    >
+                        <div class="search-feed__box">
+                            <input  class="input-search"
+                                    id="comment"
+                                    name="comment"
+                                    placeholder="Comment Anything!"
+                                    th:field="*{content}"
+                                    type="search"
+                            />
+                            <button class="button" type="submit">Comment</button>
+                        </div>
+                    </form>
+        </div>
+        </div>
+    </span>
+    <span th:if="${userPage != 0}">
+            <div class="createComment">
+            <h1>Comment</h1>
+            <div class="comment-submit">
+                    <form
+                            method="post"
+                            role="form"
+                            th:action="@{/createComment/{id}(id=${userPage})}"
+                            th:object="${commentDto2}"
+                    >
+                        <div class="search-feed__box">
+                            <input class="input-search"
+                                   id="comment2"
+                                   name="comment"
+                                   placeholder="Comment Anything!"
+                                   th:field="*{content}"
+                                   type="search"/>
+                            <button class="button" type="submit">Comment</button>
+                        </div>
+                    </form>
+        </div>
+        </div>
+    </span>
+    </div>
+    </div>
+</span>
 </body>
 </html>

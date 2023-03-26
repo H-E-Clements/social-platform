@@ -1,11 +1,11 @@
 package com.example.reversiblecomputation.dto;
 
+import com.example.reversiblecomputation.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
-
-public class SearchDto {
+public class CommentDto {
     @Getter
     @Setter
-    private String query;
+    private String content;
 }

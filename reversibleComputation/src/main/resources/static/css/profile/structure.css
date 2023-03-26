@@ -1,0 +1,219 @@
+body {
+  box-sizing: border-box;
+  font-family: Aldrich;
+  font-style: normal;
+  font-variant: normal;
+}
+
+
+.header {
+  display: grid;
+  grid-template-columns: 40% 40% 20%;
+  grid-template-rows: 200px;
+}
+
+.profile__info {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50px;
+  font-family: Aldrich;
+  font-style: normal;
+  font-variant: normal;
+  text-align: center;
+  text-decoration: underline;
+
+  box-shadow: 0px 10px 10px -2px #D0E0E2;
+}
+
+
+.header > span > img {
+  border-radius: 50%;
+  transition: var(--transition);
+  width: 150px;
+  height: 150px;
+  display: grid;
+  margin-left: 90%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+.header > div {
+  font-family: Aldrich;
+  font-style: normal;
+  font-variant: normal;
+  text-align: center;
+  margin-right: 50%;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-left: 10px;
+}
+
+.age {
+  margin-top: auto;
+  margin-bottom: 100px;
+  margin-left: 70%;
+
+}
+
+.location {
+  margin-top: auto;
+  margin-bottom: 100px;
+  margin-right: 90%;
+}
+
+.buttons {
+  padding-top: 10px;
+  margin-left: 40%;
+  padding-bottom: 50px;
+}
+
+
+.description {
+  border-radius: 25px;
+  background-color: #0F4CD9FF;
+  margin: auto;
+  max-width: 700px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-bottom: 20px;
+  color: white;
+}
+
+.description > span >img{
+  padding: 10px;
+  border-radius: 50%;
+  transition: var(--transition);
+  max-width: 70%;
+}
+
+.description > span > h1 {
+  border-bottom: 1px solid rgb(230, 236, 245);
+}
+
+p{
+  padding: 15px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+a {
+  font-family: Aldrich;
+  font-style: normal;
+  font-variant: normal;
+}
+
+.comments {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  font-family: Aldrich;
+  font-style: normal;
+  font-variant: normal;
+  text-align: center;
+
+}
+
+.createComment {
+  border-radius: 25px;
+  background-color: #0F4CD9FF;
+  margin: auto;
+  max-width: 1000px;
+  min-width: 70%;
+  height: 100px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-bottom: 20px;
+  color: white;
+}
+
+.createComment > h1 {
+  border-bottom: 1px solid rgb(230, 236, 245);
+}
+
+.tweet{
+  display: flex;
+  border-bottom: 1px solid #d5dce0;
+  margin-bottom: 2px;
+  padding: 10px 15px;
+}
+.tweet:hover{
+  background: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.tweet a{
+  color: #158cd6;
+  text-decoration: none;
+}
+.tweet a:hover{
+  text-decoration: underline;
+}
+
+.tweet__author-photo{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+/* code for profile picture in tweets */
+.tweet__header{
+  display: flex;
+}
+.tweet__author-name{
+  font-size: 16px;
+  font-weight: 750;
+  color: #101214;
+  margin-right: 6px;
+}
+.tweet__author-link{
+  color: #506578;
+  font-size: 16px;
+}
+.tweet__publish-time{
+  margin-left: 6px;
+  color: #667b8c;
+}
+
+.search-feed{
+  grid-template-rows: none;
+  min-height: 15px;
+  display: flex;
+  border-radius: 17px;
+}
+.search-feed__box{
+  margin: 0% 20% auto auto;
+  display: flex;
+  background: #0F4CD9FF;
+  padding: 7px;
+  position: relative;
+  border-radius: 17px;
+}
+.search-feed__box .input-search{
+  outline: none;
+  border: 0;
+  padding: 14px 20px;
+  width: 325px;
+  height: 50px;
+  border-radius: 14px;
+}
+
+.results {
+  background-color: #0F4CD9FF;
+}
+
+
+.button {
+  border-radius: 4px;
+  background-color: #1C13A3FF;
+  border: none;
+  color: white;
+  display: inline-block;
+  padding: 7px;
+}
+
+
+
+
+
+
