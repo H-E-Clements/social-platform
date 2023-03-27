@@ -41,7 +41,8 @@ public class FileController {
     @Autowired
     private FeedRepository feedRepo;
 
-    String baseDir = "C:\\Users\\Mandeep\\Downloads\\1003 group\\group-20-development\\reversibleComputation\\src\\main\\resources\\static.uploads\\";
+    String mandeepDir = "C:\\Users\\Mandeep\\Downloads\\1003 group\\group-20-development\\reversibleComputation\\src\\main\\resources\\static.uploads\\";
+    String baseDir = "C:\\Users\\defpr\\Documents\\group-20\\reversibleComputation\\src\\main\\resources\\static\\uploads\\";
     //MUST CHANGE FOR DIFFERENT HOSTS
 
     @GetMapping("/upload")
