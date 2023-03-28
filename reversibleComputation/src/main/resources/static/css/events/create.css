@@ -1,0 +1,117 @@
+.create-event{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+.box{
+    position: relative;
+    height: 550px;
+    width: 400px;
+    border-radius: 7px;
+}
+
+.box::before{
+    position: absolute;
+    height: 750px;
+    width: 400px;
+    border-radius: 30px;
+    content: '';
+    background: #23252b;
+}
+/*formatting the box which holds the form*/
+
+.form{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 40px;
+}
+/*formatting form*/
+
+.form h2{
+    text-align: center;
+    font-weight: 600;
+    color: white;
+}
+/*formatting for 'Create an account' text*/
+
+.form .input-box{
+    position: relative;
+    width: 320px;
+    margin-top: 30px;
+}
+/*sizing input box*/
+
+.form .input-box input{
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    letter-spacing: 0.07em;
+    background: transparent;
+    color: white;
+}
+/*formatting text that is inputted by user*/
+
+.form .input-box .underline{
+    position: absolute;
+    left:0;
+    bottom:0;
+    height:2px;
+    width: 100%;
+    background: white;
+}
+/*underlining for each input field*/
+
+.form .input-box .textarea{
+    background-color: transparent;
+    color: white;
+    resize: none;
+    padding: 1em;
+    border-radius: 10px;
+    border: 1px solid;
+    outline: grey;
+    font-size: 1em;
+    line-height: 1.4;
+    width: 320px;
+    height: 160px;
+}
+/*configuring textarea for description fields, large+scrollable*/
+
+.form .submit-btn .btn{
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    outline: none;
+    margin-top: 10px;
+    background: dodgerblue;
+    color: white;
+}
+/*formatting the button*/
+
+.form .submit-btn .btn:active{
+    transform: translateY(4px);
+    background-color: cornflowerblue;
+}
+/*button = active is when pressed, creates a pressing motion*/
+
+.form .error{
+    text-align: center;
+    font-weight: 600;
+    color: red;
+}
+
+::-webkit-calendar-picker-indicator{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+    cursor: pointer;
+    padding: 5px;
+}
