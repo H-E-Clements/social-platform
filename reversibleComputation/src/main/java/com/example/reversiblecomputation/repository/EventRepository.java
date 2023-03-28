@@ -5,4 +5,20 @@ import com.example.reversiblecomputation.domain.Post;
 import org.springframework.data.repository.CrudRepository;
 
 public interface EventRepository extends CrudRepository<Event, String> {
+    List<Event> findAll();
+
+    @Query(value="SELECT * FROM Event e WHERE e.title LIKE %:keyword%", nativeQuery = true)
+    List<Event> findByKeywordTitle(@Param("keyword") String keyword);
+
+    @Query(value="SELECT * FROM Event e WHERE e.description LIKE %:keyword%", nativeQuery = true)
+    List<Event> findByKeywordDescription(@Param("keyword") String keyword);
+
+    @Query(value="SELECT * FROM Event e WHERE e.date LIKE %:keyword%", nativeQuery = true)
+    List<Event> findByKeywordDate(@Param("keyword") String keyword);
+
+    @Query(value="SELECT * FROM Event e WHERE e.author LIKE %:keyword%", nativeQuery = true)
+    List<Event> findByKeywordAuthor(@Param("keyword") String keyword);
+
+    @Query(value="SELECT * FROM Event e WHERE e.location LIKE %:keyword%", nativeQuery = true)
+    List<Event> findByKeywordLocation(@Param("keyword") String keyword);
 }

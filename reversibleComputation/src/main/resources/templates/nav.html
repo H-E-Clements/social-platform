@@ -13,8 +13,10 @@
   <div class="nav__links">
     <a th:href="@{/}"><h3>Home</h3></a>
     <a th:href="@{/feed}"><h3>Feed</h3></a>
+    <a th:href="@{/playground}"><h3>Simulator</h3></a>
     <a th:href="@{/viewPapers}"><h3>Papers</h3></a>
-    <a th:href="@{/playground}"><h3>Playground</h3></a>
+    <a th:href="@{/events}"><h3>Events</h3></a>
+    <a th:href="@{/users}"><h3>Users</h3></a>
   </div>
   <div class="nav__profile">
     <span th:switch="${navUser}">
@@ -29,11 +31,9 @@
                               <!--<i class="fa-solid fa-circle-user"></i>-->
                             </button>
                             <div class="dropdown-content">
-                              <a th:href="@{/edit}">Edit Information</a>
-                        <a th:href="@{/upload}">Upload File</a>
-                        <a th:href="@{/profile}">Profile</a>
-                        <a th:href="@{/users}">Users</a>
-                        <a th:href="@{/logout}">Logout</a>
+                                <a th:href="@{/profile}">Profile</a>
+                                <a th:href="@{/edit}">Edit Information</a>
+                                <a th:href="@{/logout}">Logout</a>
                             </div>
                           </div>
                         </div>
