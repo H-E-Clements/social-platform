@@ -3,6 +3,7 @@ package com.example.reversiblecomputation.controller;
 import com.example.reversiblecomputation.domain.Event;
 import com.example.reversiblecomputation.repository.EventRepository;
 import com.example.reversiblecomputation.repository.PostRepository;
+import com.example.reversiblecomputation.service.EventDateSortService;
 import com.example.reversiblecomputation.service.SearchAndIdentifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class EventController {
@@ -42,9 +45,9 @@ public class EventController {
                               @RequestParam("description") String description,
                               @RequestParam("date") String date,
                               @RequestParam("time") String time,
-                                @RequestParam("duration") String duration,
-                                @RequestParam("location") String location,
-                                Authentication authentication) throws ParseException {
+                              @RequestParam("duration") String duration,
+                              @RequestParam("location") String location,
+                              Authentication authentication) throws ParseException {
         if(title.isEmpty()){return "redirect:/newEvent?titleErr";}
         if(description.isEmpty()){return "redirect:/newEvent?descriptionErr";}
         if(date.isEmpty()){return "redirect:/newEvent?emptyDateErr";}
@@ -72,11 +75,27 @@ public class EventController {
     }
 
     @GetMapping("/events")
-    public String events(Model model, Authentication authentication){
+    public String events(Model model, Authentication authentication, String keyword, String searchType){
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);boolean navImg = searchAndIdentifyService.checkImg(authentication);model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);try {model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");} catch(Exception e) {}
         //navbar image
 
-        
+        List<Event> events = null;
+
+        if (keyword != null){
+            if (searchType.equals("title")){events = eventRepo.findByKeywordDescription(keyword);}
+            if (searchType.equals("description")){events = eventRepo.findByKeywordDescription(keyword);}
+            if (searchType.equals("date")){events = eventRepo.findByKeywordDate(keyword);}
+            if (searchType.equals("author")){events = eventRepo.findByKeywordAuthor(keyword);}
+            if (searchType.equals("location")){events = eventRepo.findByKeywordLocation(keyword);}
+            model.addAttribute("events", events);
+        }//Events search feature^
+
+        else {
+            events = eventRepo.findAll();
+            model.addAttribute("events", events);
+        }
+
+        Collections.sort(events, (new EventDateSortService()));
 
         return "events/view";
         //returns page to create a new event

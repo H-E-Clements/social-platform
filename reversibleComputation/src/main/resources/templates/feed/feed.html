@@ -24,7 +24,8 @@
     <div class="structure__main">
       <th:block th:each="post: ${posts}">
       <div class="post">
-        <img class="post__author-logo" src="./images/1.jpg" />
+        <!--<img class="post__author-logo" src="./images/1.jpg" />-->
+        <img class="post__author-logo" th:src="@{${'/pfp/' + post.authorId + '.png'}}" />
         <div class="post__main">
           <div class="post__header">
             <div class="post__author-name">

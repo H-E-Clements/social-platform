@@ -1,8 +1,11 @@
 package com.example.reversiblecomputation.repository;
 
 import com.example.reversiblecomputation.domain.Event;
-import com.example.reversiblecomputation.domain.Post;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface EventRepository extends CrudRepository<Event, String> {
     List<Event> findAll();

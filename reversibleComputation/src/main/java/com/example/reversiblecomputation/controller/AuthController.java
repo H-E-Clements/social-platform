@@ -106,14 +106,6 @@ public class AuthController {
         return "redirect:/register?success";
     }
 
-    // lists all users
-    @GetMapping("/users")
-    public String users(Model model){
-        List<Dto> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
-
 
 
     // login page

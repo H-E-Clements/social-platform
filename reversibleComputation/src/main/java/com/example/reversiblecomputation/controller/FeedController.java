@@ -6,7 +6,6 @@ import com.example.reversiblecomputation.repository.FeedRepository;
 import com.example.reversiblecomputation.repository.PostRepository;
 import com.example.reversiblecomputation.service.DateSortService;
 import com.example.reversiblecomputation.service.SearchAndIdentifyService;
-import com.google.rpc.context.AttributeContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -39,7 +38,6 @@ public class FeedController {
         model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);
         try {
             model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");
-
         }
         catch(Exception e) {}
         return "feed/post";
@@ -73,6 +71,7 @@ public class FeedController {
         feed.setTitle(title);
         feed.setText(text);
         feed.setAuthor(searchAndIdentifyService.userObject(authentication).getName());
+        feed.setAuthorId(searchAndIdentifyService.userObject(authentication).getId());
         feed.setPostDate(dtf.format(now));
         feedRepo.save(feed);
 

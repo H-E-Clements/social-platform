@@ -2,10 +2,8 @@ package com.example.reversiblecomputation.controller;
 
 import com.example.reversiblecomputation.domain.Feed;
 import com.example.reversiblecomputation.domain.Paper;
-import com.example.reversiblecomputation.domain.Post;
 import com.example.reversiblecomputation.repository.FeedRepository;
 import com.example.reversiblecomputation.repository.PaperRepository;
-import com.example.reversiblecomputation.service.DateSortService;
 import com.example.reversiblecomputation.service.PaperDateSortService;
 import com.example.reversiblecomputation.service.SearchAndIdentifyService;
 import jakarta.servlet.ServletOutputStream;
@@ -41,8 +39,7 @@ public class FileController {
     @Autowired
     private FeedRepository feedRepo;
 
-    String mandeepDir = "C:\\Users\\Mandeep\\Downloads\\1003 group\\group-20-development\\reversibleComputation\\src\\main\\resources\\static.uploads\\";
-    String baseDir = "C:\\Users\\defpr\\Documents\\group-20\\reversibleComputation\\src\\main\\resources\\static\\uploads\\";
+    String baseDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
     //MUST CHANGE FOR DIFFERENT HOSTS
 
     @GetMapping("/upload")
@@ -89,6 +86,7 @@ public class FileController {
         feed.setTitle(searchAndIdentifyService.userObject(authentication).getName()+" uploaded a paper: "+fileName);
         feed.setText(fileDescription+" | To view this paper, visit the 'Papers' section");
         feed.setAuthor(searchAndIdentifyService.userObject(authentication).getName());
+        feed.setAuthorId(searchAndIdentifyService.userObject(authentication).getId());
         feed.setPostDate(dtf.format(now));
         feedRepo.save(feed);
 
