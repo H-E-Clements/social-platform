@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/css/simulator.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+  <title>Playground</title>
+</head>
+<script>
+  let numLines = 1;
+  let currentLine = 0;
+  let finished = false;
+
+  let optionValues = [{name: "x", value: 0, stack: []}, {name: "y", value: 1, stack: []}, {name: "z", value: 0, stack: []}];
+  let conditionStack = [];
+
+  // characters used to identify variable in expression
+  const regexVar = /[a-zA-Z%]/;
+  const regexMath = /[+\-*\/]+/;
+
+
+  const expression = '5+    9';
+  const result = evaluateExpression(expression);
+  console.log(`The result of ${expression} is ${result}`);
+
+  // function evaluates mathematical expression from string
+  function stringMath(eq, callback) {
+    if (typeof eq !== 'string') return handleCallback(new TypeError('The [String] argument is expected.'), null);
+    const mulDiv = /([+-]?\d*\.?\d+(?:e[+-]\d+)?)\s*([*/])\s*([+-]?\d*\.?\d+(?:e[+-]\d+)?)/;
+    const plusMin = /([+-]?\d*\.?\d+(?:e[+-]\d+)?)\s*([+-])\s*([+-]?\d*\.?\d+(?:e[+-]\d+)?)/;
+    const parentheses = /(\d)?\s*\(([^()]*)\)\s*/;
+    var current;
+    while (eq.search(/^\s*([+-]?\d*\.?\d+(?:e[+-]\d+)?)\s*$/) === -1) {
+      eq = fParentheses(eq);
+      if (eq === current) return handleCallback(new SyntaxError('The equation is invalid.'), null);
+      current = eq;
+    }
+    return handleCallback(null, +eq);
+
+    function fParentheses(eq) {
+      while (eq.search(parentheses) !== -1) {
+        eq = eq.replace(parentheses, function (a, b, c) {
+          c = fMulDiv(c);
+          c = fPlusMin(c);
+          return typeof b === 'string' ? b + '*' + c : c;
+        });
+      }
+      eq = fMulDiv(eq);
+      eq = fPlusMin(eq);
+      return eq;
+    }
+
+    function fMulDiv(eq) {
+      while (eq.search(mulDiv) !== -1) {
+        eq = eq.replace(mulDiv, function (a) {
+          const sides = mulDiv.exec(a);
+          const result = sides[2] === '*' ? sides[1] * sides[3] : sides[1] / sides[3];
+          return result >= 0 ? '+' + result : result;
+        });
+      }
+      return eq;
+    }
+
+    function fPlusMin(eq) {
+      eq = eq.replace(/([+-])([+-])(\d|\.)/g, function (a, b, c, d) { return (b === c ? '+' : '-') + d; });
+      while (eq.search(plusMin) !== -1) {
+        eq = eq.replace(plusMin, function (a) {
+          const sides = plusMin.exec(a);
+          return sides[2] === '+' ? +sides[1] + +sides[3] : sides[1] - sides[3];
+        });
+      }
+      return eq;
+    }
+
+    function handleCallback(errObject, result) {
+      if (typeof callback !== 'function') {
+        if (errObject !== null) throw errObject;
+      } else {
+        callback(errObject, result);
+      }
+      return result;
+
+    }
+
+  }
+
+  // helper function for stringMath()
+  function evaluateExpression(expression) {
+    try {
+      return stringMath(expression);
+    } catch (error) {
+      console.log(`Error evaluating expression: ${error.message}`);
+      return null;
+    }
+  }
+
+  const addLine = () => {
+
+    // get the parent element to which the line divs will be appended
+    const parentElem = document.getElementById("code");
+
+    // create the line div
+    const lineDiv = document.createElement("div");
+    lineDiv.classList.add("line");
+    lineDiv.id = "line" + numLines;
+
+    // create the select element
+    const selectElem = document.createElement("select");
+    selectElem.id = "line"+numLines+"Select";
+
+    // add options to the select element
+    for (let j = 0; j < optionValues.length; j++) {
+      const optionElem = document.createElement("option");
+
+      optionElem.value = optionValues[j].name;
+      optionElem.textContent = optionValues[j].name;
+      selectElem.appendChild(optionElem);
+    }
+
+    // create the p element
+    const pElem = document.createElement("p");
+    pElem.textContent = "=";
+
+    // create the input element
+    const inputElem = document.createElement("input");
+    inputElem.type = "text";
+    inputElem.id = "line" + numLines + "Text";
+
+    // append the elements to the line div
+    lineDiv.appendChild(selectElem);
+    lineDiv.appendChild(pElem);
+    lineDiv.appendChild(inputElem);
+
+    // append the line div to the parent element
+    parentElem.appendChild(lineDiv);
+
+    //increment numlines
+    numLines+=1
+    finished = false;
+  }
+
+  const addConditionalLine = () => {
+
+    // get the parent element to which the line divs will be appended
+    const parentElem = document.getElementById("code");
+
+    // create the line div
+    const lineDiv = document.createElement("div");
+    lineDiv.classList.add("line");
+    lineDiv.id = "line" + numLines;
+    numLines += 1;
+
+    // create the select element
+    const selectElem = document.createElement("select");
+    selectElem.id = "line"+numLines+"Select";
+
+    // add options to the select element
+    for (let j = 0; j < optionValues.length; j++) {
+      const optionElem = document.createElement("option");
+
+      optionElem.value = optionValues[j].name;
+      optionElem.textContent = optionValues[j].name;
+      selectElem.appendChild(optionElem);
+    }
+
+    // create the p element
+    const pElem = document.createElement("p");
+    pElem.textContent = "=";
+
+    // create the input element
+    const inputElem = document.createElement("input");
+    inputElem.type = "text";
+    inputElem.id = "line" + numLines + "Text";
+
+    // append the elements to the line div
+    lineDiv.appendChild(selectElem);
+    lineDiv.appendChild(pElem);
+    lineDiv.appendChild(inputElem);
+
+    // append the line div to the parent element
+    parentElem.appendChild(lineDiv);
+
+    //increment numlines
+    numLines+=1
+
+  }
+
+  const addConditional = () => {
+
+    // get the parent element to which the line divs will be appended
+    const parentElem = document.getElementById("code");
+
+
+
+    // add opening if condition
+
+    // create the line div
+    const opener = document.createElement("div");
+    opener.classList.add("line");
+    opener.classList.add("conditional");
+    opener.id = "line" + numLines;
+
+    // add an if header
+    const ifTitle = document.createElement("p");
+    ifTitle.textContent = "if";
+    opener.appendChild(ifTitle);
+
+    // create and add input box for left hand side of condition
+    const condition = document.createElement("input");
+    condition.type = "text";
+    condition.id = "line" + numLines + "ConditionLeft";
+    opener.appendChild(condition);
+
+    // select element for mathematical operator
+    const selectElem = document.createElement("select");
+    selectElem.id = "line"+numLines+"ConditionOperator";
+
+    // Create an array of mathematical operators
+    const operators = ["=", ">", ">=", "<", "<=", "!="];
+
+    // Loop through the operators array and create an option element for each operator
+    for (let i = 0; i < operators.length; i++) {
+      const optionElem = document.createElement("option");
+      optionElem.value = operators[i];
+      optionElem.text = operators[i];
+      selectElem.appendChild(optionElem);
+    }
+
+    opener.appendChild(selectElem)
+
+    // create and add input box for left hand side of condition
+    const conditionRight = document.createElement("input");
+    conditionRight.type = "text";
+    conditionRight.id = "line" + numLines + "ConditionRight";
+    opener.appendChild(conditionRight);
+
+    // add an then header
+    const thenTitle = document.createElement("p");
+    thenTitle.textContent = "Then";
+    opener.appendChild(thenTitle);
+
+    parentElem.appendChild(opener);
+    numLines+=1;
+
+    // add true case
+    addLine();
+    console.log("line"+numLines)
+    const trueLine = document.getElementById("line"+(numLines-1));
+    trueLine.classList.add("indent");
+
+    // add else condition
+    const elseTitle = document.createElement("p");
+    elseTitle.textContent = "else";
+    elseTitle.classList.add("line");
+    elseTitle.classList.add("conditional");
+    elseTitle.id = "line" + numLines;
+    numLines +=1;
+    parentElem.appendChild(elseTitle);
+
+    // add true case
+    addLine();
+    const falseLine = document.getElementById("line"+(numLines-1));
+    falseLine.classList.add("indent");
+
+    // add closing statement
+    const endTitle = document.createElement("p");
+    endTitle.textContent = "end if";
+    endTitle.classList.add("line");
+    endTitle.classList.add("conditional");
+    endTitle.id = "line" + numLines;
+    numLines +=1;
+    parentElem.appendChild(endTitle);
+  }
+
+  function updateCurrentState() {
+    // get the parent element to which the p elements will be appended
+    const parentElem = document.getElementById("currentState");
+    const stacks = document.getElementById("stackLists");
+
+    // remove all child elements from the parent element
+    while (parentElem.firstChild) {
+      parentElem.removeChild(parentElem.firstChild);
+    }
+    if (stacks) {
+      stacks.innerHTML = "";
+    }
+
+
+
+    // update stack element
+    for (let i = 0; i < optionValues.length; i++) {
+      const option = optionValues[i];
+      const list = document.createElement("ul");
+      const title = document.createElement('h3');
+
+      // set header of list to variable name
+      title.textContent = option.name
+      list.appendChild(title)
+
+      // loop through varable stack and append to list
+      for (let j = 0; j < option.stack.length; j++) {
+        const item = document.createElement('li')
+        item.textContent = option.stack[j];
+        list.appendChild(item);
+      }
+      stacks.appendChild(list);
+    }
+
+    // repeat for condition stack
+    const conditionTitle = document.createElement('h3');
+    const conditionList = document.createElement("ul");
+    conditionTitle.textContent = "conditionals";
+    conditionList.appendChild(conditionTitle);
+    for (let j = 0; j < conditionStack.length; j++) {
+      const Citem = document.createElement('li')
+      Citem.textContent = conditionStack[j];
+      conditionList.appendChild(Citem);
+    }
+    stacks.appendChild(conditionList);
+
+    // loop through the array and create a p element for each object
+    for (let i = 0; i < optionValues.length; i++) {
+      // create the p element
+      const pElem = document.createElement("p");
+      pElem.textContent = optionValues[i].name + " = " + optionValues[i].value;
+
+      // append the p element to the parent element
+      parentElem.appendChild(pElem);
+    }
+  }
+
+  function compareNumbers(num1, num2, operator) {
+    switch (operator) {
+      case "<":
+        return num1 < num2;
+      case ">":
+        return num1 > num2;
+      case "<=":
+        return num1 <= num2;
+      case ">=":
+        return num1 >= num2;
+      case "=":
+        console.log(num1+"=="+num2)
+        return num1 == num2;
+      case "!=":
+        return num1 != num2;
+      default:
+        throw new Error("Invalid operator!");
+    }
+  }
+
+  const evaluateTextBox = (id) => {
+    const expression = document.getElementById(id).value;
+    console.log(expression);
+    let newExpression = expression;
+
+    // check if expression contains variables
+    if (regexVar.test(expression)) {
+      // replace variable name with variable value within expression
+      optionValues.forEach(element => {
+        newExpression = newExpression.replace('%'+element.name, element.value);
+      });
+    };
+
+    // check if expression contains math operators and if so evaluate it
+    if (regexMath.test(expression)) {
+      return evaluateExpression(newExpression);
+    } else {
+      return newExpression;
+    };
+  }
+
+  const executeLine = () => {
+    lineDiv = document.getElementById("line"+currentLine);
+    console.log(lineDiv.innerHTML);
+    // check if line is conditional
+    if (lineDiv.firstChild.innerHTML == "if") {
+      // evaluate left expression
+      const leftSide = evaluateTextBox("line"+currentLine+"ConditionLeft");
+      // evaluate right expression
+      const rightSide = evaluateTextBox("line"+currentLine+"ConditionRight");
+      // get chosen operator
+      const operator = document.getElementById("line"+currentLine+"ConditionOperator").value;
+
+      if (compareNumbers(leftSide, rightSide, operator)) {
+        conditionStack.push(true);
+        return currentLine+1;
+      } else{
+        conditionStack.push(false);
+        lineDiv = document.getElementById("line"+(currentLine+2));
+        lineDiv.classList.add("highlighted");
+        return currentLine+3;
+      }
+    } else if ((lineDiv.innerHTML == "else")) {
+      return currentLine + 2;
+    } else if ((lineDiv.innerHTML == "end if")) {
+      return currentLine + 1;
+    } else {
+      const varName = document.getElementById("line"+currentLine+"Select").value;
+      const lineText = document.getElementById("line"+currentLine+"Text").value;
+      for (var i=0; i<optionValues.length; i++) {
+        if (optionValues[i].name == varName) {
+          varIndex = i;
+          break;
+        }
+      };
+      if (!finished) {
+        optionValues[varIndex].stack.push(optionValues[varIndex].value);
+        optionValues[varIndex].value = evaluateTextBox("line"+currentLine+"Text");
+
+      }
+
+      updateCurrentState();
+      if (currentLine == numLines-1) {
+        finished = true;
+      }
+      return currentLine+1;
+    }
+  }
+
+  const next = () => {
+    if (currentLine < numLines) {
+      try{
+        const nextLine = executeLine();
+        // Get the parent element
+        const parentElement = document.getElementById("line"+currentLine);
+        parentElement.classList.add("highlighted");
+        // Disable all child elements
+        const childElements = parentElement.getElementsByTagName('*');
+        for (let i = 0; i < childElements.length; i++) {
+          childElements[i].disabled = true;
+        }
+        // document.getElementById("line"+currentLine+"Text").disabled = true;
+        // document.getElementById("line"+currentLine+"Select").disabled = true;
+        if (nextLine < numLines) {
+          currentLine = nextLine;
+        }
+        if (currentLine < numLines) {
+          lineDiv = document.getElementById("line"+currentLine);
+          lineDiv.classList.add("highlighted");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+  }
+
+  const previous = () => {
+    // set previous line based on current line
+    let prevLine = currentLine - 1;
+    const prevlineDiv = document.getElementById("line"+prevLine);
+    const currentLineDiv = document.getElementById("line"+currentLine);
+    if (currentLine < numLines) {
+      console.log(prevLine)
+
+      // check if line is normal or of type conditional
+      if (currentLineDiv.classList.contains("conditional")){
+        if (currentLine < numLines) {
+          if (currentLineDiv.innerHTML == "end if") {
+            const result = conditionStack.pop();
+            if (result) {
+              prevLine = currentLine - 3;
+            }
+          } else if (currentLineDiv.innerHTML == "else") {
+            prevLine = currentLine - 2;
+          }
+        }
+
+      } else {
+        // un-execute previous line using stack
+        const varName = document.getElementById("line"+currentLine+"Select");
+        for (var i=0; i<optionValues.length; i++) {
+          if (optionValues[i].name == varName.value) {
+            varIndex = i;
+            break;
+          }
+        };
+        if (optionValues[varIndex].stack.length > 0) {
+          optionValues[varIndex].value = optionValues[varIndex].stack.pop()
+        }
+      }
+
+      updateCurrentState();
+
+
+    }
+
+    // enable current line
+    if (currentLine < numLines) {
+      if (currentLine >= 0) {
+        const parentElement = document.getElementById("line"+currentLine);
+        const childElements = parentElement.getElementsByTagName('*');
+        for (let i = 0; i < childElements.length; i++) {
+          childElements[i].disabled = false;
+        }
+        if (currentLine!=0) {
+          currentLineDiv.classList.remove("highlighted");
+        }
+      }
+    }
+
+    if (currentLine > 0) {
+      currentLine = prevLine;
+    }
+    finished = false;
+  }
+
+  const setVariables = () => {
+    optionValues.forEach(element => {
+      element.value = document.getElementById("var"+element.name).value;
+    });
+    updateCurrentState();
+    currentLine = 0;
+    let code = document.getElementById('code').children;
+    for (var i = 0; i < code.length; i++) {
+      var tableChild = code[i];
+      tableChild.classList.remove("highlighted");
+    }
+    document.getElementById("line0").classList.add("highlighted");
+  }
+</script>
+<body>
+
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
+</nav>
+
+<div id="initialVariables">
+  <h2>Initial Variables</h2>
+  <div class="initialVariable">
+    <p>x = </p>
+    <input type="text" id="varx" value="0"/>
+  </div>
+  <div class="initialVariable" value="0">
+    <p>y = </p>
+    <input type="text" id="vary" value="0"/>
+  </div>
+  <div class="initialVariable">
+    <p>z = </p>
+    <input type="text" id="varz" value="0"/>
+  </div>
+</div>
+<button onclick="setVariables()">Set</button>
+
+<div id="code">
+  <h2>Code</h2>
+  <div class="line highlighted" id="line0">
+    <select id="line0Select">
+      <option value="x">x</option>
+      <option value="y">y</option>
+      <option value="z">z</option>
+    </select>
+    <p>=</p>
+    <input type="text" id="line0Text">
+  </div>
+</div>
+<button onclick="addLine()">Add Line</button>
+<button onclick="addConditional()">Conditional</button>
+<button onclick="previous()">Previous</button>
+<button onclick="next()">Next</button>
+
+<h2>Current Memory State</h2>
+<div id="currentState">
+  <p>x = 0</p>
+  <p>y = 0</p>
+  <p>z = 0</p>
+</div>
+<button onclick="updateCurrentState()">Refresh</button>
+
+<div id="stacks">
+  <h2>Stacks</h2>
+  <div id="stackLists">
+    <ul>
+      <h3>x</h3>
+    </ul>
+    <ul>
+      <h3>y</h3>
+    </ul>
+    <ul>
+      <h3>z</h3>
+    </ul>
+    <ul>
+      <h3>conditionals</h3>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

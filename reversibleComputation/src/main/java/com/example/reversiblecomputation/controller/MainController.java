@@ -77,4 +77,9 @@ public class MainController {
         return "username";
     }
 
+    @GetMapping("/playground")
+    public String playground() {
+        return "simulator";
+    }
+
 }

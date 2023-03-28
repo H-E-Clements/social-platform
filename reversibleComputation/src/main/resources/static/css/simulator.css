@@ -1,0 +1,47 @@
+.initialVariable{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.initialVariable input{
+    height: 18px;
+    margin: auto 0;
+}
+
+.line{
+    display: flex;
+    gap: 0.5rem;
+    height: 2rem;
+    margin:0;
+}
+
+.line > * {
+    margin: auto 0;
+}
+
+.indent {
+    padding-left: 1rem;
+}
+
+#stackLists{
+    display: flex;
+}
+
+h2{
+    padding-top: 2rem;
+    margin: 0;
+}
+
+h3{
+    margin: 0;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0 10px;
+    /* margin: 0; */
+}
+
+.highlighted{
+    background: #ddd;
+}

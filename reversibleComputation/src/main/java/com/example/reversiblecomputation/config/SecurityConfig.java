@@ -34,6 +34,7 @@ public class SecurityConfig {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/feed").permitAll()
+                                .requestMatchers("/playground").permitAll()
                                 .requestMatchers("/test").permitAll()
                                 .requestMatchers("/search").permitAll()
                                 .requestMatchers("/username").permitAll()
