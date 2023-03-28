@@ -9,6 +9,7 @@ public class Feed {
     private String title;
     private String text;
     private String author;
+    private Long authorId;
     private String postDate;
 
     public String getTitle() {return title;}
@@ -22,4 +23,7 @@ public class Feed {
 
     public String getPostDate() {return postDate;}
     public void setPostDate(String postDate) {this.postDate = postDate;}
+
+    public Long getAuthorId() {return authorId;}
+    public void setAuthorId(Long authorId) {this.authorId = authorId;}
 }

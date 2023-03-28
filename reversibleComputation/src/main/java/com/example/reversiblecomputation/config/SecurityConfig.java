@@ -58,6 +58,7 @@ public class SecurityConfig {
 
                                 .requestMatchers("/newEvent").permitAll()
                                 .requestMatchers("/createEvent").permitAll()
+                                .requestMatchers("/events").permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login").permitAll()
