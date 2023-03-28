@@ -10,6 +10,7 @@ body {
   display: grid;
   grid-template-columns: 40% 40% 20%;
   grid-template-rows: 200px;
+  box-shadow: 0px 10px 10px -2px #D0E0E2;
 }
 
 .profile__info {
@@ -21,14 +22,12 @@ body {
   font-variant: normal;
   text-align: center;
   text-decoration: underline;
-
   box-shadow: 0px 10px 10px -2px #D0E0E2;
 }
 
 
 .header > span > img {
   border-radius: 50%;
-  transition: var(--transition);
   width: 150px;
   height: 150px;
   display: grid;
@@ -49,19 +48,6 @@ body {
   padding-left: 10px;
 }
 
-.age {
-  margin-top: auto;
-  margin-bottom: 100px;
-  margin-left: 70%;
-
-}
-
-.location {
-  margin-top: auto;
-  margin-bottom: 100px;
-  margin-right: 90%;
-}
-
 .buttons {
   padding-top: 10px;
   margin-left: 40%;
@@ -73,34 +59,12 @@ body {
   border-radius: 25px;
   background-color: #0F4CD9FF;
   margin: auto;
-  max-width: 700px;
+  max-width: 500px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   text-align: center;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   color: white;
-}
-
-.description > span >img{
-  padding: 10px;
-  border-radius: 50%;
-  transition: var(--transition);
-  max-width: 70%;
-}
-
-.description > span > h1 {
-  border-bottom: 1px solid rgb(230, 236, 245);
-}
-
-p{
-  padding: 15px;
-  padding-top: 20px;
-  padding-bottom: 40px;
-}
-
-a {
-  font-family: Aldrich;
-  font-style: normal;
-  font-variant: normal;
 }
 
 .comments {
@@ -198,11 +162,6 @@ a {
   border-radius: 14px;
 }
 
-.results {
-  background-color: #0F4CD9FF;
-}
-
-
 .button {
   border-radius: 4px;
   background-color: #1C13A3FF;
@@ -211,9 +170,3 @@ a {
   display: inline-block;
   padding: 7px;
 }
-
-
-
-
-
-

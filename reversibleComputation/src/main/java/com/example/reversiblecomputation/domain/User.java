@@ -3,11 +3,8 @@ package com.example.reversiblecomputation.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -44,6 +41,9 @@ public class User
     @Column
     @ColumnDefault("false")
     private boolean img;
+
+    @Column
+    private Integer views = 0;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(

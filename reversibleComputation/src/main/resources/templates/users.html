@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+    <link rel="stylesheet" th:href="@{/css/feed/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/feed/structure.css}" />
+    <link rel="stylesheet" th:href="@{/css/feed/brand.css}" />
+    <link rel="stylesheet" th:href="@{/css/feed/post.css}" />
+    <link rel="stylesheet" th:href="@{/css/feed/popular-papers.css}" />
+    <link rel="stylesheet" th:href="@{/css/feed/popular-profiles.css}" />
+    <link rel="stylesheet" th:href="@{/css/feed/new-post.css}" />
+
+    <!--The 4 lines below and nav replacement are required in every page-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+    <!--FOR NAVBAR ICON--><script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/papers/view.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/upload.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
+</nav>
+
+<header>
+    <form th:action="@{/users}" method="get">
+        <div class="search-bar">
+            <div class="search-category">
+                <select name="searchType">
+                    <option value="name">Name</option>
+                    <option value="location">Location</option>
+                </select>
+            </div>
+            <label class="input-search">
+                <input id="txtSearch" type="text" name="keyword" placeholder="Search users">
+            </label>
+            <div class="search-btn">
+                <button class="search-btn-btn" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</header>
+
+<div class="structure">
+    <div class="structure__main">
+        <th:block th:each="user: ${users}">
+            <div class="post">
+                <!--<img class="post__author-logo" src="./images/1.jpg" />-->
+                <img class="post__author-logo" th:src="@{${'/pfp/' + user.Id + '.png'}}" />
+                <div class="post__main">
+                    <div class="post__header">
+                        <div class="post__author-name">
+                            <a th:href="'/profile/' + ${user.Id}" th:text="${user.name}"/>
+                        </div>
+                        <div class="post__author-slug">
+                            <span th:text="'Location: ' + ${user.location}"></span>
+                        </div>
+                    </div>
+                    <div class="post__content">
+                        <span th:text="'Description: ' + ${user.description}"></span>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+
+    <div class="structure__right-sidebar-container">
+        <div class="structure__right-sidebar">
+
+            <div class="popular-papers">
+                <div class="popular-papers__block">
+                    <div class="popular-papers__heading">
+                        Popular Users
+                    </div>
+                </div>
+
+                <th:block th:each="popular: ${populars}">
+                    <div class="popular-papers__block">
+                        <div class="popular-papers__trend-name">
+                            <a th:href="'/profile/' + ${popular.Id}" th:text="${popular.name}"/>
+                        </div>
+                        <div class="popular-papers__meta-information">
+                            <span th:text="'Profile views: ' + ${popular.views}"></span>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

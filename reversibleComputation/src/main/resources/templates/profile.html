@@ -23,84 +23,48 @@
 </nav>
 <div class="structure">
     <div class="structure__main">
-            <div class="header">
-                <span th:if="${userObj.isImg() == true}">
+        <div class="header">
+            <span th:if="${userObj.isImg() == true}">
                 <img th:src="@{/pfp/{id}(id = ${userObj.getId()} + '.png')}"/>
-                    </span>
-                <span th:if="${userObj.isImg() != true}">
-                </span>
+            </span>
+            <span th:if="${userObj.isImg() != true}"></span>
+            <div>
+                <h1><p th:text = "${user}"></p></h1>
+            </div>
                 <div>
-                    <h1>
-                    <p th:text = "${user}"></p>
-                    </h1>
+                    <tr th:each="user: ${uniqueUsers}">
+                        <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"></a>
+                    </tr>
                 </div>
-                <div class="search-feed">
-                    <div>
-                        <form
-                                method="get"
-                                role="form"
-                                th:action="@{/search/{id}(id=${userPage})}"
-                                th:object="${query}"
-                        >
-                            <div class="search-feed__box">
-                                <input  class="input-search"
-                                        id="query"
-                                        name="query"
-                                        placeholder="Search for anything!"
-                                        th:field="*{query}"
-                                        type="search"
-                                />
-                                <button class="button" type="submit">Search</button>
-                            </div>
-                        </form>
-                </div>
-                    <div>
-                        <!-- front end needs to be changes for search bar results -->
-                        <tr th:each="user: ${uniqueUsers}">
-                            <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"></a>
-                        </tr>
-                    </div>
-                </div>
-            </div>
-        <div class="profile__info">
-            <div class="age">
-                <td th:text = "'Age: ' + ${age}"></td>
-            </div>
-            <div class="location">
-                <td th:text = "'Location: ' + ${location}"></td>
             </div>
         </div>
     </div>
     <span th:if="${userPage == 0}">
-          <div class="buttons">
-              <a class="btn" th:href="@{/profile}" >About Me!</a>
-              <a class="btn" th:href="@{/profile?page=comments}" >Comments</a>
-              <a class="btn" th:href="@{/profile?page=posts}" >Posts</a>
-        </div>
+      <div class="buttons">
+          <a class="btn" th:href="@{/profile}" >About Me!</a>
+          <a class="btn" th:href="@{/profile?page=comments}" >Comments</a>
+          <a class="btn" th:href="@{/profile?page=posts}" >Posts</a>
+      </div>
     </span>
     <span th:if="${userPage != 0}">
-            <div class="buttons">
-                <a class="btn" th:href="@{/profile/{id}(id=${userPage})}" >About Me!</a>
-                <a class="btn" th:href="@{/profile/{id}?page=comments(id=${userPage})}" >Comments</a>
-                <a class="btn" th:href="@{/profile/{id}?page=posts(id=${userPage})}" >Posts</a>
-            </div>
+        <div class="buttons">
+            <a class="btn" th:href="@{/profile/{id}(id=${userPage})}" >About Me!</a>
+            <a class="btn" th:href="@{/profile/{id}?page=comments(id=${userPage})}" >Comments</a>
+            <a class="btn" th:href="@{/profile/{id}?page=posts(id=${userPage})}" >Posts</a>
+        </div>
     </span>
-
 </div>
+
+
 <span th:switch="${page}">
       <div th:case="description">
           <div class="description">
-              <span th:if="${userObj.isImg() == true}">
-                <img th:src="@{/pfp/{id}(id = ${userObj.getId()} + '.png')}"/>
-                    </span>
-                <span th:if="${userObj.isImg() != true}">
-                    <i class="fa-solid fa-circle-user"></i>
-                </span>
-              <h1><td th:text = "${user}"></td></h1>
-
-              <h3><p th:text="${description}"></p></h3>
+              <h3><td th:text = "'Name: ' + ${user}"></td></h3>
+              <h3><p th:text="'Description: ' + ${description}"></p></h3>
+              <h3><p th:text="'Age: ' + ${age}"></p></h3>
+              <h3><p th:text="'Location: ' + ${location}"></p></h3>
+              <h3><p th:text="'Contact: ' + ${email}"></p></h3>
               <span th:if="${userPage == 0}">
-              <a class="btn" th:href="@{/edit}" >Edit Information</a>
               </span>
           </div>
       </div>
