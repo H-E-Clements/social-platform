@@ -16,7 +16,7 @@
   let currentLine = 0;
   let finished = false;
 
-  let optionValues = [{name: "x", value: 0, stack: []}, {name: "y", value: 1, stack: []}, {name: "z", value: 0, stack: []}];
+  let optionValues = [{name: "x", value: 0, stack: []}, {name: "y", value: 0, stack: []}, {name: "z", value: 0, stack: []}];
   let conditionStack = [];
 
   // characters used to identify variable in expression
@@ -399,6 +399,11 @@
     } else if ((lineDiv.innerHTML == "else")) {
       return currentLine + 2;
     } else if ((lineDiv.innerHTML == "end if")) {
+      if (currentLine == numLines-1) {
+        finished = true;
+        document.getElementById("previousBtn").disabled = false;
+        document.getElementById("nextBtn").disabled = true;
+      }
       return currentLine + 1;
     } else {
       const varName = document.getElementById("line"+currentLine+"Select").value;
@@ -418,6 +423,8 @@
       updateCurrentState();
       if (currentLine == numLines-1) {
         finished = true;
+        document.getElementById("previousBtn").disabled = false;
+        document.getElementById("nextBtn").disabled = true;
       }
       return currentLine+1;
     }
@@ -493,6 +500,12 @@
 
     }
 
+    // enable execution at line 0
+    if (currentLine == 0) {
+      document.getElementById("previousBtn").disabled = true;
+      document.getElementById("nextBtn").disabled = false;
+    }
+
     // enable current line
     if (currentLine < numLines) {
       if (currentLine >= 0) {
@@ -523,7 +536,13 @@
     for (var i = 0; i < code.length; i++) {
       var tableChild = code[i];
       tableChild.classList.remove("highlighted");
+      const childElements = tableChild.getElementsByTagName('*');
+      for (let i = 0; i < childElements.length; i++) {
+        childElements[i].disabled = false;
+      }
     }
+    document.getElementById("previousBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = false;
     document.getElementById("line0").classList.add("highlighted");
   }
 </script>
@@ -563,8 +582,8 @@
 </div>
 <button onclick="addLine()">Add Line</button>
 <button onclick="addConditional()">Conditional</button>
-<button onclick="previous()">Previous</button>
-<button onclick="next()">Next</button>
+<button onclick="previous()" id="previousBtn" disabled="true">Previous</button>
+<button onclick="next()" id="nextBtn">Next</button>
 
 <h2>Current Memory State</h2>
 <div id="currentState">
