@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
-  <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
   <link th:href="@{/css/simulator.css}" rel="stylesheet" type="text/css" />
   <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
-  <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
-  <title>Playground</title>
+  <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
+  <title>Simulator</title>
 </head>
 <script>
   let numLines = 1;
@@ -532,63 +528,75 @@
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
 
-<div id="initialVariables">
-  <h2>Initial Variables</h2>
-  <div class="initialVariable">
-    <p>x = </p>
-    <input type="text" id="varx" value="0"/>
+<div class="layout">
+  <div class="box-left">
+    <div class="layout__left-area">
+      <div id="initialVariables" class="initialVariables">
+        <h2>Initial Variables</h2>
+        <div class="input-box">
+          <p>x = </p>
+          <input type="text" id="varx" value="0"/>
+        </div>
+        <div class="input-box" value="0">
+          <p>y = </p>
+          <input type="text" id="vary" value="0"/>
+        </div>
+        <div class="input-box">
+          <p>z = </p>
+          <input type="text" id="varz" value="0"/>
+        </div>
+        <button class="btn" onclick="setVariables()">Set</button>
+      </div>
+    </div>
   </div>
-  <div class="initialVariable" value="0">
-    <p>y = </p>
-    <input type="text" id="vary" value="0"/>
-  </div>
-  <div class="initialVariable">
-    <p>z = </p>
-    <input type="text" id="varz" value="0"/>
-  </div>
-</div>
-<button onclick="setVariables()">Set</button>
 
-<div id="code">
-  <h2>Code</h2>
-  <div class="line highlighted" id="line0">
-    <select id="line0Select">
-      <option value="x">x</option>
-      <option value="y">y</option>
-      <option value="z">z</option>
-    </select>
-    <p>=</p>
-    <input type="text" id="line0Text">
+  <div class="layout__main">
+    <h2>Code</h2>
+    <div id="code" class="code">
+      <div class="line highlighted" id="line0">
+        <select id="line0Select" class="select-variable">
+          <option value="x">x</option>
+          <option value="y">y</option>
+          <option value="z">z</option>
+        </select>
+        <p>=</p>
+        <input type="text" id="line0Text" class="input-box">
+      </div>
+    </div>
+    <button class="btn" onclick="addLine()">Add Line</button>
+    <button class="btn" onclick="addConditional()">Conditional</button>
+    <button class="btn" onclick="previous()">Previous</button>
+    <button class="btn" onclick="next()">Next</button>
   </div>
-</div>
-<button onclick="addLine()">Add Line</button>
-<button onclick="addConditional()">Conditional</button>
-<button onclick="previous()">Previous</button>
-<button onclick="next()">Next</button>
 
-<h2>Current Memory State</h2>
-<div id="currentState">
-  <p>x = 0</p>
-  <p>y = 0</p>
-  <p>z = 0</p>
-</div>
-<button onclick="updateCurrentState()">Refresh</button>
+  <div class="layout__right-area">
+    <div class="current-state">
+      <h2>Current Memory State</h2>
+      <div id="currentState">
+        <p>x = 0</p>
+        <p>y = 0</p>
+        <p>z = 0</p>
+      </div>
+      <button class="btn" onclick="updateCurrentState()">Refresh</button>
+    </div>
 
-<div id="stacks">
-  <h2>Stacks</h2>
-  <div id="stackLists">
-    <ul>
-      <h3>x</h3>
-    </ul>
-    <ul>
-      <h3>y</h3>
-    </ul>
-    <ul>
-      <h3>z</h3>
-    </ul>
-    <ul>
-      <h3>conditionals</h3>
-    </ul>
+    <div id="stacks" class="stacks">
+      <h2>Stacks</h2>
+      <div id="stackLists">
+        <ul>
+          <h3>x</h3>
+        </ul>
+        <ul>
+          <h3>y</h3>
+        </ul>
+        <ul>
+          <h3>z</h3>
+        </ul>
+        <ul>
+          <h3>conditionals</h3>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 

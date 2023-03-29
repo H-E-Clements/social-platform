@@ -71,7 +71,7 @@ public class EventController {
         eventRepo.save(event);
         //creates an event, assigns the inputted values to the event, and stores the event in DB
 
-        return "redirect:/viewPapers";
+        return "redirect:/events";
     }
 
     @GetMapping("/events")
