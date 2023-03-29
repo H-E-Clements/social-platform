@@ -466,6 +466,8 @@
             const result = conditionStack.pop();
             if (result) {
               prevLine = currentLine - 3;
+              elseLineDiv = document.getElementById("line"+(currentLine-2));
+              elseLineDiv.classList.remove("highlighted");
             }
           } else if (currentLineDiv.innerHTML == "else") {
             prevLine = currentLine - 2;
