@@ -58,27 +58,17 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/username")
-    public String username(Model model, Authentication authentication){
-        String user;
-        try {
-            user = authentication.getName();
-            User object = userRepository.findByEmail(user);
-            model.addAttribute("email", object.getEmail());
-            model.addAttribute("description", object.getDescription());
-            model.addAttribute("user", object.getName());
-
-        }
-
-        catch(Exception e) {
-            user = "Not Logged In";
-        }
-
-        return "username";
-    }
-
     @GetMapping("/playground")
-    public String playground() {
+    public String playground(Authentication authentication, Model model) {
+        // checks if logged in and if a pfp is set for nav bar
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
+        catch(Exception e) {
+        }
         return "simulator";
     }
 

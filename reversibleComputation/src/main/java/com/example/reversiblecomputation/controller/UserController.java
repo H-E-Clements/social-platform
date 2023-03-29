@@ -24,16 +24,30 @@ public class UserController {
 
     @GetMapping("/users")
     public String users(Model model, Authentication authentication, String keyword, String searchType){
-        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);boolean navImg = searchAndIdentifyService.checkImg(authentication);model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);try {model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");} catch(Exception e) {}
+        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
+        boolean navImg = searchAndIdentifyService.checkImg(authentication);
+        model.addAttribute("navImg", navImg);
+        model.addAttribute("navUser", navUser);
+        try {
+            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");
+        }
+        catch(Exception e) {}
         List<User> users = null;
 
         if (keyword != null){
-            if (searchType.equals("name")){users = userRepo.findByKeywordName(keyword);}
-            if (searchType.equals("location")){users = userRepo.findByKeywordLocation(keyword);}
+            if (searchType.equals("name")){
+                users = userRepo.findByKeywordName(keyword);
+            }
+            if (searchType.equals("location")){
+                users = userRepo.findByKeywordLocation(keyword);
+            }
             model.addAttribute("users", users);
-        }//Paper search feature^
+        }
+
+        //Paper search feature^
 
         else {
+
             users = userRepo.findAll();
             model.addAttribute("users", users);
         }
@@ -42,8 +56,24 @@ public class UserController {
         populars = userRepo.findAll();;
         Collections.sort(populars, new Comparator<User>() {@Override public int compare(User o1, User o2) {return o2.getViews().compareTo(o1.getViews());}});
         //Sort users by popularity
-        User mostPopular = populars.get(0); User secondMostPopular = populars.get(1);
-        populars.clear(); populars.add(mostPopular); populars.add(secondMostPopular);
+        int popSize = populars.size();
+        if (popSize == 0) {
+            populars.clear();
+        }
+        else if (popSize == 1) {
+            User mostPopular = populars.get(0);
+            populars.clear();
+            populars.add(mostPopular);
+            
+        }
+        else if (popSize >= 2) {
+            User mostPopular = populars.get(0);
+            User secondMostPopular = populars.get(1);
+            populars.clear();
+            populars.add(mostPopular);
+            populars.add(secondMostPopular);
+
+        }
         //Get 2 most popular users
         model.addAttribute("populars", populars);
         return "users";

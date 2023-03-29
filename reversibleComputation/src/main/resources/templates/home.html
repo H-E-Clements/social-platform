@@ -23,8 +23,13 @@
 <div class="welcome">
   <h1>Reverse Engineering</h1>
   <p>LLorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+  <span th:if="${navUser == false}">
   <a class="btn" th:href="@{/login}" >Login</a>
   <a class="btn" th:href="@{/register}" >Register</a>
+  </span>
+  <span th:if="${navUser}">
+    <a class="btn" th:href="@{/logout}">Logout</a>
+  </span>
 </div>
 </body>
 </html>

@@ -14,7 +14,6 @@
     <link th:href="@{/css/profile.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" th:href="@{/css/profile/structure.css}" />
     <link rel="stylesheet" th:href="@{/css/profile/post.css}" />
-    <link rel="stylesheet" th:href="@{/css/profile/comment.css}" />
     <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
 </head>
@@ -60,18 +59,33 @@
       <div th:case="description">
           <div class="description">
               <h3><td th:text = "'Name: ' + ${user}"></td></h3>
+              <br>
               <h3><p th:text="'Description: ' + ${description}"></p></h3>
+              <br>
+              <span th:if="${age != null}">
               <h3><p th:text="'Age: ' + ${age}"></p></h3>
+              </span>
+              <span th:if="${age == null}">
+              <h3><p th:text="'Age: Not Given'"></p></h3>
+              </span>
+              <br>
+              <span th:if="${location != null}">
               <h3><p th:text="'Location: ' + ${location}"></p></h3>
+              </span>
+              <span th:if="${age == null}">
+              <h3><p th:text="'Location: Not Given'"></p></h3>
+              </span>
+              <br>
               <h3><p th:text="'Contact: ' + ${email}"></p></h3>
               <span th:if="${userPage == 0}">
+                <a class="btn" th:href="@{/edit}" >Edit Information</a>
               </span>
           </div>
       </div>
     <div th:case="posts">
         <th:block th:each="post: ${posts}">
             <div class="post">
-                <img class="post__author-logo" />
+                <img class="post__author-logo" th:src="@{${'/pfp/' + post.authorId + '.png'}}" />
                     <div class="post__main">
                         <div class="post__header">
                             <div class="post__author-name">

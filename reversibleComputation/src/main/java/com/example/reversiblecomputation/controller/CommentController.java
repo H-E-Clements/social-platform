@@ -33,7 +33,7 @@ public class CommentController {
         //Validates title and text, makes sure not empty
 
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         Comment comment = new Comment();
         comment.setContent(commentDto.getContent());
@@ -50,7 +50,7 @@ public class CommentController {
         //Validates title and text, makes sure not empty
 
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         Comment comment = new Comment();
         comment.setContent(commentDto2.getContent());

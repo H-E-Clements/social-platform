@@ -84,7 +84,7 @@
 }
 /*formatting the redirect to sign in page*/
 
-button[type="submit"]{
+.submit button[type="submit"]{
     width: 100%;
     padding: 8px 10px;
     border: 0;
@@ -97,10 +97,33 @@ button[type="submit"]{
     color: white;
 }
 /*formatting the button*/
-button[type="submit"]:hover {
+.submit button[type="submit"]:hover {
     background-color: #005dab;
 }
-button[type="submit"]:active{
+.submit button[type="submit"]:active{
     transform: translateY(4px);
     background-color: cornflowerblue;
+}
+
+
+.remove button[type="submit"]{
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    outline: none;
+    margin-top: 10px;
+    background: #ff1e1e;
+    color: white;
+}
+/*formatting the button*/
+.remove button[type="submit"]:hover {
+    background-color: rgba(255, 76, 76, 0.99);
+}
+
+.remove button[type="submit"]:active{
+    transform: translateY(4px);
+    background-color: rgba(255, 128, 128, 0.99);
 }
