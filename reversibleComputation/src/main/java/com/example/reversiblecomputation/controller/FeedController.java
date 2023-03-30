@@ -22,15 +22,17 @@ import java.util.List;
 @Controller
 public class FeedController {
 
+    //FeedController handles requests relating to Feed
+
+    //importing the relevant repositories to handle Events
     @Autowired
     private PostRepository postRepo;
-
     @Autowired
     private SearchAndIdentifyService searchAndIdentifyService;
-
     @Autowired
     private FeedRepository feedRepo;
 
+    // Handles GET requests at '/post', when /post is accessed, this request mapping returns the Post creation form
     @GetMapping("/post")
     public String post(Model model, Authentication authentication){
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
@@ -40,9 +42,13 @@ public class FeedController {
             model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");
         }
         catch(Exception e) {}
+         //imports navbar image - checks if user is logged in^
+
         return "feed/post";
+         //returns page to create a new post
     }
 
+    //Handles POST requests at '/createPost', after a user submits a request to create a Post, this request mapping handles the submission
     @PostMapping("/createPost")
     public String createPost(@RequestParam("title") String title,
                              @RequestParam("text") String text,
@@ -55,11 +61,14 @@ public class FeedController {
         if(text.isEmpty()){
             return "redirect:/post?textErr";
         }
-        //Validates title and text, makes sure not empty
+        //Validates title and text, makes sure not empty, also validates the length
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
+        //Gets the date/time the post is submitted
 
+        //Creates a post object, assigns the relevant attributes to the post
+        //Then saves the post to the database through the postRepository
         Post post = new Post();
         post.setTitle(title);
         post.setText(text);
@@ -67,6 +76,9 @@ public class FeedController {
         post.setPostDate(dtf.format(now));
         postRepo.save(post);
 
+        //Creates a feed object, assigns the relevant attributes to the feed
+        //Then saves the feed to the database through the FeedRepository
+        //we use both FeedRepo and PostRepo, because we want Posts to show in feed too
         Feed feed = new Feed();
         feed.setTitle(title);
         feed.setText(text);
@@ -78,13 +90,20 @@ public class FeedController {
         return "redirect:/feed";
     }
 
+    // Handles GET requests at '/feed', when /feed is accessed, this request mapping returns the feed page
     @GetMapping("/feed")
     public String viewFeed(Model model, Authentication authentication){
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);boolean navImg = searchAndIdentifyService.checkImg(authentication);model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);try {model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");} catch(Exception e) {}
+         //imports navbar image - checks if user is logged in^
+           
         List<Feed> posts = null;
         posts = feedRepo.findAll();
+        //gets all the feed objects
         Collections.sort(posts, (new DateSortService()).reversed());
+        //Sorts the feed in reverse-chronological order
         model.addAttribute("posts", posts);
+        //adds the feed objects to the page as a model attribute
         return "feed/feed";
+        //returns the feed page (feed.html)
     }
 }

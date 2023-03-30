@@ -26,20 +26,24 @@ import java.util.List;
 @Controller
 public class EventController {
 
+    //EventController handles requests relating to Events
+
+    //importing the relevant repositories to handle Events
     @Autowired
     private SearchAndIdentifyService searchAndIdentifyService;
-
     @Autowired
     private EventRepository eventRepo;
 
+    // Handles GET requests at '/newEvent', when /newEvent is accessed, this request mapping returns the Event creation form
     @GetMapping("/newEvent")
     public String newEvent(Model model, Authentication authentication){
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);boolean navImg = searchAndIdentifyService.checkImg(authentication);model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);try {model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");} catch(Exception e) {}
-        //navbar image
+        //imports navbar image - checks if user is logged in^
         return "events/create";
         //returns page to create a new event
     }
 
+    //Handles POST requests at '/createEvent', after a user submits a request to create an event, this request mapping handles the submission
     @PostMapping("/createEvent")
     public String createEvent(@RequestParam("title") String title,
                               @RequestParam("description") String description,
@@ -55,10 +59,10 @@ public class EventController {
         if(duration.isEmpty()){return "redirect:/newEvent?emptyDurationErr";}
         if(location.isEmpty()){return "redirect:/newEvent?emptyLocationErr";}
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");LocalDate dateTime = LocalDate.parse(date,formatter);if (dateTime.isAfter(LocalDate.now()) == false){return "redirect:/newEvent?dateErr";}
-        //Validates inputs, makes sure not empty
+        //Validates all the inputs, makes sure not empty, also checks if inputted date is in future (if not, returns an error)
 
         date  = date.split(" ")[0];
-        //truncate time off date input
+        //truncate time off date input, so we dont have duplicate times
 
         Event event = new Event();
         event.setTitle(title);
@@ -71,16 +75,18 @@ public class EventController {
         eventRepo.save(event);
         //creates an event, assigns the inputted values to the event, and stores the event in DB
 
-        return "redirect:/viewPapers";
+        return "redirect:/events";
+        //redirects user back to the events page
     }
 
+    // Handles GET requests at '/events', when /events is accessed, this request mapping returns the Events page
     @GetMapping("/events")
     public String events(Model model, Authentication authentication, String keyword, String searchType){
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);boolean navImg = searchAndIdentifyService.checkImg(authentication);model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);try {model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");} catch(Exception e) {}
-        //navbar image
+        //imports navbar image - checks if user is logged in^
 
         List<Event> events = null;
-
+        //Creates a List of Events to display (not set yet)
         if (keyword != null){
             if (searchType.equals("title")){events = eventRepo.findByKeywordDescription(keyword);}
             if (searchType.equals("description")){events = eventRepo.findByKeywordDescription(keyword);}
@@ -88,14 +94,16 @@ public class EventController {
             if (searchType.equals("author")){events = eventRepo.findByKeywordAuthor(keyword);}
             if (searchType.equals("location")){events = eventRepo.findByKeywordLocation(keyword);}
             model.addAttribute("events", events);
-        }//Events search feature^
+        }//Events search feature^ - based on search, sets the list of events
 
         else {
             events = eventRepo.findAll();
             model.addAttribute("events", events);
         }
+        //If user doesn't search (just wants to access normal page), returns a list of all events
 
         Collections.sort(events, (new EventDateSortService()));
+        //Sorts the events in chronological order
 
         return "events/view";
         //returns page to create a new event

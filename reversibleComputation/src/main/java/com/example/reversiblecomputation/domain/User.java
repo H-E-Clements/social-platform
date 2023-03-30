@@ -19,31 +19,35 @@ public class User
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //id of user, unique identifier used as pk
 
     @Column(nullable=false)
     private String name;
+    //name of user (first+last name) - required
 
     @Column(nullable=false, unique=true)
     private String email;
+    //email id of user - required field
 
     @Column(nullable=false)
     private String password;
+    //password for user - encoded when stored - required
 
     @Column
     private String description;
-
     @Column
     private Integer age;
-
     @Column
     private String location;
-
     @Column
     @ColumnDefault("false")
     private boolean img;
+    //non mandatory fields ^^ - self explanatory
+    //img represents profile picture, by default false means no profile picture set when user registers
 
     @Column
     private Integer views = 0;
+    //how many views a user's profile has
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(

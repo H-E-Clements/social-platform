@@ -31,16 +31,16 @@ import java.util.List;
 @Controller
 public class FileController {
 
+    //import relevant repos
     @Autowired
     private PaperRepository paperRepo;
     @Autowired
     private SearchAndIdentifyService searchAndIdentifyService;
-
     @Autowired
     private FeedRepository feedRepo;
 
     String baseDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
-    //MUST CHANGE FOR DIFFERENT HOSTS
+    //Gets directory where papers are uploaded to
 
     @GetMapping("/upload")
     public String paper(Model model, Authentication authentication){

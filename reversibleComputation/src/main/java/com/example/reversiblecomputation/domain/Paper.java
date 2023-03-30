@@ -16,6 +16,7 @@ public class Paper {
     //name of user who posted
 
     private String uploadDate;
+    //date file is uploaded
 
     public String getUploadDate() {return uploadDate;}
     public void setUploadDate(String uploadDate) {this.uploadDate = uploadDate;}

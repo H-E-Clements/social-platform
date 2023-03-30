@@ -16,9 +16,10 @@ import java.util.List;
 
 @Controller
 public class UserController {
+
+    //relevant repos imported
     @Autowired
     private SearchAndIdentifyService searchAndIdentifyService;
-
     @Autowired
     private CrudUserRepository userRepo;
 
@@ -32,7 +33,10 @@ public class UserController {
             model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");
         }
         catch(Exception e) {}
+        //checks navbar image and if logged in
+
         List<User> users = null;
+        //creates a list of users
 
         if (keyword != null){
             if (searchType.equals("name")){
@@ -43,14 +47,13 @@ public class UserController {
             }
             model.addAttribute("users", users);
         }
-
-        //Paper search feature^
+        //User search feature^, lets people search through users
 
         else {
-
             users = userRepo.findAll();
             model.addAttribute("users", users);
         }
+        //Gets all users from the repo
 
         List<User> populars = null;
         populars = userRepo.findAll();;
@@ -64,7 +67,6 @@ public class UserController {
             User mostPopular = populars.get(0);
             populars.clear();
             populars.add(mostPopular);
-            
         }
         else if (popSize >= 2) {
             User mostPopular = populars.get(0);
@@ -76,6 +78,8 @@ public class UserController {
         }
         //Get 2 most popular users
         model.addAttribute("populars", populars);
+        //Adds the popular users to the page as an attribute
         return "users";
+        //returns users page
     }
 }

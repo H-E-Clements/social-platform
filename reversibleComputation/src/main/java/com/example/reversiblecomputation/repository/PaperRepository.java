@@ -21,4 +21,6 @@ public interface PaperRepository extends CrudRepository<Paper, String> {
 
     @Query(value="SELECT * FROM Paper p WHERE p.upload_date LIKE %:keyword%", nativeQuery = true)
     List<Paper> findByKeywordUploadDate(@Param("keyword") String keyword);
+    //SQL queries - lets people search for users with keywords
+
 }

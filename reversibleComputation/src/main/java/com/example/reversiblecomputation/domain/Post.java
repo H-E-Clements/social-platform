@@ -7,9 +7,13 @@ import jakarta.persistence.Id;
 public class Post {
     @Id
     private String title;
+    //title of post
     private String text;
+    //content of post
     private String postDate;
+    //when post made
     private String author;
+    //who made post
 
     public String getTitle() {return title;}
     public void setTitle(String title) {this.title = title;}

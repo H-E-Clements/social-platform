@@ -10,13 +10,19 @@ import java.util.Date;
 public class Event {
     @Id
     private String title;
+    //PK - the title
     private String description;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private String date;
+    //date event is on
     private String time;
+    //time event is being held
     private String duration;
+    //how long is event - duration
     private String location;
+    //location of event
     private String author;
+    //author of event, who created tbe event
 
     public String getTitle() {return title;}
     public void setTitle(String title) {this.title = title;}

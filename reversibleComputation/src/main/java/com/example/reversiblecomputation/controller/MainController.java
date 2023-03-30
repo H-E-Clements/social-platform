@@ -31,15 +31,13 @@ import java.util.Set;
 @Controller
 public class MainController {
 
+    //relevant repos imported
     @Autowired
     private SearchAndIdentifyService searchAndIdentifyService;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     CloudService cloudService;
-
-
 
     // homepage
     @GetMapping("/")
@@ -56,27 +54,16 @@ public class MainController {
         }
 
         return "home";
-    }
-
-    @GetMapping("/playground")
-    public String playground(Authentication authentication, Model model) {
-        // checks if logged in and if a pfp is set for nav bar
-        boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
-        boolean navImg = searchAndIdentifyService.checkImg(authentication);
-        model.addAttribute("navImg", navImg);
-        model.addAttribute("navUser", navUser);
-        try {
-            model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
-        catch(Exception e) {
-        }
-        return "simulator";
+        //returns home page
     }
 
     //simulator
     @GetMapping("/simulator")
     public String simulator(Model model, Authentication authentication){
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);boolean navImg = searchAndIdentifyService.checkImg(authentication);model.addAttribute("navImg", navImg);model.addAttribute("navUser", navUser);try {model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");} catch(Exception e) {}
+        // checks if logged in and if a pfp is set for nav bar
         return "simulator";
+        //returns simulator page
     }
 
 }

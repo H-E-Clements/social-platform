@@ -7,10 +7,15 @@ import jakarta.persistence.Id;
 public class Feed {
     @Id
     private String title;
+    //title of feed object
     private String text;
+    //content of feed object
     private String author;
+    //who made the post
     private Long authorId;
+    //id of person who made post
     private String postDate;
+    //date post made
 
     public String getTitle() {return title;}
     public void setTitle(String title) {this.title = title;}

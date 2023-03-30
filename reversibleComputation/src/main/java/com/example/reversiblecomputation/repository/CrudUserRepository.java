@@ -16,4 +16,6 @@ public interface CrudUserRepository extends CrudRepository<User, Long> {
 
     @Query(value="SELECT * FROM Users u WHERE u.location LIKE %:keyword%", nativeQuery = true)
     List<User> findByKeywordLocation(@Param("keyword") String keyword);
+     //SQL queries - lets people search for users with keywords
+
 }

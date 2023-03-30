@@ -24,4 +24,6 @@ public interface EventRepository extends CrudRepository<Event, String> {
 
     @Query(value="SELECT * FROM Event e WHERE e.location LIKE %:keyword%", nativeQuery = true)
     List<Event> findByKeywordLocation(@Param("keyword") String keyword);
+    //SQL queries - lets people search for events with keywords
+
 }

@@ -16,17 +16,21 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+        //SecurityConfig includes code for password encryption and also includes permissions under which pages can be accessed
+
+        //userDetailsService and passwordEncoder imported for later use (password encryption)
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+        //SecurityFilterChain handles request authorisation
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                //authorizeHttpRequests tells the application which permissions are required to access certain requests
                 .authorizeHttpRequests((authorize) ->
                         // tells which pages need authorisation
                         authorize
@@ -62,12 +66,14 @@ public class SecurityConfig {
                                 .requestMatchers("/events").permitAll()
 
                                 .requestMatchers("/simulator").permitAll()
+                //formLogin helps with handling login requests, this code tells it where login requests are to be processed and also defines the URL that the user is redirected to after a successful login
                 ).formLogin(
                         form -> form
                                 .loginPage("/login").permitAll()
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/")
                                 .permitAll()
+                //logout helps with handling logout requests, this code tells it where logout requests are to be processed
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -76,6 +82,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+        //This code configures the password encoder to be used within the Authentication build
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
