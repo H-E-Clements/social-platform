@@ -1,18 +1,18 @@
 # GitLab repository for CO2201 Group Projects
 
-## REVERSABLE COMPUTATION APPLICATION - It is a spring boot Java project that uses built in HTML for the front end.
+## Reversible Compuitation Application is a Spring Boot Java Project that utilises MySQL, HTML, CSS, Java, and Spring Tool Suite
 
 INSTALLATION GUIDE
 
-1. Clone main branch
+1. Download main branch as a .zip and extract
 
-2. Open reversableComputation directory in Java IDE (preferably Intelliji Idea)
+2. In your Java IDE (preferrably IntelliJ IDEA) open the reversibleComputation directory from the folder you just extracted
 
-3. Modify the application.properties file under reversibleComputation/src/main/resources/application.properties 
-   (change spring.datasource.password and spring.datasource.username to corresponding MySql DB details)
+3. Modify reversibleComputation/src/main/resources/application.properties - change 
+   spring.datasource.username and spring.datasource.password to match your MySQL database login information
 
-4. Create an empty schema called co2103db in MySQL
+4. In MySQL, create an empty schema called co2103db
 
-5. Run the Spring Project (make sure of internet connection)
+5. Run 'ReversibleComputationApplication.java'
 
-6. go to http://localhost:8080/
+6. Navigate to http://localhost:8080/ to access the home page of the application

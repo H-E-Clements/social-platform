@@ -527,37 +527,47 @@
 
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
+<!-- reusing navbar -->
 
 <div class="layout">
+  <!-- layout is split into left | main (middle) | right -->
   <div class="box-left">
     <div class="layout__left-area">
+      <!-- left area contains code for initialising variables -->
       <div id="initialVariables" class="initialVariables">
         <h2>Initial Variables</h2>
         <div class="input-box">
           <p>x = </p>
           <input type="text" id="varx" value="0"/>
+          <!-- input initial value for x -->
         </div>
         <div class="input-box" value="0">
           <p>y = </p>
           <input type="text" id="vary" value="0"/>
+          <!-- input initial value for y -->
         </div>
         <div class="input-box">
           <p>z = </p>
           <input type="text" id="varz" value="0"/>
+          <!-- input initial value for z -->
         </div>
         <button class="btn" onclick="setVariables()">Set</button>
+        <!-- button to apply changes -->
       </div>
     </div>
   </div>
 
+  <!-- main area contains the 'code' section where user can enter the code they wish to execute -->
   <div class="layout__main">
     <h2>Code</h2>
     <div id="code" class="code">
       <div class="line highlighted" id="line0">
+        <!-- next line of execution is highlighted -->
         <select id="line0Select" class="select-variable">
           <option value="x">x</option>
           <option value="y">y</option>
           <option value="z">z</option>
+          <!-- user can choose between the variables they want to assign -->
         </select>
         <p>=</p>
         <input type="text" id="line0Text" class="input-box">

@@ -20,19 +20,25 @@
 <body>
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
+<!-- reusing navbar -->
+
 <div class="structure">
     <div class="structure__main">
+        <!-- header contains profile picture and user's name -->
         <div class="header">
             <span th:if="${userObj.isImg() == true}">
                 <img th:src="@{/pfp/{id}(id = ${userObj.getId()} + '.png')}"/>
             </span>
             <span th:if="${userObj.isImg() != true}"></span>
+            <!-- only show pfp if pfp exists -->
             <div>
                 <h1><p th:text = "${user}"></p></h1>
+                <!-- show username in h1 format -->
             </div>
                 <div>
                     <tr th:each="user: ${uniqueUsers}">
                         <a th:text="${user.name}" th:href="@{/profile/{id}(id = ${user.id})}"></a>
+                        <!-- gets all user's id to use when accessing foreign profiles -->
                     </tr>
                 </div>
             </div>
@@ -43,6 +49,7 @@
           <a class="btn" th:href="@{/profile}" >About Me!</a>
           <a class="btn" th:href="@{/profile?page=comments}" >Comments</a>
           <a class="btn" th:href="@{/profile?page=posts}" >Posts</a>
+          <!-- buttons for accessing different sections of the profile page -->
       </div>
     </span>
     <span th:if="${userPage != 0}">

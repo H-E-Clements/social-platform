@@ -16,6 +16,7 @@
 
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
+<!-- reusing navbar -->
 
 <div class="upload-publication">
   <div class="box">
@@ -30,16 +31,21 @@
       <div th:if="${param.lenErr}">
         <div class="error" >Words must not have more than 55 chars</div>
       </div>
+      <!-- messages for invalid post submission -->
       <form th:action="@{/createPost}" method="post">
+      <!-- post form to /createPost controller -->
         <div class="input-box">
           <input type="text" name="title" placeholder="Title">
+          <!-- input box for post title  -->
           <i class="underline"></i>
         </div>
         <div class="input-box">
           <textarea class="textarea" name="text" placeholder="Text"></textarea>
+          <!-- input box for post content  -->
         </div>
         <div class="submit-btn">
           <button class="btn btn-primary" type="submit">Post</button>
+          <!-- button to submit the form -->
         </div>
       </form>
     </div>

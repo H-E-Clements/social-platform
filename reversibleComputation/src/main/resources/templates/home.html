@@ -13,22 +13,24 @@
   <script src="https://kit.fontawesome.com/10b3dc6989.js" crossorigin="anonymous"></script>
   <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
   <link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
-
-
 </head>
 <body>
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
+<!-- Navbar ^ -->
 
 <div class="welcome">
   <h1>Reverse Engineering</h1>
-  <p>LLorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde placeat minus fugiat optio eum ratione harum facilis. In, a minus culpa autem veritatis quisquam, asperiores itaque vitae quis, error natus? Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+    <p>Welcome to the home of Reversible Computation. This website serves as a hub for visitors and researchers to share information and interact with each other in regard to the field. If you haven't got an account, you can register by clicking 'Get Started'. To view an interactive visualisation of Reversible Computation, please visit the 'Simulator' section at the top of your screen in the navigation bar.</p>
+  <!-- Paragraph to greet visitors -->
   <span th:if="${navUser == false}">
   <a class="btn" th:href="@{/login}" >Login</a>
   <a class="btn" th:href="@{/register}" >Get Started</a>
+  <!-- If user isn't logged in, then display Login/Register buttons -->
   </span>
   <span th:if="${navUser}">
     <a class="btn" th:href="@{/logout}">Logout</a>
+    <!-- If user is logged in, allow user to logout directly from home page -->
   </span>
 </div>
 </body>

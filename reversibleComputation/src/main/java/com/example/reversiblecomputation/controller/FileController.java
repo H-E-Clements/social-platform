@@ -39,7 +39,7 @@ public class FileController {
     @Autowired
     private FeedRepository feedRepo;
 
-    String baseDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
+    String baseDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads/";
     //Gets directory where papers are uploaded to
 
     @GetMapping("/upload")
@@ -48,6 +48,7 @@ public class FileController {
         return "papers/upload";
     }
 
+    //Handles POST requests at '/uploadPaper', after a user submits a request to upload a paper, this request mapping handles the submission
     @PostMapping("/uploadPaper")
     public String uploadPaper(@RequestParam("file") MultipartFile file,
                                     @RequestParam("fileName") String fileName,
@@ -74,14 +75,18 @@ public class FileController {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
+        //Gets the date/time the post is submitted
 
+        //Creates a paper object, assigns the relevant attributes to the paper
+        //Then saves the paper to the database through the PaperRepository
+        //we use both FeedRepo and PaperRepo, because we want Papers to show in feed too 
         Paper paper = new Paper();
         paper.setFileName(fileName+".pdf");
         paper.setDescription(fileDescription);
         paper.setAuthor(searchAndIdentifyService.userObject(authentication).getName());
         paper.setUploadDate(dtf.format(now));
         paperRepo.save(paper);
-
+        //Creating the feed object
         Feed feed = new Feed();
         feed.setTitle(searchAndIdentifyService.userObject(authentication).getName()+" uploaded a paper: "+fileName);
         feed.setText(fileDescription+" | To view this paper, visit the 'Papers' section");
@@ -101,10 +106,14 @@ public class FileController {
         List<Paper> papers = null;
 
         if (keyword != null){
+            //Keyword is the word entered into search bar
+            //SearchType is the attribute selected in the dropdown menu
             if (searchType.equals("description")){papers = paperRepo.findByKeywordDescription(keyword);}
             if (searchType.equals("author")){papers = paperRepo.findByKeywordAuthor(keyword);}
             if (searchType.equals("file_name")){papers = paperRepo.findByKeywordFileName(keyword);}
             if (searchType.equals("upload_date")){papers = paperRepo.findByKeywordUploadDate(keyword);}
+            //This code compares the search types based on conditions, and then based on the search type, it
+            //sends a request to the paper repository with the query being the keyword
             model.addAttribute("papers", papers);
         }//Paper search feature^
 
@@ -120,7 +129,7 @@ public class FileController {
 
     @GetMapping("/viewPaper/{fileName}")
     public void viewPaper(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
-        File file = new File("src\\main\\resources\\static.uploads\\"+fileName);
+        File file = new File("src\\main\\resources\\static\\uploads\\"+fileName);
         //Getting file that user wants to download
 
         response.setContentType("application/octet-stream");

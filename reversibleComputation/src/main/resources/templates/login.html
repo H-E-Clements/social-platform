@@ -14,7 +14,7 @@
 <body>
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
-<!-- code for navbar -->
+<!-- reusing navbar -->
 
 <div class="login">
   <div class="box">
@@ -37,88 +37,17 @@
         <div class="input-box">
           <input type="password" id="password" name="password" placeholder="password">
           <span>password</span>
-          <!-- similar -->
+          <!-- input for password -->
         </div>
         <div class="register">
           <a th:href="@{/register}">Dont have an account? Sign up</a>
           <!-- link to register page -->
         </div>
         <button type="submit">Login</button>
+        <!-- button to submit login -->
       </form>
     </div>
   </div>
 </div>
 </body>
 </html>
-
-<!-- OLD CODE
-<!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
-<head>
-  <meta charset="UTF-8">
-  <title>Registration and Login System</title>
-  <!DOCTYPE html>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registration and Login Page</title>
-    <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<br /><br />
-<div class="container">
-    <div class="form-container">
-      <div th:if="${param.error}">
-        <div class="alert alert-danger">Invalid Email or Password</div>
-      </div>
-      <div th:if="${param.logout}">
-        <div class="alert alert-success"> You have been logged out.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-center">Login Form</h2>
-        </div>
-        <div>
-          <form
-                  method="post"
-                  role="form"
-                  th:action="@{/login}"
-                  class="form-horizontal"
-          >
-            <div>
-              <label class="control-label"> Email</label>
-              <input
-                      type="text"
-                      id="username"
-                      name="username"
-                      class="form-control"
-                      placeholder="Enter email address"
-              />
-            </div>
-
-            <div>
-              <label> Password</label>
-              <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      class="form-control"
-                      placeholder="Enter password"
-              />
-            </div>
-            <div>
-              <button type="submit">Submit</button>
-              <span> Not registered ?
-                                <a th:href="@{/register}">Register/Signup here</a>
-                            </span>
-            </div>
-          </form>
-        </div>
-      </div>
-  </div>
-</div>
-</body>
-</html>
--->

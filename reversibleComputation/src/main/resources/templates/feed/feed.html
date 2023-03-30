@@ -20,26 +20,33 @@
 
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
+<!-- reusing navbar -->
 <div class="structure">
   <div class="structure__main">
     <th:block th:each="post: ${posts}">
+    <!-- iterates through each post in list of posts -->
     <div class="post">
-      <!--<img class="post__author-logo" src="./images/1.jpg" />-->
       <img class="post__author-logo" th:src="@{${'/pfp/' + post.authorId + '.png'}}" />
+      <!-- gets the pfp for user who created the post -->
       <div class="post__main">
         <div class="post__header">
+          <!-- post header contains post title, author name, date of post -->
           <div class="post__author-name">
             <span th:text="${post.title}"></span>
+            <!-- shows title of post -->
           </div>
           <div class="post__author-slug">
             <span th:text="${post.author}"></span>
+            <!-- shows name of poster -->
           </div>
           <div class="post__publish-time">
             <span th:text="${post.postDate}"></span>
+            <!-- shows date of post -->
           </div>
         </div>
         <div class="post__content">
           <span th:text="${post.text}"></span>
+          <!-- shows content of post -->
         </div>
       </div>
     </div>

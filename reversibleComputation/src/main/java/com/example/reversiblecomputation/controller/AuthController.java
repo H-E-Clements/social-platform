@@ -130,6 +130,7 @@ public class AuthController {
         catch(Exception e) {
         }
         return "login";
+        //returns login.html
     }
 
 

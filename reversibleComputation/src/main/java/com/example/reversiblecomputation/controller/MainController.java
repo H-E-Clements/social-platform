@@ -39,11 +39,9 @@ public class MainController {
     @Autowired
     CloudService cloudService;
 
-    // homepage
+    // handles GET requests to '/' (index page), returns home page
     @GetMapping("/")
     public String home(Authentication authentication, Model model){
-
-        // checks if logged in and if a pfp is set for nav bar
         boolean navUser = searchAndIdentifyService.checkIfLoggedIn(authentication);
         boolean navImg = searchAndIdentifyService.checkImg(authentication);
         model.addAttribute("navImg", navImg);
@@ -52,9 +50,10 @@ public class MainController {
         model.addAttribute("id", searchAndIdentifyService.userObject(authentication).getId()+".png");}
         catch(Exception e) {
         }
+        // checks if logged in and if a pfp is set for nav bar
 
         return "home";
-        //returns home page
+        //returns home page (home.html)
     }
 
     //simulator

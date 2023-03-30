@@ -19,14 +19,17 @@
 
 <nav th:replace="~{nav.html :: nav(id=${id}, navUser=${navUser}, navImg=${navImg})}">
 </nav>
+<!-- reusing navbar -->
 
 <header>
+    <!-- header contains search bar and button to upload new paper -->
     <div class="new-paper">
         <form>
             <button class="new-paper-btn" type="submit" formaction="http://localhost:8080/upload">Upload a Paper</button>
         </form>
     </div>
     <form th:action="@{/viewPapers}" method="get">
+    <!-- when search is submitted, form is sent to /viewPapers -->
         <div class="search-bar">
             <div class="search-category">
                 <select name="searchType">
@@ -34,13 +37,17 @@
                     <option value="author">Author</option>
                     <option value="file_name">File Name</option>
                     <option value="upload_date">Upload Date</option>
+                    <!-- categories/attributes user can search a paper under -->
+                    <!-- uses dropdown menu -->
                 </select>
             </div>
             <label class="input-search">
                 <input id="txtSearch" type="text" name="keyword" placeholder="Search papers">
+                <!-- input box to enter keyword to search with -->
             </label>
             <div class="search-btn">
                 <button class="search-btn-btn" type="submit">Search</button>
+                <!-- submit search request -->
             </div>
         </div>
     </form>
@@ -52,18 +59,23 @@
             <section class="panel">
 
                 <table class="table table-striped table-advance table-hover">
+                    <!-- shows papers using thymeleaf table -->
                     <tbody>
                     <tr>
                         <th><i class="icon_profile"></i>Description</th>
                         <th><i class="icon_profile"></i>Author</th>
                         <th><i class="icon_profile"></i>View Paper</th>
                         <th><i class="icon_profile"></i>Upload Date</th>
+                        <!-- headers/column names, one for each attribute of the paper -->
                     </tr>
                     <tr th:each="paper: ${papers}">
+                        <!-- iterates through each paper in the list of papers -->
                         <td th:text="${paper.description}"></td>
                         <td th:text="${paper.author}"></td>
                         <td><a th:href="'/viewPaper/' + ${paper.fileName}" th:text="${paper.fileName}"/></td>
                         <td th:text="${paper.uploadDate}"></td>
+                        <!-- for each paper, display description, author, paper name, upload date -->
+                        <!-- paper name contains a link to open the paper -->
                     </tr>
                     </tbody>
                 </table>

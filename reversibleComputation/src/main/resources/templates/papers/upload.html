@@ -35,21 +35,27 @@
             <div th:if="${param.lenErr}">
                 <div class="error" >File Name/Description mustn't exceed 55 chars</div>
             </div>
+            <!-- messages for invalid paper upload -->
                 <form th:action="@{/uploadPaper}" method="post" enctype="multipart/form-data">
+                    <!-- post form to /uploadPaper controller -->
                     <div class="input-box">
                         <input type="text" name="fileName" placeholder="File Name">
+                        <!-- input box for paper name -->
                         <i class="underline"></i>
                     </div>
                     <div class="input-box">
                         <input type="text" name="fileDescription" placeholder="Description">
+                        <!-- input box for paper description -->
                         <i class="underline"></i>
                     </div>
                     <div class="input-box">
                         <input type="file" name="file" accept=".pdf">
+                        <!-- input box for paper - allows user to select a file using their default file explorer -->
                         <br><br>
                     </div>
                     <div class="submit-btn">
                         <button class="btn btn-primary" type="submit">Upload</button>
+                        <!-- button to submit the form -->
                     </div>
                 </form>
         </div>
