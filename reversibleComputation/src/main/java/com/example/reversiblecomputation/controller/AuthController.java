@@ -23,7 +23,7 @@ public class AuthController {
 
     //AuthController handles requests relating to authentication
 
-    /importing UserService and UserRepository to help with actions relating to a user's information
+    //importing UserService and UserRepository to help with actions relating to a user's information
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
