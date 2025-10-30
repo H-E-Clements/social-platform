@@ -2,17 +2,38 @@
 
 ## Reversible Compuitation Application is a Spring Boot Java Project that utilises MySQL, HTML, CSS, Java, and Spring Tool Suite
 
-INSTALLATION GUIDE
+# Social Platform — Spring Boot Web Application
 
-1. Download main branch as a .zip and extract
+A collaborative **social networking platform** built with **Java, Spring Boot, Thymeleaf**, and **MySQL**, designed to enable users to create posts, follow others, and engage through a responsive, web interface.  
+Developed as part of an Agile university project.
 
-2. In your Java IDE (preferrably IntelliJ IDEA) open the reversibleComputation directory from the folder you just extracted
+---
 
-3. Modify reversibleComputation/src/main/resources/application.properties - change 
-   spring.datasource.username and spring.datasource.password to match your MySQL database login information
+## Overview
 
-4. In MySQL, create an empty schema called co2103db
+| Feature | Description |
+|----------|-------------|
+| **User Accounts** | Registration, login, profile management, and secure password handling. |
+| **Posts & Feeds** | Create, edit, and delete posts with dynamic feed updates. |
+| **Interactions** | Like and comment on posts; view other users’ activity. |
+| **Architecture** | Follows Model–View–Controller (MVC) principles using Spring Boot & Thymeleaf. |
 
-5. Run 'ReversibleComputationApplication.java'
+---
 
-6. Navigate to http://localhost:8080/ to access the home page of the application
+## Tech Stack
+
+- **Backend:** Java, Spring Boot, Spring MVC, Spring Security  
+- **Frontend:** Thymeleaf, Bootstrap, HTML5, CSS3, JavaScript  
+- **Database:** MySQL (JPA/Hibernate ORM)  
+- **Build Tool:** Maven  
+- **Version Control:** Git  
+- **Methodology:** Agile (Scrum, 2-week sprints)
+
+---
+
+## System Architecture
+
+- User Interface (Thymeleaf)
+- Spring Boot Controller
+- Service Layer (Business Logic)
+- JPA Repository → MySQL Database
